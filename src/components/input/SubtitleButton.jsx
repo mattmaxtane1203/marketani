@@ -1,6 +1,5 @@
 import { TouchableOpacity, Text } from "react-native";
 
-
 const SubtitleButton = ({placeholder, onPress}) => {
 
     return (

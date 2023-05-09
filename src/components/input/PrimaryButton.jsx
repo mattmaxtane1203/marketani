@@ -1,7 +1,5 @@
 import { TouchableOpacity, Text, SafeAreaView, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-// TODO: Fix OnPress
 const PrimaryButton = ({placeholder, onPress}) => {
 
     return (

@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Images from "../../constants/Images";
 import TextInputField from "../../components/input/TextInputField";
 import SubtitleButton from "../../components/input/SubtitleButton";

@@ -12,17 +12,18 @@ import {
 import Images from "../../constants/Images";
 import TextInputField from "../../components/input/TextInputField";
 import SubtitleButton from "../../components/input/SubtitleButton";
+import LoginStyles from "../../styles/Prelogin/LoginStyles";
 
 const Login = ({navigation}) => {
   
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <KeyboardAvoidingView style={LoginStyles.background && LoginStyles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView>
         <ScrollView>
 
-          <Image source={Images.marketaniLogo} style={styles.logo} />
+          <Image source={Images.marketaniLogo} style={LoginStyles.logo} />
 
-          <View style={styles.container}>
+          <View style={LoginStyles.container}>
 
             <View>
               <TextInputField label={"Nomor Telepon"} />
@@ -34,9 +35,9 @@ const Login = ({navigation}) => {
 
           </View>
 
-          <View style={styles.centered}>
+          <View style={LoginStyles.centered}>
 
-            <Text style={styles.subtitle}>Belum Punya Akun?</Text>
+            <Text style={LoginStyles.subtitle}>Belum Punya Akun?</Text>
 
             <SubtitleButton placeholder={"Daftar Akun"} onPress={() => navigation.navigate("Register")}/>
 
@@ -47,29 +48,5 @@ const Login = ({navigation}) => {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  logo: {
-    alignSelf: "center",
-    margin: 100,
-    width: 200,
-    height: 200,
-  },
-
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  centered: {
-    alignItems: "center"
-  },
-
-  subtitle: {
-    fontSize: 16
-  }
-});
 
 export default Login

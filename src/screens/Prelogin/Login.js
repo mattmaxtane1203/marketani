@@ -14,8 +14,8 @@ import Images from "../../constants/Images";
 import TextInputField from "../../components/input/TextInputField";
 import SubtitleButton from "../../components/input/SubtitleButton";
 
-export default function Login() {
-
+const Login = ({navigation}) => {
+  
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView>
@@ -39,7 +39,7 @@ export default function Login() {
 
             <Text style={styles.subtitle}>Belum Punya Akun?</Text>
 
-            <SubtitleButton placeholder={"Daftar Akun"}/>
+            <SubtitleButton placeholder={"Daftar Akun"} onPress={() => navigation.navigate("Register")}/>
 
           </View>
 
@@ -72,3 +72,5 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
+
+export default Login

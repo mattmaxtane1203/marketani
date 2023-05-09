@@ -1,10 +1,10 @@
 import { TouchableOpacity, Text } from "react-native";
 
 
-const SubtitleButton = ({placeholder}) => {
+const SubtitleButton = ({placeholder, onPress}) => {
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
             <Text style={{color: "green", fontSize: 16}}>{placeholder}</Text>
         </TouchableOpacity>
     )

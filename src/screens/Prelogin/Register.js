@@ -58,9 +58,11 @@ const Register = ({navigation}) => {
             <View style={styles.centered}>
               <PrimaryButton
                 placeholder={"Masuk"}
+                navigation={navigation}
+                screenName={"Login"}
               ></PrimaryButton>
               <Text>Sudah Punya Akun?</Text>
-              <SubtitleButton placeholder={"Login"} />
+              <SubtitleButton placeholder={"Login"} onPress={() => navigation.navigate("Login")} />
             </View>
 
           </View>

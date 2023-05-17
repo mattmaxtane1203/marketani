@@ -2,8 +2,9 @@ import { SafeAreaView, KeyboardAvoidingView, Text, View, StyleSheet, Image } fro
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import Icons from "../../constants/Icons";
 import StarRating from "react-native-star-rating";
+import PictureButton from "../../components/button/PictureButton";
 
-const TokoSaya = () => {
+const TokoSaya = ({navigation}) => {
     const sampleRating = 3
     const sampleNamaToko = "Sayur Segar"
     const sampleLocation = "Jakarta Barat"
@@ -24,7 +25,7 @@ const TokoSaya = () => {
             </View>
 
             <View>
-
+                <PictureButton label={"Produk"} imageSource={Icons.product} color={"#48BD5B"}/>
             </View>
         </SafeAreaView>
     )
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         margin: 20,
         paddingBottom: 20,
-        borderBottomWidth: 1,
+        // borderBottomWidth: 1,
     },
 
     storeProfilePicture: {
@@ -75,6 +76,11 @@ const styles = StyleSheet.create({
         width: 12,
         height: 12,
     },
+
+    buttonsContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap"
+    }
 })
 
 export default TokoSaya

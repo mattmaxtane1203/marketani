@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const LoginStyles = StyleSheet.create({
     background: {
-      backgroundColor: '##FFFFF0',
+      backgroundColor: '#FFFFF0',
     },
   
     logo: {

@@ -14,7 +14,7 @@ export default function DaftarToko() {
             <Stack.Navigator>
                 <Stack.Screen name="Buka Toko" component={BukaToko}/>
                 <Stack.Screen name="Atur Alamat" component={AturAlamat}/>
-                <Stack.Screen name="Seller Main Menu" component={SellerMainMenu}/>
+                <Stack.Screen name="Seller Main Menu" component={SellerMainMenu}/>  
             </Stack.Navigator>
         </NavigationContainer>
     )

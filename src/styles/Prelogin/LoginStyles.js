@@ -11,6 +11,10 @@ const LoginStyles = StyleSheet.create({
       width: 200,
       height: 200,
     },
+
+    keyboardAvoidingContainer: {
+      flex: 1,
+    },
   
     container: {
       flex: 1,

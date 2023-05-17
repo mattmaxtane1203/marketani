@@ -9,66 +9,88 @@ import {
 } from "react-native";
 import { useState } from "react";
 import TextInputField from "../../components/input/TextInputField";
-import PrimaryButton from "../../components/input/PrimaryButton";
-import SubtitleButton from "../../components/input/SubtitleButton";
+import PrimaryButton from "../../components/button/PrimaryButton";
+import SubtitleButton from "../../components/button/SubtitleButton";
+import { RegisterValidation } from "../../utils/RegisterValidation";
+import RadioButtonInputField from "../../components/input/RadioButtonInputField";
 
-const Register = ({navigation}) => {
+// TODO: Fix TextInputField red highlighting mechanisms for errors
+
+const Register = ({ navigation }) => {
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
   const [kataSandi, setKataSandi] = useState("");
+  const [kataSandiKonfirmasi, setKataSandiKonfirmasi] = useState("");
 
-  const handleDaftar = () => {
+  function handleDaftar() {
     console.log(nomorTelepon);
     console.log(namaLengkap);
     console.log(kataSandi);
-  };
+    console.log(kataSandiKonfirmasi);
+    navigation.navigate("User Home");
+  }
+
+  function navigate() {
+    navigation.navigate("Login");
+  }
 
   return (
-    <KeyboardAvoidingView>
-      <SafeAreaView>
-        <ScrollView>
+    <ScrollView>
+      <View style={(styles.centered, styles.sigMargin)}>
+        <Text style={styles.header}>Daftar Akun</Text>
+      </View>
 
-          <View style={(styles.centered, styles.sigMargin)}>
-            <Text style={styles.header}>Daftar Akun</Text>
-          </View>
+      <View style={styles.container}>
+        <View>
+          <TextInputField
+            label={"Nomor Telepon"}
+            onChangeText={setNomorTelepon}
+            validation={RegisterValidation.nomorTeleponIsValid}
+          />
+        </View>
 
-          <View style={styles.container}>
-            <View>
-              <TextInputField
-                label={"Nomor Telepon"}
-                OnChange={setNomorTelepon}
-              />
-            </View>
+        <View>
+          <TextInputField
+            label={"Nama Lengap"}
+            onChangeText={setNamaLengkap}
+            validation={RegisterValidation.nameIsValid}
+          />
+        </View>
 
-            <View>
-              <TextInputField label={"Nama Lengap"} OnChange={setNamaLengkap} />
-            </View>
+        <View>
+          <TextInputField
+            label={"Kata Sandi"}
+            onChangeText={setKataSandi}
+            validation={RegisterValidation.passwordIsValid}
+          />
+        </View>
 
-            <View>
-              <TextInputField label={"Kata Sandi"} />
-            </View>
+        <View>
+          <TextInputField
+            label={"Konfirmasi Kata Sandi"}
+            onChangeText={setKataSandiKonfirmasi}
+            validation={RegisterValidation.passwordMatches}
+          />
+        </View>
 
-            <View>
-              <TextInputField
-                label={"Konfirmasi Kata Sandi"}
-                OnChange={setKataSandi}
-              />
-            </View>
+        <View>
+          <RadioButtonInputField
+            placeholder={"Daftar sebagai:"}
+            choice1={"Pelanggan"}
+            choice2={"Penjual"}
+          />
+        </View>
 
-            <View style={styles.centered}>
-              <PrimaryButton
-                placeholder={"Masuk"}
-                navigation={navigation}
-                screenName={"Login"}
-              ></PrimaryButton>
-              <Text>Sudah Punya Akun?</Text>
-              <SubtitleButton placeholder={"Login"} onPress={() => navigation.navigate("Login")} />
-            </View>
-
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+        <View style={styles.centered}>
+          <PrimaryButton
+            placeholder={"Daftar"}
+            onPress={handleDaftar}
+          ></PrimaryButton>
+          <Text style={styles.subtext}>Sudah Punya Akun?</Text>
+          <SubtitleButton placeholder={"Login"} onPress={navigate} />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

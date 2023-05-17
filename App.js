@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Home from './src/screens/Home/Home';
-import Login from './src/screens/Prelogin/Login';
-import Register from './src/screens/Prelogin/Register';
 import Prelogin from './src/screens/Prelogin/Prelogin';
+import DaftarToko from './src/screens/seller/DaftarToko';
 
 export default function App() {
   return (
-    <Prelogin />
+    <DaftarToko />
   )
 }

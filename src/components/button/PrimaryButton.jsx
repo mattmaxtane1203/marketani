@@ -4,7 +4,7 @@ const PrimaryButton = ({placeholder, onPress}) => {
 
     return (
         <TouchableOpacity style={styles.primaryButton} onPress={onPress}>
-            <Text style={{textAlign:"center", fontSize: 16}}>{placeholder}</Text>
+            <Text style={{textAlign:"center", fontSize: 16, color:'#FFFFF0'}}>{placeholder}</Text>
         </TouchableOpacity>
     )
 }
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         width: 240,
         height: 43,
         borderRadius: 8,
-        backgroundColor: '#CFCFCF',
+        backgroundColor: '#48BD5B',
         margin: 25,
     },
 })

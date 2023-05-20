@@ -10,7 +10,7 @@ import Home from "../customer/Home/Home";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-export default function Prelogin() {
+export default function PreloginGateway() {
     return (
       <Tab.Navigator>
         <Tab.Screen

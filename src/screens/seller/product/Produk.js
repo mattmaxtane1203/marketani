@@ -3,7 +3,7 @@ import { SafeAreaView, KeyboardAvoidingView, Text, View, StyleSheet } from "reac
 const Produk = () => {
     return (
         <SafeAreaView>
-            <Text>This is the products page</Text>
+            <Text>Test</Text>
         </SafeAreaView>
     )
 }

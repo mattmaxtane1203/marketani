@@ -12,16 +12,22 @@ const Stack = createNativeStackNavigator();
 
 export default function Prelogin() {
     return (
-        <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Login" component={Login} options={{headerShown: false, tabBarStyle: {display: "none"}}} />
-                <Tab.Screen name="Register" component={Register} options={{headerShown: false, tabBarStyle: {display: "none"}}} />
-                <Tab.Screen name="User Home" component={Home} options={{headerShown: false, tabBarStyle: {display: "none"}}}></Tab.Screen>
-            </Tab.Navigator>
-            {/* <Stack.Navigator>
-                <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-                <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
-            </Stack.Navigator> */}
-        </NavigationContainer>
-    )
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Register"
+          component={Register}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="User Home"
+          component={Home}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        ></Tab.Screen>
+      </Tab.Navigator>
+    );
 }

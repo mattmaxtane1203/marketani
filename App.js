@@ -4,11 +4,14 @@ import Prelogin from './src/screens/prelogin/Prelogin';
 import DaftarToko from './src/screens/seller/DaftarToko';
 import SellerMainMenu from './src/screens/seller/SellerMainMenu';
 import ProdukGateway from './src/screens/seller/product/ProdukGateway';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    // <Prelogin />
-    <SellerMainMenu />
-    // <ProdukGateway />
+    <NavigationContainer>
+      {/* <Prelogin /> */}
+      <SellerMainMenu />
+      {/* <ProdukGateway /> */}
+    </NavigationContainer>
   )
 }

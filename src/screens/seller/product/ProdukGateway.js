@@ -9,14 +9,12 @@ const Stack = createNativeStackNavigator();
 
 const ProdukGateway = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Produk" component={Produk} />
-                <Stack.Screen name="Tambah Produk" component={TambahProduk} />
-                <Stack.Screen name="Beri Diskon" component={Diskon} />
-            </Stack.Navigator> 
-        </NavigationContainer>
-    )
+      <Stack.Navigator>
+        <Stack.Screen name="Produk" component={Produk} />
+        <Stack.Screen name="Tambah Produk" component={TambahProduk} />
+        <Stack.Screen name="Beri Diskon" component={Diskon} />
+      </Stack.Navigator>
+    );
 }
 
 const styles = StyleSheet.create({

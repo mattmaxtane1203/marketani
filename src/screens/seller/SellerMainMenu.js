@@ -15,17 +15,39 @@ const Tab = createBottomTabNavigator();
 
 const SellerMainMenu = () => {
     return (
-        <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Toko Saya" component={TokoSaya} options={{tabBarStyle: {display: "none"}}}/>
-                <Tab.Screen name="Produk" component={ProdukGateway} options={{headerShown: false, tabBarStyle: {display: "none"}}}/>
-                <Tab.Screen name="Ulasan" component={Ulasan} options={{headerShown: false, tabBarStyle: {display: "none"}}}/>
-                <Tab.Screen name="Pesanan" component={Pesanan} options={{headerShown: false, tabBarStyle: {display: "none"}}}/>
-                <Tab.Screen name="Pusat Bantuan" component={PusatBantuan} options={{headerShown: false, tabBarStyle: {display: "none"}}}/>
-                <Tab.Screen name="Chat" component={Chat} options={{headerShown: false, tabBarStyle: {display: "none"}}}/>
-            </Tab.Navigator>
-        </NavigationContainer>
-    )
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Toko Saya"
+          component={TokoSaya}
+          options={{ tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Produk"
+          component={ProdukGateway}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Ulasan"
+          component={Ulasan}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Pesanan"
+          component={Pesanan}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Pusat Bantuan"
+          component={PusatBantuan}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+        <Tab.Screen
+          name="Chat"
+          component={Chat}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+      </Tab.Navigator>
+    );
 }
 
 export default SellerMainMenu 

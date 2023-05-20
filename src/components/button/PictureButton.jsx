@@ -3,12 +3,13 @@ import { SvgUri } from "react-native-svg";
 import Icons from "../../constants/Icons";
 
 // TODO: Fix photos for buttons (SVG or PNG)
+// TODO: Center text for buttons
 
-const PictureButton = ({label, imageSource, color}) => {
+const PictureButton = ({label, imageSource, color, onPress}) => {
     return (
-        <View>
-            <TouchableOpacity style={[styles.pictureButton, {backgroundColor: color}]}>
-                <SvgUri uri={Icons.product} />
+        <View style={styles.container}>
+            <TouchableOpacity style={[styles.pictureButton, {backgroundColor: color}]} onPress={onPress}>
+                <SvgUri uri={Icons.product}/>
             </TouchableOpacity>
             <Text style={styles.label}>{label}</Text>
         </View>
@@ -16,7 +17,13 @@ const PictureButton = ({label, imageSource, color}) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        justifyContent: "center",
+    },
+
     label: {
+        alignSelf: "center",
+        textAlign: "center",
         fontSize: 16,
     },
 

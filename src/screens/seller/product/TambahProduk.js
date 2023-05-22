@@ -4,7 +4,7 @@ import SettingButton from "../../../components/button/SettingButton";
 import PhotoInputField from "../../../components/input/PhotoInput";
 import WeightInput from "../../../components/input/WeightInput";
 
-const TambahProduk = () => {
+const TambahProduk = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View>
@@ -16,7 +16,7 @@ const TambahProduk = () => {
                 <TextInputField label={"Stok"}/>
             </View>
             <View style={styles.bordered}>
-                <SettingButton placeholder={"Pilih Tag Produk"}/>
+                <SettingButton placeholder={"Pilih Tag Produk"} OnPress={() => navigation.navigate("Tag Produk")}/>
             </View>
         </View>
     )

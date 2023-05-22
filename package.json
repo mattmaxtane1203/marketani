@@ -22,12 +22,14 @@
     "react-native": "^0.71.7",
     "react-native-actions-sheet-picker": "^0.3.5",
     "react-native-dropdown-select-list": "^2.0.4",
+    "react-native-elements": "^3.4.3",
     "react-native-paper": "^5.7.2",
     "react-native-picker-select": "^8.0.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "~3.20.0",
     "react-native-star-rating": "^1.1.0",
     "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {

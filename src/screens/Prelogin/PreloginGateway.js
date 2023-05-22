@@ -5,7 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "../customer/Home/Home";
 
-// TODO: Cookie to detect if there is already an account (Check if it's a customer or a seller)
+// TODO: Add a cookie to detect if there is already an account (Check if it's a customer or a seller)
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

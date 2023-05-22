@@ -6,6 +6,8 @@ import SellerMainMenu from './src/screens/seller/SellerMainMenu';
 import ProdukGateway from './src/screens/seller/product/ProdukGateway';
 import { NavigationContainer } from '@react-navigation/native';
 
+// TODO: Test for naming convention errors
+
 export default function App() {
   return (
     <NavigationContainer>

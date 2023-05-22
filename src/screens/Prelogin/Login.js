@@ -11,7 +11,7 @@ import {
 import Images from "../../constants/Images";
 import TextInputField from "../../components/input/TextInputField";
 import SubtitleButton from "../../components/button/SubtitleButton";
-import LoginStyles from "../../styles/Prelogin/LoginStyles";
+import LoginStyles from "../../styles/prelogin/LoginStyles";
 import PrimaryButton from "../../components/button/PrimaryButton";
 
 // TODO: Fix KeyboardAvoidingView

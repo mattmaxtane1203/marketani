@@ -66,6 +66,8 @@ const TagProduk = () => {
                     titleProps={{style: styles.checkboxTitle}}
                     onPress={() => handleCheckboxToggle('hidroponik')}/>
             </View>
+
+            {/* TODO: (Optional) Add a button to save the tags */}
         </View>
     )
 }

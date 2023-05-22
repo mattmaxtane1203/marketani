@@ -1,5 +1,4 @@
 import { SafeAreaView, KeyboardAvoidingView, Text, View, StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Produk from "./Produk";
 import TambahProduk from "./TambahProduk";
@@ -18,7 +17,7 @@ const ProdukGateway = () => {
 }
 
 const styles = StyleSheet.create({
-
+  
 })
 
 export default ProdukGateway

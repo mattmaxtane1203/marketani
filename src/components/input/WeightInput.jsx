@@ -5,6 +5,7 @@ import { SafeAreaView, KeyboardAvoidingView, Text, View, StyleSheet } from "reac
 // TODO: Make dropdown list for berat/pesanan
 
 const WeightInput = ({ label }) => {
+  const [satuan, setSatuan] = useState('key0')
 
   return (
     <View style={styles.container}>
@@ -12,6 +13,7 @@ const WeightInput = ({ label }) => {
       <View style={styles.inputContainer}>
         <TextInput style={styles.textInput} />
       </View>
+      {/* TODO: Put Dropdown List here */}
     </View>
   );
 };

@@ -18,8 +18,7 @@ const Produk = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <SellerSearchBar placeholder={"Cari Produk"} />
-      {/* TODO: Insert store products here */}
-      {/* Insert product component here */}
+      {/* TODO: Add separation between search bar and seller product */}
       <SellerProduct
         productName={sampleProductName}
         productPrice={sampleProductPrice}
@@ -28,6 +27,7 @@ const Produk = ({ navigation }) => {
         beriDiskonOnPress={() => navigation.navigate("Beri Diskon")}
         // TODO: Make dedicated UbahProduk page
         ubahOnPress={() => navigation.navigate("Tambah Produk")}
+        showButtons={true}
       />
       <PrimaryButton
         placeholder={"Tambah Produk"}

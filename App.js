@@ -5,8 +5,7 @@ import DaftarToko from "./src/screens/seller/DaftarToko";
 import SellerMainMenu from "./src/screens/seller/SellerMainMenu";
 import ProdukGateway from "./src/screens/seller/product/ProdukGateway";
 import { NavigationContainer } from "@react-navigation/native";
-
-// TODO: Test for naming convention errors
+import Diskon from "./src/screens/seller/product/Diskon";
 
 export default function App() {
   return (
@@ -14,6 +13,7 @@ export default function App() {
       {/* <PreloginGateway /> */}
       {/* <SellerMainMenu /> */}
       <ProdukGateway />
+      {/* <Diskon /> */}
     </NavigationContainer>
   );
 }

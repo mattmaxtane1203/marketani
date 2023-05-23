@@ -2,13 +2,15 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Images from "../../constants/Images";
 import { Button } from "react-native";
 
+// TODO: Dedicated props for price and units for mass
 const SellerProduct = ({
   productName,
   productPrice,
   stock,
   amountSold,
-  beriDiskonOnPress,
-  ubahOnPress,
+  beriDiskonOnPress = () => {},
+  ubahOnPress = () => {},
+  showButtons,
 }) => {
   return (
     <View style={styles.container}>
@@ -26,15 +28,16 @@ const SellerProduct = ({
           <Text>Terjual: {amountSold}</Text>
         </View>
       </View>
-
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button} onPress={beriDiskonOnPress}>
-          <Text style={{ fontSize: 12 }}>Beri Diskon</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={ubahOnPress}>
-          <Text style={{ fontSize: 12 }}>Ubah</Text>
-        </TouchableOpacity>
-      </View>
+      {showButtons && (
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.button} onPress={beriDiskonOnPress}>
+            <Text style={{ fontSize: 12 }}>Beri Diskon</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={ubahOnPress}>
+            <Text style={{ fontSize: 12 }}>Ubah</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

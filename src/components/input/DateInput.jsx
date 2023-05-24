@@ -1,35 +1,43 @@
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { View, TextInput, StyleSheet, Text, Modal } from "react-native";
 import { useState } from "react";
-import DatePicker from "react-native-date-picker";
 import { TouchableOpacity } from "react-native";
+import ReactNativeModernDatepicker, {
+  getFormatedDate,
+} from "react-native-modern-datepicker";
+import DatePicker from "react-native-date-picker";
 
 // TODO: Fix TextInputField red highlighting mechanisms for errors
 
 const DateInputField = ({ label }) => {
-  const [date, setDate] = useState(new Date());
-  const [isOpen, setIsOpen] = useState(false);
+  const today = new Date();
+  const startDate = getFormatedDate(
+    today.setDate(today.getDate() + 1),
+    "DD/MM/YYYY"
+  );
 
-  function handleConfirm(date) {
-    setDate(date);
-    setIsOpen(false);
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  function handleDateChange(selectedDate) {
+    setDate(selectedDate);
+    setOpen(false);
   }
 
   return (
     <View>
       <Text style={styles.fieldLabel}>{label}</Text>
-      <TouchableOpacity style={styles.inputBox} onPress={() => setIsOpen(true)}>
+      <TouchableOpacity style={styles.inputBox} onPress={() => setOpen(true)}>
         <Text>{date.toString()}</Text>
       </TouchableOpacity>
       {/* TODO: Fix date picker */}
-      {/* {isOpen && (
-        <DatePicker
-          mode="date"
-          date={date}
-          open={isOpen}
-          onDateChange={setDate}
-          textColor="#000"
-        />
-      )} */}
+
+      <DatePicker
+        modal
+        open={open}
+        date={date}
+        onConfirm={handleDateChange}
+        onCancel={() => setOpen(false)}
+      />
     </View>
   );
 };
@@ -64,6 +72,30 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginBottom: 8,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    width: "90%",
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

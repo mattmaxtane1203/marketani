@@ -8,6 +8,7 @@ import {
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import SellerSearchBar from "../../../components/input/SellerSearchBar";
 import SellerProduct from "../../../components/output/SellerProduct";
+import { ScrollView } from "react-native";
 
 const Produk = ({ navigation }) => {
   const sampleProductName = "Cabai Rawit";
@@ -18,21 +19,24 @@ const Produk = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <SellerSearchBar placeholder={"Cari Produk"} />
-      {/* TODO: Add separation between search bar and seller product */}
-      <SellerProduct
-        productName={sampleProductName}
-        productPrice={sampleProductPrice}
-        stock={sampleStock}
-        amountSold={sampleAmountSold}
-        beriDiskonOnPress={() => navigation.navigate("Beri Diskon")}
-        // TODO: Make dedicated UbahProduk page
-        ubahOnPress={() => navigation.navigate("Tambah Produk")}
-        showButtons={true}
-      />
-      <PrimaryButton
-        placeholder={"Tambah Produk"}
-        onPress={() => navigation.navigate("Tambah Produk")}
-      />
+      {/* TODO: Add filter button */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* TODO: Add variant of seller product when it is currently discounted */}
+        <SellerProduct
+          productName={sampleProductName}
+          productPrice={sampleProductPrice}
+          stock={sampleStock}
+          amountSold={sampleAmountSold}
+          beriDiskonOnPress={() => navigation.navigate("Beri Diskon")}
+          // TODO: Make dedicated UbahProduk page
+          ubahOnPress={() => navigation.navigate("Tambah Produk")}
+          showButtons={true}
+        />
+        <PrimaryButton
+          placeholder={"Tambah Produk"}
+          onPress={() => navigation.navigate("Tambah Produk")}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -41,6 +45,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
+  },
+
+  scrollContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    height: "100%",
   },
 });
 

@@ -17,23 +17,25 @@ const Diskon = ({ navigation }) => {
   const sampleAmountSold = 11;
 
   return (
-    <View style={styles.container}>
-      <SellerProduct
-        productName={sampleProductName}
-        productPrice={sampleProductPrice}
-        stock={sampleStock}
-        amountSold={sampleAmountSold}
-        showButtons={false}
-      />
-      <TextInputField label={"Harga Diskon (Rp)"} />
-      <TextInputField label={"Tanggal Mulai Diskon"} />
-      <TextInputField label={"Tanggal Akhir Diskon"} />
-      {/* <DateInputField label={"Tanggal"} /> */}
-      <PrimaryButton
-        placeholder={"Konfirmasi"}
-        onPress={() => navigation.navigate("Produk")}
-      />
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <SellerProduct
+          productName={sampleProductName}
+          productPrice={sampleProductPrice}
+          stock={sampleStock}
+          amountSold={sampleAmountSold}
+          showButtons={false}
+        />
+        <TextInputField label={"Harga Diskon (Rp)"} />
+        <TextInputField label={"Tanggal Mulai Diskon"} />
+        <TextInputField label={"Tanggal Akhir Diskon"} />
+        <DateInputField label={"Tanggal"} />
+        <PrimaryButton
+          placeholder={"Konfirmasi"}
+          onPress={() => navigation.navigate("Produk")}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#DEDEDE",
     borderRadius: 10,
-    margin: 20,
+    margin: 10,
     padding: 10,
 
     flexDirection: "row",

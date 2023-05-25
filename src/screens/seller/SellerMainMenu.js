@@ -10,11 +10,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TokoSaya from "./TokoSaya";
 import ProdukGateway from "./product/ProdukGateway";
-import ProdukUlasan from "./ulasan/ProdukUlasan";
 import Pesanan from "./Pesanan";
 import PusatBantuan from "./PusatBantuan";
-import Chat from "./Chat";
 import UlasanGateway from "./ulasan/UlasanGateway";
+import ChatGateway from "./ChatGateway";
 
 // TODO: Fix navigation into subsequent pages
 
@@ -50,7 +49,7 @@ const SellerMainMenu = () => {
       />
       <Tab.Screen
         name="Chat"
-        component={Chat}
+        component={ChatGateway}
         options={{ headerShown: false, tabBarStyle: { display: "none" } }}
       />
     </Tab.Navigator>

@@ -8,14 +8,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import Diskon from "./src/screens/seller/product/Diskon";
 import ProdukUlasan from "./src/screens/seller/ulasan/ProdukUlasan";
 import UlasanGateway from "./src/screens/seller/ulasan/UlasanGateway";
+import ChatGateway from "./src/screens/seller/ChatGateway";
 
 export default function App() {
   return (
     <NavigationContainer>
       {/* <PreloginGateway /> */}
-      <SellerMainMenu />
+      {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
+      <ChatGateway />
     </NavigationContainer>
   );
 }

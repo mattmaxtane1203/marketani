@@ -12,7 +12,6 @@ import SettingButton from "../../../components/button/SettingButton";
 import PhotoInputField from "../../../components/input/PhotoInput";
 import WeightInput from "../../../components/input/WeightInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
-import LoginStyles from "../../../styles/prelogin/LoginStyles";
 
 // TODO: Do not use LoginStyles later
 // TODO: Fix KeyboardAvoidingView (it needs to avoid more)

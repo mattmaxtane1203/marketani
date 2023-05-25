@@ -6,9 +6,9 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const IncomingChat = ({ name }) => {
+const IncomingChat = ({ name, onPress }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.userInfo}>
         <Image
           source={Images.profilePictureSample}

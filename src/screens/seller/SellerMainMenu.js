@@ -13,7 +13,7 @@ import ProdukGateway from "./product/ProdukGateway";
 import Pesanan from "./Pesanan";
 import PusatBantuan from "./PusatBantuan";
 import UlasanGateway from "./ulasan/UlasanGateway";
-import ChatGateway from "./ChatGateway";
+import ChatGateway from "./chat/ChatGateway";
 
 // TODO: Fix navigation into subsequent pages
 

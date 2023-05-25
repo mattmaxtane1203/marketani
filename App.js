@@ -13,11 +13,11 @@ import ChatGateway from "./src/screens/seller/ChatGateway";
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <PreloginGateway /> */}
+      <PreloginGateway />
       {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
-      <ChatGateway />
+      {/* <ChatGateway /> */}
     </NavigationContainer>
   );
 }

@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import IncomingChat from "../../../components/output/IncomingChat";
+import ChatListItem from "../../../components/output/ChatListItem";
 import { ScrollView } from "react-native";
 import Chat from "./Chat";
 
@@ -27,67 +27,67 @@ const ChatList = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.container}>
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />
-        <IncomingChat
+        <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
         />

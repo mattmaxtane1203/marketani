@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import MessageInput from "../../../components/input/MessageInput";
 import { useState } from "react";
+import TextMessage from "../../../components/output/TextMessage";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -29,24 +30,27 @@ const Chat = () => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={100} // Adjust this value as needed
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       >
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-          ref={(ref) => {
-            this.scrollView = ref;
-          }}
-          onContentSizeChange={() =>
-            this.scrollView.scrollToEnd({ animated: true })
-          }
-        >
-          {messages.map((message) => (
-            <Text key={message.id}>{message.text}</Text>
-          ))}
-        </ScrollView>
-        <View style={styles.inputContainer}>
-          <MessageInput onSend={handleSendMessage} />
+        <View style={styles.contentContainer}>
+          <ScrollView
+            contentContainerStyle={styles.scrollViewContent}
+            ref={(ref) => {
+              this.scrollView = ref;
+            }}
+            onContentSizeChange={() =>
+              this.scrollView.scrollToEnd({ animated: true })
+            }
+          >
+            {/* TODO: Put sender on the right and receiving messages on the left */}
+            {messages.map((message) => (
+              <TextMessage message={message} />
+            ))}
+          </ScrollView>
+          <View style={styles.inputContainer}>
+            <MessageInput onSend={handleSendMessage} />
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -58,6 +62,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
+    flex: 1,
+  },
+  scrollViewContent: {
     flexGrow: 1,
     padding: 16,
   },

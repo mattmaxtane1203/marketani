@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const IncomingChat = ({ name, onPress }) => {
+const ChatListItem = ({ name, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.userInfo}>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IncomingChat;
+export default ChatListItem;

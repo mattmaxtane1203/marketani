@@ -15,6 +15,7 @@ const ChatListItem = ({ name, onPress }) => {
           style={styles.profilePicture}
         />
         <Text style={styles.username}>{name}</Text>
+        {/* TODO: Add preview of last message sent or received */}
       </View>
       <Icon
         name="chevron-right"

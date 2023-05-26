@@ -14,10 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>
       {/* <PreloginGateway /> */}
-      {/* <SellerMainMenu /> */}
+      <SellerMainMenu />
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
-      <ChatGateway />
+      {/* <ChatGateway /> */}
     </NavigationContainer>
   );
 }

@@ -26,6 +26,7 @@ const ChatList = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      {/* TODO: Fix scrolling */}
       <ScrollView contentContainerStyle={styles.container}>
         <ChatListItem
           name={sampleName}

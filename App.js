@@ -5,15 +5,15 @@ import DaftarToko from './src/screens/seller/DaftarToko';
 import SellerMainMenu from './src/screens/seller/SellerMainMenu';
 import ProdukGateway from './src/screens/seller/product/ProdukGateway';
 import { NavigationContainer } from '@react-navigation/native';
+import Wishlist from './src/screens/customer/Wishlist/Wishlist';
+import WishlistGateway from './src/screens/customer/Wishlist/WishlistGateway';
 
 // TODO: Test for naming convention errors
 
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <PreloginGateway /> */}
-      {/* <SellerMainMenu /> */}
-      <ProdukGateway />
+      <WishlistGateway/>
     </NavigationContainer>
   )
 }

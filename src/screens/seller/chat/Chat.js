@@ -44,6 +44,7 @@ const Chat = () => {
             }
           >
             {/* TODO: Put sender on the right and receiving messages on the left */}
+            {/* TODO: Unique key */}
             {messages.map((message) => (
               <TextMessage message={message} />
             ))}

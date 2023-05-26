@@ -25,9 +25,8 @@ const ChatList = ({ navigation }) => {
   const sampleName = "Matthew";
 
   return (
-    <SafeAreaView>
-      {/* TODO: Fix scrolling */}
-      <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <ChatListItem
           name={sampleName}
           onPress={() => navigation.navigate("Chat")}
@@ -98,7 +97,13 @@ const ChatList = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { height: "100%" },
+  container: {
+    flex: 1,
+  },
+
+  scrollViewContainer: {
+    flexGrow: 1,
+  },
 });
 
 export default ChatGateway;

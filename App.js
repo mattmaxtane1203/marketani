@@ -1,5 +1,5 @@
-import Wishlist from './src/screens/customer/Wishlist/Wishlist';
-import WishlistGateway from './src/screens/customer/Wishlist/WishlistGateway';
+import Wishlist from "./src/screens/customer/Wishlist/Wishlist";
+import WishlistGateway from "./src/screens/customer/Wishlist/WishlistGateway";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import PreloginGateway from "./src/screens/prelogin/PreloginGateway";
@@ -15,12 +15,12 @@ import ChatGateway from "./src/screens/seller/chat/ChatGateway";
 export default function App() {
   return (
     <NavigationContainer>
-      <WishlistGateway/>
+      {/* <WishlistGateway /> */}
       {/* <PreloginGateway /> */}
-      <SellerMainMenu />
+      {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
-      {/* <ChatGateway /> */}
+      <ChatGateway />
     </NavigationContainer>
   );
 }

@@ -11,6 +11,7 @@ import Diskon from "./src/screens/seller/product/Diskon";
 import ProdukUlasan from "./src/screens/seller/ulasan/ProdukUlasan";
 import UlasanGateway from "./src/screens/seller/ulasan/UlasanGateway";
 import ChatGateway from "./src/screens/seller/chat/ChatGateway";
+import PusatBantuanGateway from "./src/screens/seller/PusatBantuanGateway";
 
 export default function App() {
   return (
@@ -20,7 +21,8 @@ export default function App() {
       {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
-      <ChatGateway />
+      {/* <ChatGateway /> */}
+      <PusatBantuanGateway />
     </NavigationContainer>
   );
 }

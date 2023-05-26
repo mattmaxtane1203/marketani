@@ -11,7 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TokoSaya from "./TokoSaya";
 import ProdukGateway from "./product/ProdukGateway";
 import Pesanan from "./Pesanan";
-import PusatBantuan from "./PusatBantuan";
+import PusatBantuanGateway from "./PusatBantuanGateway";
 import UlasanGateway from "./ulasan/UlasanGateway";
 import ChatGateway from "./chat/ChatGateway";
 
@@ -44,7 +44,7 @@ const SellerMainMenu = () => {
       />
       <Tab.Screen
         name="Pusat Bantuan"
-        component={PusatBantuan}
+        component={PusatBantuanGateway}
         options={{ headerShown: false, tabBarStyle: { display: "none" } }}
       />
       <Tab.Screen

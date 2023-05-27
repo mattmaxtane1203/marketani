@@ -12,6 +12,8 @@ import ProdukUlasan from "./src/screens/seller/ulasan/ProdukUlasan";
 import UlasanGateway from "./src/screens/seller/ulasan/UlasanGateway";
 import ChatGateway from "./src/screens/seller/chat/ChatGateway";
 import PusatBantuanGateway from "./src/screens/seller/pusatbantuan/PusatBantuanGateway";
+import TransactionGateway from "./src/screens/customer/transaction/TransactionGateway";
+import TransactionPage from "./src/screens/customer/transaction/TransactionPage";
 
 export default function App() {
   return (
@@ -22,7 +24,8 @@ export default function App() {
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
       {/* <ChatGateway /> */}
-      <PusatBantuanGateway />
+      {/* <PusatBantuanGateway /> */}
+      <TransactionGateway />
     </NavigationContainer>
   );
 }

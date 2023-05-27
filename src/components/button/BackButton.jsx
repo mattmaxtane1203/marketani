@@ -12,8 +12,8 @@ const BackButton = ({onPress}) => {
 
 const styles = StyleSheet.create({
     backButton: {
-        height: 30,
-        width: 41
+        height: 17,
+        width: 23
     },
 })
 

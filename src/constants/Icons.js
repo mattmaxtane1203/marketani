@@ -6,7 +6,10 @@ const Icons = {
     backArrow: require('../assets/icons/back-arrow.png'),
     starEmpty: require('../assets/icons/star-empty.png'),
     starFull: require('../assets/icons/star-full.png'),
-    dotsOption: require('../assets/icons/dots-option.png')
+    dotsOption: require('../assets/icons/dots-option.png'),
+    rightArrowGreen: require('../assets/icons/right-arrow-green.png'),
+    moneyCash: require('../assets/icons/money-cash.png'),
+    sellerShop: require('../assets/icons/seller-shop.png')
 }
 
 export default Icons

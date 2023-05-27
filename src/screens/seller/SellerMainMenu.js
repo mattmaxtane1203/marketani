@@ -11,7 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TokoSaya from "./TokoSaya";
 import ProdukGateway from "./product/ProdukGateway";
 import Pesanan from "./Pesanan";
-import PusatBantuanGateway from "./PusatBantuanGateway";
+import PusatBantuanGateway from "./pusatbantuan/PusatBantuanGateway";
 import UlasanGateway from "./ulasan/UlasanGateway";
 import ChatGateway from "./chat/ChatGateway";
 

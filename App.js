@@ -11,7 +11,7 @@ import Diskon from "./src/screens/seller/product/Diskon";
 import ProdukUlasan from "./src/screens/seller/ulasan/ProdukUlasan";
 import UlasanGateway from "./src/screens/seller/ulasan/UlasanGateway";
 import ChatGateway from "./src/screens/seller/chat/ChatGateway";
-import PusatBantuanGateway from "./src/screens/seller/PusatBantuanGateway";
+import PusatBantuanGateway from "./src/screens/seller/pusatbantuan/PusatBantuanGateway";
 
 export default function App() {
   return (

@@ -1,23 +1,26 @@
-import { TouchableOpacity, Text, SafeAreaView, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, SafeAreaView, StyleSheet, View } from "react-native";
 
 const ProductType = ({placeholder, color}) => {
 
     return (
-        <Text style={[styles.typeLabel, {backgroundColor: color}]}>{placeholder}</Text>
+        <View style={[styles.typeLabel, {backgroundColor: color}]}>
+            <Text style={styles.label}>{placeholder}</Text>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     typeLabel:{
         display: "flex",
+        alignItems: "center",
+        borderRadius: 10,
+        width: 85
+    },
+
+    label:{
         fontSize: 9,
         fontWeight: "bold",
         color: '#FFFFFF',
-        paddingVertical: 1,
-        marginHorizontal: 2,
-        justifyContent: "center",
-        paddingHorizontal: 7,
-        borderRadius: 10
     }
 
 })

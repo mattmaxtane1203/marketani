@@ -15,10 +15,12 @@ import PusatBantuanGateway from "./src/screens/seller/pusatbantuan/PusatBantuanG
 import TransactionGateway from "./src/screens/customer/transaction/TransactionGateway";
 import TransactionPage from "./src/screens/customer/transaction/TransactionPage";
 import PesananGateway from "./src/screens/seller/pesanan/PesananGateway";
+import HomeScreen from "./src/screens/customer/Home/Home";
 
 export default function App() {
   return (
     <NavigationContainer>
+      <HomeScreen />
       {/* <WishlistGateway /> */}
       {/* <PreloginGateway /> */}
       {/* <SellerMainMenu /> */}
@@ -27,7 +29,7 @@ export default function App() {
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
       {/* <TransactionGateway /> */}
-      <PesananGateway />
+      {/* <PesananGateway /> */}
     </NavigationContainer>
   );
 }

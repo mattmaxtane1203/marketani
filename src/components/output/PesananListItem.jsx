@@ -11,10 +11,10 @@ const PesananListItem = ({
   productPhoto,
   username,
   userPhoto,
-  onPress,
+  OnPress,
 }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={OnPress}>
       <View style={[styles.userContainer, styles.margined]}>
         <Image style={styles.userPhoto} source={userPhoto} />
         <Text style={styles.label}>{username}</Text>
@@ -24,7 +24,7 @@ const PesananListItem = ({
         <View style={styles.productInformation}>
           <Text style={styles.productLabel}>{productName}</Text>
           <Text style={styles.productLabel}>{productPrice}</Text>
-          <Text style={styles.productLabel}>Kuantitas: {quantity}</Text>
+          <Text style={styles.productLabel}>Kuantitas: {quantity}x</Text>
         </View>
       </View>
     </TouchableOpacity>

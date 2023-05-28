@@ -1,5 +1,5 @@
-import Wishlist from "./src/screens/customer/Wishlist/Wishlist";
-import WishlistGateway from "./src/screens/customer/Wishlist/WishlistGateway";
+import Wishlist from "./src/screens/customer/wishlist/Wishlist";
+import WishlistGateway from "./src/screens/customer/wishlist/WishlistGateway";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import PreloginGateway from "./src/screens/prelogin/PreloginGateway";
@@ -15,14 +15,14 @@ import PusatBantuanGateway from "./src/screens/seller/pusatbantuan/PusatBantuanG
 import TransactionGateway from "./src/screens/customer/transaction/TransactionGateway";
 import TransactionPage from "./src/screens/customer/transaction/TransactionPage";
 import PesananGateway from "./src/screens/seller/pesanan/PesananGateway";
-import HomeScreen from "./src/screens/customer/Home/Home";
+import HomeScreen from "./src/screens/customer/home/Home";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <HomeScreen />
+      <PreloginGateway />
+      {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
-      {/* <PreloginGateway /> */}
       {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}

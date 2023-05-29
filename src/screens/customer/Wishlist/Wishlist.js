@@ -6,16 +6,16 @@ import {
     Image,
     SafeAreaView,
     TouchableOpacity
-  } from "react-native";
-  import Icons from "../../../constants/Icons";
-  import Images from "../../../constants/Images";
-  import BackButton from "../../../components/button/BackButton";
-  import WishlistSearchBar from "../../../components/input/WishlistSearchBar";
+} from "react-native";
+import Icons from "../../../constants/Icons";
+import Images from "../../../constants/Images";
+import BackButton from "../../../components/button/BackButton";
+import WishlistSearchBar from "../../../components/input/WishlistSearchBar";
 import WishlistBox from "../../../components/button/WishlistBox";
 import WishlistBoxDiscount from "../../../components/button/WishlistBoxDiscount";
 
 
-  const Wishlist = ({navigation}) => {
+const Wishlist = ({ navigation }) => {
     return (
         <View style={WishlistStyle.background}>
             <SafeAreaView>
@@ -25,7 +25,7 @@ import WishlistBoxDiscount from "../../../components/button/WishlistBoxDiscount"
                 </View>
 
                 <ScrollView>
-                    <WishlistSearchBar placeholder={"Cari Produk"}/>
+                    <WishlistSearchBar placeholder={"Cari Produk"} />
                     <View style={WishlistStyle.productContainer}>
                         <WishlistBox
                             onPress={() => navigation.navigate()}
@@ -117,19 +117,19 @@ import WishlistBoxDiscount from "../../../components/button/WishlistBoxDiscount"
                 </ScrollView>
             </SafeAreaView>
         </View>
-        
+
     )
 }
 
 const WishlistStyle = StyleSheet.create({
-    background:{
-        backgroundColor:'#FFFFFF',
+    background: {
+        backgroundColor: '#FFFFFF',
         flex: 1
     },
 
-    header:{
+    header: {
         display: "flex",
-        justifyContent:"flex-start",
+        justifyContent: "flex-start",
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 20,
@@ -138,13 +138,13 @@ const WishlistStyle = StyleSheet.create({
         borderBottomWidth: 0.5
     },
 
-    textHeader:{
+    textHeader: {
         paddingLeft: 30,
         fontSize: 20,
         fontWeight: 500
     },
 
-    productContainer:{
+    productContainer: {
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",

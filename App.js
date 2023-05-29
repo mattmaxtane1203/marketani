@@ -20,11 +20,11 @@ import HomeScreen from "./src/screens/customer/home/Home";
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <PreloginGateway /> */}
+      <PreloginGateway />
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
       {/* <SellerMainMenu /> */}
-      <ProdukGateway />
+      {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}

@@ -1,7 +1,10 @@
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { View, TextInput, StyleSheet, Text, Dimensions } from "react-native";
 import { useState } from "react";
 
-// TODO: Fix TextInputField red highlighting mechanisms for errors
+// TODO: Make error messages update in real time
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const TextInputField = ({ label, onChangeText, validation }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -24,34 +27,47 @@ const TextInputField = ({ label, onChangeText, validation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.fieldLabel}>{label}</Text>
-      <TextInput
-        style={[
-          styles.textInputBox,
-          isFocused && styles.inputFocused,
-          errorMessage && styles.inputError,
-        ]}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChangeText={onChangeText && handleChange}
-      />
-      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+      <View style={styles.ioContainer}>
+        <TextInput
+          style={[
+            styles.textInputBox,
+            isFocused && styles.inputFocused,
+            errorMessage && styles.inputError,
+          ]}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChangeText={onChangeText && handleChange}
+        />
+        {errorMessage && (
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 0.015 * screenHeight,
+    // borderWidth: 1,
+  },
+
   textInputBox: {
-    width: 325,
-    height: 35,
+    width: 0.83 * screenWidth,
+    height: 0.04 * screenHeight,
 
     borderColor: "black",
     borderRadius: 8,
     borderWidth: 1,
     paddingLeft: 10,
+  },
 
-    marginBottom: 20,
+  ioContainer: {
+    flexDirection: "column",
+    height: 0.07 * screenHeight,
+    // borderWidth: 1,
   },
 
   fieldLabel: {
@@ -70,7 +86,8 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     fontSize: 12,
-    marginBottom: 8,
+    width: 0.83 * screenWidth,
+    marginTop: 0.005 * screenHeight,
   },
 });
 

@@ -37,7 +37,7 @@ export const RegisterValidation = {
     const regex = new RegExp(/^(?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*])(?=.{8,})/);
 
     if (!regex.test(password)) {
-      return "Kata sandi harus menggunakan setidaknya satu huruf besar dan satu huruf kecil, satu karakter spesial dan 8 karakter atau lebih";
+      return "Menggunakan setidaknya satu huruf besar dan kecil,karakter spesial dan 8 karakter atau lebih";
     }
 
     return null;

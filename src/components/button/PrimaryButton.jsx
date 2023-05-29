@@ -1,8 +1,12 @@
 import { TouchableOpacity, Text, SafeAreaView, StyleSheet } from "react-native";
 
-const PrimaryButton = ({ placeholder, onPress }) => {
+const PrimaryButton = ({ placeholder, onPress, disabled }) => {
   return (
-    <TouchableOpacity style={styles.primaryButton} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.primaryButton}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <Text style={{ textAlign: "center", fontSize: 16, color: "#FFFFF0" }}>
         {placeholder}
       </Text>

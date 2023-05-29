@@ -19,7 +19,7 @@ import PrimaryButton from "../../../components/button/PrimaryButton";
 const TambahProduk = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
-      style={LoginStyles.background && LoginStyles.keyboardAvoidingContainer}
+      style={styles.background && styles.keyboardAvoidingContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback>
@@ -51,6 +51,14 @@ const TambahProduk = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    backgroundColor: "#FFFFF0",
+  },
+
+  keyboardAvoidingContainer: {
+    flex: 1,
+  },
+
   container: {
     flexDirection: "column",
     // justifyContent: "center",

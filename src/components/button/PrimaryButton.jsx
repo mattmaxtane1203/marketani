@@ -12,10 +12,6 @@ const PrimaryButton = ({ placeholder, onPress }) => {
 
 const styles = StyleSheet.create({
   primaryButton: {
-    // width: 240,
-    // height: 43,
-    // left: 57,
-    // top: 497,
     justifyContent: "center",
     width: 240,
     height: 43,

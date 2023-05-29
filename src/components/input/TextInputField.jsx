@@ -3,71 +3,75 @@ import { useState } from "react";
 
 // TODO: Fix TextInputField red highlighting mechanisms for errors
 
-const TextInputField = ({label, onChangeText, validation}) => {
-    const [isFocused, setIsFocused] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+const TextInputField = ({ label, onChangeText, validation }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleFocus = () => {
-        setIsFocused(true)
-    }
-    
-    const handleBlur = () => {
-        setIsFocused(false);
-    }
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
-    const handleChange = (input) => {
-        const error = validation(input)
-        
-        if(error != null){
-            setErrorMessage(error)
-        }
-    }
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
-    return (
-        <View>
-            <Text style={styles.fieldLabel}>{label}</Text>
-            <TextInput
-                style={[styles.textInputBox, isFocused && styles.inputFocused, errorMessage && styles.inputError]}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChangeText={onChangeText && handleChange}
-            />
-            {errorMessage ? <Text style={styles.errorMessage}></Text> : null}
-        </View>
-    )
-}
+  const handleChange = (input) => {
+    const error = validation(input);
+
+    if (error != null) {
+      setErrorMessage(error);
+    }
+  };
+
+  return (
+    <View>
+      <Text style={styles.fieldLabel}>{label}</Text>
+      <TextInput
+        style={[
+          styles.textInputBox,
+          isFocused && styles.inputFocused,
+          errorMessage && styles.inputError,
+        ]}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChangeText={onChangeText && handleChange}
+      />
+      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    textInputBox: {
-        width: 325,
-        height: 35,
+  textInputBox: {
+    width: 325,
+    height: 35,
 
-        borderColor: 'black',
-        borderRadius: 8,
-        borderWidth: 1,
-        paddingLeft: 10,
+    borderColor: "black",
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 10,
 
-        marginBottom: 20,
-    },
+    marginBottom: 20,
+  },
 
-    fieldLabel: {
-        fontSize: 16,
-        marginBottom: 10
-    },
+  fieldLabel: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
 
-    inputFocused: {
-        borderColor: "green",
-    },
+  inputFocused: {
+    borderColor: "green",
+  },
 
-    inputError: {
-        borderColor: "red",
-    },
+  inputError: {
+    borderColor: "red",
+  },
 
-    errorMessage: {
-        color: "red",
-        fontSize: 12,
-        marginBottom: 8,
-    }
-})
+  errorMessage: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 8,
+  },
+});
 
-export default TextInputField
+export default TextInputField;

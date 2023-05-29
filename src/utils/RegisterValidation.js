@@ -1,10 +1,14 @@
 export const RegisterValidation = {
   nomorTeleponIsValid: (nomorTelepon) => {
+    if (nomorTelepon.trim() === "") {
+      return "Nomor telepon tidak boleh kosong";
+    }
+
     const regex = new RegExp(/^(\+62|62|0)[2-9]{1}[0-9]{7,11}$/);
 
     // TODO: Check if phone number exists in database
 
-    if (nomorTelepon.test(regex) && nomorTelepon.length <= 12) {
+    if (!regex.test(nomorTelepon) || nomorTelepon.length > 12) {
       return "Nomor telepon tidak sesuai";
     }
 
@@ -12,9 +16,13 @@ export const RegisterValidation = {
   },
 
   nameIsValid: (namaLengkap) => {
+    if (namaLengkap.trim() === "") {
+      return "Nama tidak boleh kosong";
+    }
+
     const regex = new RegExp(/^([A-Z][a-z]*\s)+[A-Z][a-z]*$/);
 
-    if (namaLengkap.test(regex) == false) {
+    if (!regex.test(namaLengkap)) {
       return "Nama harus mulai dengan huruf besar dan lengkap";
     }
 
@@ -22,9 +30,13 @@ export const RegisterValidation = {
   },
 
   passwordIsValid: (password) => {
+    if (password.trim() === "") {
+      return "Kata sandi tidak boleh kosong";
+    }
+
     const regex = new RegExp(/^(?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*])(?=.{8,})/);
 
-    if (password.test(regex) == false) {
+    if (!regex.test(password)) {
       return "Kata sandi harus menggunakan setidaknya satu huruf besar dan satu huruf kecil, satu karakter spesial dan 8 karakter atau lebih";
     }
 
@@ -32,7 +44,11 @@ export const RegisterValidation = {
   },
 
   passwordMatches: (password, passwordConfirmation) => {
-    if (password.localeCompare(passwordConfirmation) === 0) {
+    if (password.trim() === "") {
+      return "Kata sandi tidak boleh kosong";
+    }
+
+    if (password !== passwordConfirmation) {
       return "Kata sandi tidak sama";
     }
 

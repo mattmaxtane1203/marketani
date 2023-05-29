@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Dimensions,
+  Platform,
 } from "react-native";
 import { useState } from "react";
 import TextInputField from "../../components/input/TextInputField";
@@ -18,7 +19,8 @@ import RadioButtonInputField from "../../components/input/RadioButtonInputField"
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-// TODO: Disable PrimaryButton if TextInputField still has error messages displayed
+// TODO: Fix PrimaryButton and how it validates the inputs
+// TODO: Fix invisible area at the bottom that covers some area of the screen (KeyboardAvoidingView)
 
 const Register = ({ navigation }) => {
   const [nomorTelepon, setNomorTelepon] = useState("");
@@ -52,21 +54,27 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View
-          style={[
-            styles.centered,
-            {
-              marginHorizontal: 0.025 * screenWidth,
-              marginVertical: 0.04 * screenHeight,
-            },
-          ]}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContainer}
+          keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.header}>Daftar Akun</Text>
-        </View>
+          <View
+            style={[
+              styles.centered,
+              {
+                marginHorizontal: 0.025 * screenWidth,
+                marginVertical: 0.04 * screenHeight,
+              },
+            ]}
+          >
+            <Text style={styles.header}>Daftar Akun</Text>
+          </View>
 
-        <View style={styles.container}>
           <View>
             <TextInputField
               label={"Nomor Telepon"}
@@ -77,7 +85,7 @@ const Register = ({ navigation }) => {
 
           <View>
             <TextInputField
-              label={"Nama Lengap"}
+              label={"Nama Lengkap"}
               onChangeText={setNamaLengkap}
               validation={RegisterValidation.nameIsValid}
             />
@@ -112,37 +120,29 @@ const Register = ({ navigation }) => {
               placeholder={"Daftar"}
               onPress={handleValidation}
               disabled={formIsValid}
-            ></PrimaryButton>
+            />
             <Text style={styles.subtext}>Sudah Punya Akun?</Text>
             <SubtitleButton
               placeholder={"Login"}
               onPress={() => navigation.navigate("Login")}
             />
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  logo: {
-    alignSelf: "center",
-    margin: 100,
-    width: 200,
-    height: 200,
+  container: {
+    flex: 1,
   },
 
   scrollViewContainer: {
+    flexGrow: 1,
     flexDirection: "column",
-  },
-
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
     justifyContent: "center",
-    margin: 10,
+    alignItems: "center",
   },
 
   header: {

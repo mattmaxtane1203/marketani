@@ -42,7 +42,7 @@ function Home() {
         <NativeBaseProvider>
 
             {/* <HomeProducts/> */}
-            <Box pt={1} flex={1} bg={'#F5F5F5'}>
+            <Box flex={1} bg={'#F5F5F5'}>
                 <HomeSearch />
                 <ScrollView
                     vertical={true}

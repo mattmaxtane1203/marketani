@@ -14,7 +14,9 @@ const Stack = createNativeStackNavigator();
 
 const WishlistGateway = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="Wishlist" component={Wishlist} />
       <Stack.Screen name="Produk" component={Produk} />
     </Stack.Navigator>

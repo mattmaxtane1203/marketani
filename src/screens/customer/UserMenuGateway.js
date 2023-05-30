@@ -4,12 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./home/Home";
 import WishlistScreen from "./wishlist/WishlistGateway";
 import TransactionScreen from "./transaction/TransactionGateway";
-import LoginScreen from "../prelogin/PreloginGateway";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "../prelogin/PreloginGateway";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+
 
 // Screens names
 const homeName = "Home";
@@ -17,7 +16,6 @@ const wishlistName = "Wishlist";
 const cartName = "Cart";
 const TransactionName = "Transaction";
 const profileName = "Profile";
-const navColor = "#FFFFFF";
 
 const Tab = createBottomTabNavigator();
 

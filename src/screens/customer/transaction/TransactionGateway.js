@@ -8,17 +8,19 @@ import DetailPesananOTW from "./DetailPesananOTW";
 const Stack = createNativeStackNavigator();
 
 const TransactionGateway = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen name="Transaction" component={TransactionPage} />
-        <Stack.Screen name="Detail Pesanan Selesai" component={DetailPesananSelesai} />
-        <Stack.Screen name="Detail Pesanan Dalam Pengiriman" component={DetailPesananOTW} />
-      </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Transaction" component={TransactionPage} />
+      <Stack.Screen name="Detail Pesanan Selesai" component={DetailPesananSelesai} />
+      <Stack.Screen name="Detail Pesanan Dalam Pengiriman" component={DetailPesananOTW} />
+    </Stack.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({
-  
+
 })
 
 export default TransactionGateway

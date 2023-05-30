@@ -19,65 +19,18 @@ const TransactionName = "Transaction";
 const profileName = "Profile";
 const navColor = "#FFFFFF";
 
-// const Tab = createBottomTabNavigator();
-const Tab = createMaterialBottomTabNavigator();
-
-// const NavBar = () => {
-//     return (
-//         <Tab.Navigator
-//             initialRouteName={homeName}
-//             screenOptions={({ route }) => ({
-//                 tabBarIcon: ({ focused, color, size }) => {
-//                     let iconName;
-//                     let rn = route.name;
-
-//                     if (rn === homeName) {
-//                         iconName = focused ? 'home' : 'home-outline'
-//                     } else if (rn === detailsName) {
-//                         iconName = focused ? 'list' : 'list-outline'
-//                     } else if (rn === settingsName) {
-//                         iconName = focused ? 'transaction' : 'transaction-outline'
-//                     }
-
-//                     return <Ionicons name={iconName} size={size} color={color}/>
-//                 },
-//             })}
-//         >
-//             <Tab.Screen name={homeName} component={HomeScreen}/>
-
-//         </Tab.Navigator>
-//     )
-// }
+const Tab = createBottomTabNavigator();
 
 const UserMenuGateway = () => {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
-      inactiveColor="#7B7B7C"
+      screenOptions={{ headerShown: false, tabBarActiveTintColor: "#46B244" }}
       barStyle={{ backgroundColor: "#ffff", marginBottom: -25 }}
-      // labelStyle={{ fontSize: 12 }}
-      activeColor="#46B244"
     >
       <Tab.Screen
         name={homeName}
         component={HomeScreen}
         options={{
-          // tabBarIcon: ({ focused }) => (
-          //     <View>
-          //         <MaterialCommunityIcons
-          //             name="home"
-          //             color={'#7B7B7C'}
-          //             size={26}
-          //             resizeMode="contain"
-          //             style={{
-          //                 width: 25,
-          //                 height: 25,
-          //                 tintColor: focused ? "#46B244" : "#7B7B7C",
-          //             }}
-          //         />
-          //     </View>
-          // )
-
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={23} />
           ),

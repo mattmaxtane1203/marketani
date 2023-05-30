@@ -1,6 +1,6 @@
 import { Box, HStack, Input } from "native-base";
 import React from "react";
-import { FlatList, Text, View, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import { FlatList, Text, View, StyleSheet, SafeAreaView, Pressable, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 function HomeSearch() {
@@ -22,13 +22,13 @@ function HomeSearch() {
                     bg: 'white',
                 }}
             />
-            <Pressable ml={3}>
+            <TouchableOpacity ml={3}>
                 <Ionicons name="ios-chatbox" size={24} color="white" />
                 <Box
                     px={1}
                     rounded="full"
                     position="absolute"
-                    top={-10}
+                    top={-5}
                     left={4}
                     bg={'#EE1B1B'}
                     _text={{
@@ -37,7 +37,7 @@ function HomeSearch() {
                     }}
 
                 >5</Box>
-            </Pressable>
+            </TouchableOpacity>
         </HStack>
 
     )

@@ -16,12 +16,12 @@ import TransactionGateway from "./src/screens/customer/transaction/TransactionGa
 import TransactionPage from "./src/screens/customer/transaction/TransactionPage";
 import PesananGateway from "./src/screens/seller/pesanan/PesananGateway";
 import HomeScreen from "./src/screens/customer/home/Home";
-import NavigationBar from "./navigation/NavBar"
+import UserMenuGateway from "./src/screens/customer/UserMenuGateway";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <NavigationBar />
+      <UserMenuGateway />
       {/* <PreloginGateway /> */}
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}

@@ -23,7 +23,10 @@ const TextInputField = ({ label, onChangeText, validation }) => {
 
     if (error != null) {
       setErrorMessage(error);
+      return;
     }
+
+    onChangeText(input);
   };
 
   return (
@@ -38,7 +41,7 @@ const TextInputField = ({ label, onChangeText, validation }) => {
           ]}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onChangeText={onChangeText && handleChange}
+          onChangeText={handleChange}
         />
         {errorMessage && (
           <Text style={styles.errorMessage}>{errorMessage}</Text>

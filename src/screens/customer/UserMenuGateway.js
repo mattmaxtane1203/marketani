@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "../prelogin/PreloginGateway";
+import ChatGateway from "../seller/chat/ChatGateway";
 
 
 // Screens names
@@ -21,6 +22,7 @@ const Tab = createBottomTabNavigator();
 
 const UserMenuGateway = () => {
   return (
+
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarActiveTintColor: "#46B244" }}
       barStyle={{ backgroundColor: "#ffff", marginBottom: -25 }}

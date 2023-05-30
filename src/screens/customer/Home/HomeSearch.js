@@ -2,8 +2,11 @@ import { Box, HStack, Input } from "native-base";
 import React from "react";
 import { FlatList, Text, View, StyleSheet, SafeAreaView, Pressable, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import ChatGateway from "../../seller/chat/ChatGateway";
 
-function HomeSearch() {
+
+
+function HomeSearch({navigation}) {
     return (
         <HStack space={6} w="full" px={6} bg={'#48bd5b'} py={4} alignItems="center" safeAreaTop>
             <Input
@@ -22,7 +25,9 @@ function HomeSearch() {
                     bg: 'white',
                 }}
             />
-            <TouchableOpacity ml={3}>
+            <TouchableOpacity 
+            onPress={() => navigation.navigate("Chat")}
+            ml={3}>
                 <Ionicons name="ios-chatbox" size={24} color="white" />
                 <Box
                     px={1}

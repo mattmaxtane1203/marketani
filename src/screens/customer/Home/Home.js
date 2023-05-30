@@ -14,7 +14,7 @@ import KategoriTiga from "./KategoriTiga";
 import KategoriEmpat from "./KategoriEmpat";
 import KategoriLima from "./KategoriLima";
 
-function Home() {
+function Home({navigation}) {
 
 
     const Boxes = () => {
@@ -30,20 +30,13 @@ function Home() {
                     <KategoriLima text='Kacang' />
                 </ScrollView>
             </Box>
-            // <View style={styles.boxContainer}>
-            //     <View style={styles.box}>
-            //         <Image source={require('./assets/home-banner.jpg')} style={styles.paddingHomeBanner} />
-            //     </View>
-            // </View>
         )
     }
 
     return (
         <NativeBaseProvider>
-
-            {/* <HomeProducts/> */}
             <Box flex={1} bg={'#F5F5F5'}>
-                <HomeSearch />
+                <HomeSearch navigation={navigation}/>
                 <ScrollView
                     vertical={true}
                     showsVerticalScrollIndicator={false}

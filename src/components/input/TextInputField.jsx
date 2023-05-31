@@ -1,14 +1,22 @@
 import { View, TextInput, StyleSheet, Text, Dimensions } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // TODO: Make error messages update in real time
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const TextInputField = ({ label, onChangeText, validation }) => {
+const TextInputField = ({
+  label,
+  onChangeText,
+  validation,
+  passwordToConfirm,
+  keyboardType,
+  secureTextEntry,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -18,16 +26,21 @@ const TextInputField = ({ label, onChangeText, validation }) => {
     setIsFocused(false);
   };
 
-  const handleChange = (input) => {
-    const error = validation(input);
+  const handleEndEditing = (input) => {
+    let updatedError = validation(input);
 
-    if (error != null) {
-      setErrorMessage(error);
-      return;
+    // ! TODO: Error message still shows even though password and confirm password are the same
+    if (label === "Konfirmasi Kata Sandi") {
+      const confirmationError = validation(input, passwordToConfirm);
+      updatedError = updatedError || confirmationError;
     }
-
-    onChangeText(input);
+    setErrorMessage(updatedError);
+    setInputValue(input);
   };
+
+  useEffect(() => {
+    console.log("Input: " + inputValue + " | Error: " + errorMessage);
+  }, [inputValue, errorMessage]);
 
   return (
     <View style={styles.container}>
@@ -37,11 +50,14 @@ const TextInputField = ({ label, onChangeText, validation }) => {
           style={[
             styles.textInputBox,
             isFocused && styles.inputFocused,
-            errorMessage && styles.inputError,
+            Boolean(errorMessage) && styles.inputError,
           ]}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onChangeText={handleChange}
+          onChangeText={onChangeText}
+          onEndEditing={(e) => handleEndEditing(e.nativeEvent.text)}
+          keyboardType={keyboardType}
+          secureTextEntry={secureTextEntry}
         />
         {errorMessage && (
           <Text style={styles.errorMessage}>{errorMessage}</Text>

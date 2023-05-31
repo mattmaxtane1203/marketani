@@ -9,12 +9,18 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
 } from "react-native";
+import { useState, useEffect } from "react";
 import Images from "../../constants/Images";
 import TextInputField from "../../components/input/TextInputField";
 import SubtitleButton from "../../components/button/SubtitleButton";
 import PrimaryButton from "../../components/button/PrimaryButton";
 
 const Login = ({ navigation }) => {
+  const [nomorTelepon, setNomorTelepon] = useState("");
+  const [kataSandi, setKataSandi] = useState("");
+
+  // ! TODO: Make validation for phone number and password when database is made
+
   return (
     <KeyboardAvoidingView
       style={styles.background && styles.keyboardAvoidingContainer}
@@ -27,11 +33,19 @@ const Login = ({ navigation }) => {
 
             <View style={styles.container}>
               <View>
-                <TextInputField label={"Nomor Telepon"} />
+                <TextInputField
+                  label={"Nomor Telepon"}
+                  onChangeText={setNomorTelepon}
+                  keyboardType={"number-pad"}
+                />
               </View>
 
               <View>
-                <TextInputField label={"Kata Sandi"} />
+                <TextInputField
+                  label={"Kata Sandi"}
+                  onChangeText={setKataSandi}
+                  secureTextEntry={true}
+                />
               </View>
             </View>
 

@@ -21,16 +21,20 @@ import UserMenuGateway from "./src/screens/customer/UserMenuGateway";
 export default function App() {
   return (
     <NavigationContainer>
-      <UserMenuGateway />
-      {/* <PreloginGateway /> */}
+      <PreloginGateway />
+
+      {/* User-related Menus */}
+      {/* <UserMenuGateway /> */}
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
+      {/* <TransactionGateway /> */}
+
+      {/* Seller-related Menus */}
       {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
-      {/* <TransactionGateway /> */}
       {/* <PesananGateway /> */}
     </NavigationContainer>
   );

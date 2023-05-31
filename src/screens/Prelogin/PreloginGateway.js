@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./Login";
 import Register from "./Register";
 import Home from "../customer/home/Home";
+import SellerMainMenu from "../seller/SellerMainMenu";
 
 // TODO: Add a cookie to detect if there is already an account (Check if it's a customer or a seller)
 
@@ -28,6 +29,11 @@ export default function PreloginGateway() {
         component={Home}
         options={{ headerShown: false, tabBarStyle: { display: "none" } }}
       ></Tab.Screen>
+      <Tab.Screen
+        name="Seller Home"
+        component={SellerMainMenu}
+        options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+      />
     </Tab.Navigator>
   );
 }

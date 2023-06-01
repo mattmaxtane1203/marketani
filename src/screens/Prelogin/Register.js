@@ -9,7 +9,7 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextInputField from "../../components/input/TextInputField";
 import PrimaryButton from "../../components/button/PrimaryButton";
 import SubtitleButton from "../../components/button/SubtitleButton";
@@ -19,38 +19,41 @@ import RadioButtonInputField from "../../components/input/RadioButtonInputField"
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-// TODO: Fix PrimaryButton and how it validates the inputs
-// TODO: Fix invisible area at the bottom that covers some area of the screen (KeyboardAvoidingView)
-
 const Register = ({ navigation }) => {
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
   const [kataSandi, setKataSandi] = useState("");
   const [kataSandiKonfirmasi, setKataSandiKonfirmasi] = useState("");
-  const [formIsValid, setFormIsValid] = useState(false); // New state variable
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [userRole, setUserRole] = useState("Pelanggan");
 
-  function handleDaftar() {
-    console.log(nomorTelepon);
-    console.log(namaLengkap);
-    console.log(kataSandi);
-    console.log(kataSandiKonfirmasi);
-    navigation.navigate("User Home");
-  }
-
-  // Function to handle validation and update form validity
-  const handleValidation = () => {
+  // ! TODO: Error message still shows even though password and confirm password are the same
+  useEffect(() => {
     const isFormValid =
-      RegisterValidation.nomorTeleponIsValid(nomorTelepon) == null &&
-      RegisterValidation.nameIsValid(namaLengkap) == null &&
-      RegisterValidation.passwordIsValid(kataSandi) == null &&
-      RegisterValidation.passwordMatches(kataSandi, kataSandiKonfirmasi) ==
+      RegisterValidation.nomorTeleponIsValid(nomorTelepon) === null &&
+      RegisterValidation.nameIsValid(namaLengkap) === null &&
+      RegisterValidation.passwordIsValid(kataSandi) === null &&
+      RegisterValidation.passwordMatches(kataSandi, kataSandiKonfirmasi) ===
         null;
 
     setFormIsValid(isFormValid);
+  }, [nomorTelepon, namaLengkap, kataSandi, kataSandiKonfirmasi]);
+
+  const handleValidation = () => {
+    console.log("User: " + userRole);
+    console.log("Form Validity: " + formIsValid);
 
     if (formIsValid) {
-      handleDaftar();
+      if (userRole == "Pelanggan") {
+        navigation.navigate("User Home");
+      } else {
+        navigation.navigate("Seller Home");
+      }
     }
+  };
+
+  const handleOptionSelect = (option) => {
+    setUserRole(option);
   };
 
   return (
@@ -80,6 +83,7 @@ const Register = ({ navigation }) => {
               label={"Nomor Telepon"}
               onChangeText={setNomorTelepon}
               validation={RegisterValidation.nomorTeleponIsValid}
+              keyboardType={"number-pad"}
             />
           </View>
 
@@ -96,6 +100,7 @@ const Register = ({ navigation }) => {
               label={"Kata Sandi"}
               onChangeText={setKataSandi}
               validation={RegisterValidation.passwordIsValid}
+              secureTextEntry={true}
             />
           </View>
 
@@ -104,6 +109,8 @@ const Register = ({ navigation }) => {
               label={"Konfirmasi Kata Sandi"}
               onChangeText={setKataSandiKonfirmasi}
               validation={RegisterValidation.passwordMatches}
+              passwordToConfirm={kataSandi}
+              secureTextEntry={true}
             />
           </View>
 
@@ -112,15 +119,12 @@ const Register = ({ navigation }) => {
               placeholder={"Daftar sebagai:"}
               choice1={"Pelanggan"}
               choice2={"Penjual"}
+              onSelect={handleOptionSelect}
             />
           </View>
 
           <View style={styles.centered}>
-            <PrimaryButton
-              placeholder={"Daftar"}
-              onPress={handleValidation}
-              disabled={formIsValid}
-            />
+            <PrimaryButton placeholder={"Daftar"} onPress={handleValidation} />
             <Text style={styles.subtext}>Sudah Punya Akun?</Text>
             <SubtitleButton
               placeholder={"Login"}

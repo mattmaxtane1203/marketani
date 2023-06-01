@@ -4,11 +4,13 @@ export const RegisterValidation = {
       return "Nomor telepon tidak boleh kosong";
     }
 
-    const regex = new RegExp(/^(\+62|62|0)[2-9]{1}[0-9]{7,11}$/);
+    // Check if the number starts with '08'
+    if (!nomorTelepon.startsWith("08")) {
+      return "Nomor telepon harus diawali dengan '08'";
+    }
 
-    // TODO: Check if phone number exists in database
-
-    if (!regex.test(nomorTelepon) || nomorTelepon.length > 12) {
+    // Check if the number has a length between 12 and 22 characters
+    if (nomorTelepon.length < 12 || nomorTelepon.length > 22) {
       return "Nomor telepon tidak sesuai";
     }
 
@@ -22,8 +24,19 @@ export const RegisterValidation = {
 
     const regex = new RegExp(/^([A-Z][a-z]*\s)+[A-Z][a-z]*$/);
 
+    if (namaLengkap.indexOf(" ") === -1) {
+      return "Nama harus lengkap";
+    }
+
+    const names = namaLengkap.split(" ");
+    for (let i = 0; i < names.length; i++) {
+      if (names[i].length === 1) {
+        return "Nama harus lengkap";
+      }
+    }
+
     if (!regex.test(namaLengkap)) {
-      return "Nama harus mulai dengan huruf besar dan lengkap";
+      return "Setiap nama harus dimulai dengan huruf besar";
     }
 
     return null;
@@ -34,10 +47,28 @@ export const RegisterValidation = {
       return "Kata sandi tidak boleh kosong";
     }
 
-    const regex = new RegExp(/^(?=.*[0-9a-zA-Z])(?=.*[!@#$%^&*])(?=.{8,})/);
+    if (password.length < 8) {
+      return "Kata sandi harus minimal 8 karakter";
+    }
 
-    if (!regex.test(password)) {
-      return "Menggunakan setidaknya satu huruf besar dan kecil,karakter spesial dan 8 karakter atau lebih";
+    if (password.length > 20) {
+      return "Kata sandi harus maksimal 20 karakter";
+    }
+
+    if (!/[a-z]/.test(password)) {
+      return "Kata sandi harus memiliki setidaknya 1 huruf kecil";
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return "Kata sandi harus memiliki setidaknya 1 huruf besar";
+    }
+
+    if (!/\d/.test(password)) {
+      return "Kata sandi harus memiliki setidaknya 1 angka";
+    }
+
+    if (!/[!@#$%^&*]/.test(password)) {
+      return "Kata sandi harus memiliki setidaknya 1 karakter khusus";
     }
 
     return null;

@@ -6,7 +6,7 @@ import ChatGateway from "../../seller/chat/ChatGateway";
 
 
 
-function HomeSearch({navigation}) {
+function HomeSearch({ navigation }) {
     return (
         <HStack space={6} w="full" px={6} bg={'#48bd5b'} py={4} alignItems="center" safeAreaTop>
             <Input
@@ -25,9 +25,9 @@ function HomeSearch({navigation}) {
                     bg: 'white',
                 }}
             />
-            <TouchableOpacity 
-            onPress={() => navigation.navigate("Chat")}
-            ml={3}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Chat")}
+                ml={3}>
                 <Ionicons name="ios-chatbox" size={24} color="white" />
                 <Box
                     px={1}

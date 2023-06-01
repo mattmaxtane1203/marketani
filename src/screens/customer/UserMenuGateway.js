@@ -9,6 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "../prelogin/PreloginGateway";
 import ChatGateway from "../seller/chat/ChatGateway";
+import Chat from "../seller/chat/Chat";
 
 
 // Screens names
@@ -63,6 +64,11 @@ const UserMenuGateway = () => {
             <MaterialCommunityIcons name="account" color={color} size={23} />
           ),
         }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatGateway}
+        options={{ tabBarVisible: false }}
       />
     </Tab.Navigator>
   );

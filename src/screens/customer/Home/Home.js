@@ -14,7 +14,7 @@ import KategoriTiga from "./KategoriTiga";
 import KategoriEmpat from "./KategoriEmpat";
 import KategoriLima from "./KategoriLima";
 
-function Home({navigation}) {
+function Home({ navigation }) {
 
 
     const Boxes = () => {
@@ -36,37 +36,39 @@ function Home({navigation}) {
     return (
         <NativeBaseProvider>
             <Box flex={1} bg={'#F5F5F5'}>
-                <HomeSearch navigation={navigation}/>
-                <ScrollView
-                    vertical={true}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Boxes />
-                    <Box mt={5}>
-                        <Heading style={styles.subTitleDua}>Diskon Spesial Hari ini</Heading>
-                        <ScrollView
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}>
-                            <ProductSatu title='Wortel (1 kg)' price='Rp15.000' discountPrice='Rp12.000' />
-                            <ProductDua title='Nanas (500 gr)' price='Rp20.000' discountPrice='Rp15.000' />
-                            <ProductTiga title='Cabai (500 gr)' price='25.000' discountPrice='17.000' />
-                            <ProductEmpat title='Jeruk (1 kg)' price='Rp50.000' discountPrice='Rp25.000' />
-                            <ProductLima title='Beras (1 kg)' price='Rp25.000' discountPrice='Rp15.000' />
-                        </ScrollView>
-                    </Box>
-                    <Box>
-                        <Heading style={styles.subTitle}>Sedang Populer</Heading>
-                        <ScrollView
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}>
-                            <ProductSatu title='Wortel (1 kg)' price='Rp15.000' discountPrice='Rp12.000' />
-                            <ProductDua title='Nanas (500 gr)' price='Rp20.000' discountPrice='Rp15.000' />
-                            <ProductTiga title='Cabai (500 gr)' price='25.000' discountPrice='17.000' />
-                            <ProductEmpat title='Jeruk (1 kg)' price='Rp50.000' discountPrice='Rp25.000' />
-                            <ProductLima title='Beras (1 kg)' price='Rp25.000' discountPrice='Rp15.000' />
-                        </ScrollView>
-                    </Box>
-                </ScrollView>
+                <HomeSearch navigation={navigation} />
+                <SafeAreaView>
+                    <ScrollView
+                        vertical={true}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <Boxes />
+                        <Box mt={5}>
+                            <Heading style={styles.subTitleDua}>Diskon Spesial Hari ini</Heading>
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}>
+                                <ProductSatu title='Wortel (1 kg)' price='Rp15.000' discountPrice='Rp12.000' />
+                                <ProductDua title='Nanas (500 gr)' price='Rp20.000' discountPrice='Rp15.000' />
+                                <ProductTiga title='Cabai (500 gr)' price='25.000' discountPrice='17.000' />
+                                <ProductEmpat title='Jeruk (1 kg)' price='Rp50.000' discountPrice='Rp25.000' />
+                                <ProductLima title='Beras (1 kg)' price='Rp25.000' discountPrice='Rp15.000' />
+                            </ScrollView>
+                        </Box>
+                        <Box>
+                            <Heading style={styles.subTitle}>Sedang Populer</Heading>
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}>
+                                <ProductSatu title='Wortel (1 kg)' price='Rp15.000' discountPrice='Rp12.000' />
+                                <ProductDua title='Nanas (500 gr)' price='Rp20.000' discountPrice='Rp15.000' />
+                                <ProductTiga title='Cabai (500 gr)' price='25.000' discountPrice='17.000' />
+                                <ProductEmpat title='Jeruk (1 kg)' price='Rp50.000' discountPrice='Rp25.000' />
+                                <ProductLima title='Beras (1 kg)' price='Rp25.000' discountPrice='Rp15.000' />
+                            </ScrollView>
+                        </Box>
+                    </ScrollView>
+                </SafeAreaView>
             </Box>
         </NativeBaseProvider>
     );

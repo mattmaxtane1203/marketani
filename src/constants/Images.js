@@ -7,6 +7,9 @@ const Images = {
     tomatMerah2: require('../assets/images/tomat-merah2.png'),
     cabaiSample: require("../assets/images/cabai-sample.jpeg"),
   profilePictureSample: require("../assets/images/user-profile-picture-sample.jpeg"),
+  profilePicture1: require('../assets/images/profile-picture1.png'),
+  profilePicture2: require('../assets/images/profile-picture2.png'),
+  shopPictureSample: require('../assets/images/shop-picture-sample.png'),
 };
 
 export default Images;

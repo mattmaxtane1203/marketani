@@ -149,7 +149,7 @@ const WishlistStyle = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
-        rowGap: 13,
+        rowGap: 15,
         marginHorizontal: 18,
         marginTop: 20,
         marginBottom: 100

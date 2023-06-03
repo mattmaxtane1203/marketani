@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         borderRadius: 10,
-        width: 85
+        width: 80,
+        paddingVertical: 2
     },
 
     label:{

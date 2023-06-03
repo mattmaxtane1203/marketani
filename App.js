@@ -17,6 +17,8 @@ import TransactionPage from "./src/screens/customer/transaction/TransactionPage"
 import PesananGateway from "./src/screens/seller/pesanan/PesananGateway";
 import HomeScreen from "./src/screens/customer/home/Home";
 import UserMenuGateway from "./src/screens/customer/UserMenuGateway";
+import SearchResultGateway from "./src/screens/customer/search_result/SearchResultGateway";
+import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoGateway";
 
 export default function App() {
   return (
@@ -36,6 +38,8 @@ export default function App() {
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
       {/* <PesananGateway /> */}
+      <SearchResultGateway/>
+      {/* <HalamanTokoGateway/> */}
     </NavigationContainer>
   );
 }

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
 
     productWishlist:{
-        width: 188,
+        width: 186,
         display: "flex",
         backgroundColor: "white",
         borderRadius: 10,

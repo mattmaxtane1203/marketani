@@ -9,7 +9,11 @@ const Icons = {
     dotsOption: require('../assets/icons/dots-option.png'),
     rightArrowGreen: require('../assets/icons/right-arrow-green.png'),
     moneyCash: require('../assets/icons/money-cash.png'),
-    sellerShop: require('../assets/icons/seller-shop.png')
+    sellerShop: require('../assets/icons/seller-shop.png'),
+    chatSeller: require('../assets/icons/chat-seller.png'),
+    dotsMore: require('../assets/icons/dots-more.png'),
+    favoriteLove: require('../assets/icons/favorite-love.png'),
+    shoppingCart: require('../assets/icons/shopping-cart.png'),
 }
 
 export default Icons

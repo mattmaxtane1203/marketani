@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 const PesananGateway = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Pesanan List" component={PesananList} />
+      <Stack.Screen name="Daftar Pesanan" component={PesananList} />
       <Stack.Screen name="Pesanan" component={Pesanan} />
     </Stack.Navigator>
   );

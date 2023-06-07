@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 const ChatGateway = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Chat List" component={ChatList} />
+      <Stack.Screen name="Daftar Pesan" component={ChatList} />
       <Stack.Screen name="Chat" component={Chat} />
     </Stack.Navigator>
   );

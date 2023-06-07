@@ -21,7 +21,7 @@ const screenHeight = Dimensions.get("window").height;
 
 const PusatBantuanGateway = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Pusat Bantuan" component={PusatBantuan} />
       <Stack.Screen name="Jawaban Pertanyaan" component={JawabanPertanyaan} />
       <Stack.Screen name="Topik Kendala" component={TopikKendala} />

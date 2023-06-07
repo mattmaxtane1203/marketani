@@ -28,8 +28,8 @@ const Produk = ({ navigation }) => {
           stock={sampleStock}
           amountSold={sampleAmountSold}
           beriDiskonOnPress={() => navigation.navigate("Beri Diskon")}
-          // TODO: Make dedicated UbahProduk page
-          ubahOnPress={() => navigation.navigate("Tambah Produk")}
+          ulasanOnPress={() => navigation.navigate("Ulasan")}
+          ubahOnPress={() => navigation.navigate("Ubah Produk")}
           showButtons={true}
         />
         <PrimaryButton

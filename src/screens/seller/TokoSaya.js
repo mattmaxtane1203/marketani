@@ -9,13 +9,35 @@ import {
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import Icons from "../../constants/Icons";
 import StarRating from "react-native-star-rating";
-import PictureButton from "../../components/button/PictureButton";
+import LargeIconButton from "../../components/button/LargeIconButton";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import PengaturanToko from "./pengaturantoko/PengaturanToko";
+import PusatBantuanGateway from "./pusatbantuan/PusatBantuanGateway";
 
 // TODO: Change profile picture into a view that is circular in shape
-// TODO: Put pictures for each picture button
-// TODO: Add pulldown to refresh
+// TODO: End session if log out
 
-const TokoSaya = ({ navigation }) => {
+const Stack = createNativeStackNavigator();
+
+const TokoSaya = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Main Menu" component={TokoSayaMenu} />
+      <Stack.Screen
+        name="Pengaturan Toko"
+        component={PengaturanToko}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="Pusat Bantuan"
+        component={PusatBantuanGateway}
+        options={{ headerShown: true }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const TokoSayaMenu = ({ navigation }) => {
   const sampleRating = 3;
   const sampleNamaToko = "Sayur Segar";
   const sampleLocation = "Jakarta Barat";
@@ -45,55 +67,24 @@ const TokoSaya = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={styles.directoryContainer}>
-        <View style={styles.buttonsRow}>
-          <View style={styles.button}>
-            <PictureButton
-              label={"Produk"}
-              imageSource={Icons.product}
-              color={"#48BD5B"}
-              onPress={() => navigation.navigate("Produk")}
-            />
-          </View>
-
-          <View style={styles.button}>
-            <PictureButton
-              label={"Ulasan"}
-              imageSource={Icons.product}
-              color={"#FFE600"}
-              onPress={() => navigation.navigate("Ulasan")}
-            />
-          </View>
-
-          <View style={styles.button}>
-            <PictureButton
-              label={"Pesanan"}
-              imageSource={Icons.product}
-              color={"#FFB800"}
-              onPress={() => navigation.navigate("Pesanan")}
-            />
-          </View>
-        </View>
-
-        <View style={styles.buttonsRow}>
-          <View style={styles.button}>
-            <PictureButton
-              label={"Pusat Bantuan"}
-              imageSource={Icons.product}
-              color={"#1BC2E7"}
-              onPress={() => navigation.navigate("Pusat Bantuan")}
-            />
-          </View>
-
-          <View style={styles.button}>
-            <PictureButton
-              label={"Chat"}
-              imageSource={Icons.product}
-              color={"#FF7A00"}
-              onPress={() => navigation.navigate("Chat")}
-            />
-          </View>
-        </View>
+      {/* TODO: Fill with shop personalization buttons */}
+      <View>
+        <LargeIconButton
+          iconName={"cog"}
+          placeholder={"Pengaturan Toko"}
+          onPress={() => navigation.navigate("Pengaturan Toko")}
+        />
+        <LargeIconButton
+          iconName={"info-circle"}
+          placeholder={"Pusat Bantuan"}
+          onPress={() => navigation.navigate("Pusat Bantuan")}
+        />
+        <LargeIconButton
+          iconName={"sign-out-alt"}
+          placeholder={"Keluar Akun"}
+          isRed={true}
+          onPress={() => navigation.goBack()}
+        />
       </View>
     </SafeAreaView>
   );
@@ -102,7 +93,6 @@ const TokoSaya = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    backgroundColor: "#FFFFF0",
     height: "100%",
   },
 
@@ -115,7 +105,7 @@ const styles = StyleSheet.create({
   storeInformationContainer: {
     flexDirection: "column",
     justifyContent: "space-evenly",
-    paddingLeft: 20,
+    marginLeft: 20,
     // borderColor: "brown",
     // borderWidth: 1,
   },
@@ -124,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 20,
     paddingBottom: 20,
-    // borderBottomWidth: 1,
+    // borderWidth: 1,
   },
 
   storeProfilePicture: {

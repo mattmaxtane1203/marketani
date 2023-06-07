@@ -1,14 +1,26 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import Images from "../../constants/Images";
 import { Button } from "react-native";
 
 // TODO: Dedicated props for price and units for mass
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 const SellerProduct = ({
   productName,
   productPrice,
   stock,
   amountSold,
   beriDiskonOnPress = () => {},
+  ulasanOnPress = () => {},
   ubahOnPress = () => {},
   showButtons,
 }) => {
@@ -33,6 +45,9 @@ const SellerProduct = ({
           <TouchableOpacity style={styles.button} onPress={beriDiskonOnPress}>
             <Text style={{ fontSize: 12 }}>Beri Diskon</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={ulasanOnPress}>
+            <Text style={{ fontSize: 12 }}>Ulasan</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={ubahOnPress}>
             <Text style={{ fontSize: 12 }}>Ubah</Text>
           </TouchableOpacity>
@@ -44,8 +59,8 @@ const SellerProduct = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 330,
-    height: 116,
+    width: 0.85 * screenWidth,
+    height: 0.15 * screenHeight,
     borderWidth: 1,
     borderColor: "#DEDEDE",
     borderRadius: 10,

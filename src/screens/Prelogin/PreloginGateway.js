@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "../customer/home/Home";
 import SellerMainMenu from "../seller/SellerMainMenu";
+import UserMenuGateway from "../customer/UserMenuGateway";
 
 // TODO: Add a cookie to detect if there is already an account (Check if it's a customer or a seller)
 
@@ -26,7 +27,7 @@ export default function PreloginGateway() {
       />
       <Tab.Screen
         name="User Home"
-        component={Home}
+        component={UserMenuGateway}
         options={{ headerShown: false, tabBarStyle: { display: "none" } }}
       ></Tab.Screen>
       <Tab.Screen

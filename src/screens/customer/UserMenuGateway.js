@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./home/Home";
 import WishlistScreen from "./wishlist/WishlistGateway";
-import TransactionScreen from "./transaction/TransactionGateway";
+import TransactionGateway from "./transaction/TransactionGateway";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "../prelogin/PreloginGateway";
 import ChatGateway from "../seller/chat/ChatGateway";
-
+import HomeGateway from "./home/HomeGateway"
 
 // Screens names
 const homeName = "Home";
@@ -29,7 +29,7 @@ const UserMenuGateway = () => {
     >
       <Tab.Screen
         name={homeName}
-        component={HomeScreen}
+        component={HomeGateway}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={23} />
@@ -47,7 +47,7 @@ const UserMenuGateway = () => {
       />
       <Tab.Screen
         name={TransactionName}
-        component={TransactionScreen}
+        component={TransactionGateway}
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name="newspaper-sharp" size={23} color={color} />

@@ -1,7 +1,7 @@
 import { FlatList, Text, View, StyleSheet, SafeAreaView, Image, HStack } from "react-native";
 import React, { useState, useEffect } from "react";
-import { Box, NativeBaseProvider, ScrollView, Heading } from "native-base";
-import HomeSearch from "./HomeSearch";
+import { extendTheme, Box, NativeBaseProvider, ScrollView, Heading } from "native-base";
+import HomeHeader from "./HomeHeader";
 import HomeProducts from "./HomeProducts";
 import ProductSatu from "./ProductSatu";
 import ProductDua from "./ProductDua";
@@ -13,8 +13,20 @@ import KategoriDua from "./KategoriDua";
 import KategoriTiga from "./KategoriTiga";
 import KategoriEmpat from "./KategoriEmpat";
 import KategoriLima from "./KategoriLima";
+import axios from "axios";
 
-function Home({navigation}) {
+const newColorTheme = {
+    brand: {
+        900: "#8287af",
+        800: "#7c83db",
+        700: "#b3bef6",
+    },
+};
+
+const theme = extendTheme({ colors: newColorTheme });
+
+
+function Home({ navigation }) {
 
 
     const Boxes = () => {
@@ -34,9 +46,9 @@ function Home({navigation}) {
     }
 
     return (
-        <NativeBaseProvider>
-            <Box flex={1} bg={'#F5F5F5'}>
-                <HomeSearch navigation={navigation}/>
+        <NativeBaseProvider theme={theme}>
+            <View flex={1} bg={'#F5F5F5'}>
+                <HomeHeader navigation={navigation} />
                 <ScrollView
                     vertical={true}
                     showsVerticalScrollIndicator={false}
@@ -67,10 +79,12 @@ function Home({navigation}) {
                         </ScrollView>
                     </Box>
                 </ScrollView>
-            </Box>
+            </View>
         </NativeBaseProvider>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     container: {

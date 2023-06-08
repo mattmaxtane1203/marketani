@@ -3,8 +3,20 @@ import { placeholder } from "deprecated-react-native-prop-types/DeprecatedTextIn
 import ProductType from "./ProductType";
 import Icons from "../../constants/Icons";
 import Images from "../../constants/Images";
+import React, {useState} from 'react';
 
 const ProductInformation = ({productImage, placeholderName, star1, star2, star3, star4, star5, placeholderSold, placeholderPrice, productType1, productType2, productType1Color, productType2Color}) => {
+    
+    const [contentToShow, setContentToShow] = useState('not-favorite');
+
+    const setToFavoriteItem = () => {
+        setContentToShow('favorite');
+    }
+
+    const setToNotFavoriteItem = () => {
+        setContentToShow('not-favorite');
+    }
+    
     return(
         <View style={styles.background}>
             <Image source={productImage} style={styles.productImage}></Image>
@@ -22,9 +34,20 @@ const ProductInformation = ({productImage, placeholderName, star1, star2, star3,
                         <Text style={styles.productSold}>{placeholderSold}</Text>
                     </View>
                 </View>
-                <TouchableOpacity>
-                    <Image source={Icons.favoriteLove} style={styles.iconFavorite}></Image>
-                </TouchableOpacity>
+                {contentToShow === 'not-favorite' && (
+                    <>
+                        <TouchableOpacity onPress={setToFavoriteItem}>
+                            <Image source={Icons.favoriteLove} style={styles.iconFavorite}></Image>
+                        </TouchableOpacity>
+                    </>
+                )}
+                {contentToShow === 'favorite' && (
+                    <>
+                        <TouchableOpacity onPress={setToNotFavoriteItem}>
+                            <Image source={Icons.favoriteLoveFull} style={styles.iconFavorite}></Image>
+                        </TouchableOpacity>
+                    </>
+                )}
             </View>
             <View style={styles.productPrice}>
                 <Text style={styles.textStyle1}>{placeholderPrice}</Text>

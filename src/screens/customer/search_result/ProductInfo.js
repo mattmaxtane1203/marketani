@@ -37,14 +37,6 @@ import ChatAndCartFooter from "../../../components/button/ChatAndCartFooter";
                     onPress1={() => navigation.navigate("Chat Seller")}
                     // onPress2={}
                 />
-                {/* {isBoxVisible && (
-                    <View style={ProductInfoStyle.overlayBox}>
-                    Konten kotak
-                        <View style={ProductInfoStyle.boxContainer}>
-                            <Text style={ProductInfoStyle.boxText}>Ini adalah kotak</Text>
-                        </View>
-                    </View>
-                )} */}
             </View>
             <SafeAreaView>
                 <View style={ProductInfoStyle.header}>

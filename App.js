@@ -38,8 +38,8 @@ export default function App() {
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
       {/* <PesananGateway /> */}
-      {/* <SearchResultGateway/> */}
-      <HalamanTokoGateway/>
+      <SearchResultGateway/>
+      {/* <HalamanTokoGateway/> */}
     </NavigationContainer>
   );
 }

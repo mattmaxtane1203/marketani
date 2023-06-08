@@ -14,6 +14,7 @@ const Icons = {
     dotsMore: require('../assets/icons/dots-more.png'),
     favoriteLove: require('../assets/icons/favorite-love.png'),
     shoppingCart: require('../assets/icons/shopping-cart.png'),
+    favoriteLoveFull: require('../assets/icons/favorite-love-full.png'),
 }
 
 export default Icons

@@ -13,7 +13,6 @@ import KategoriDua from "./KategoriDua";
 import KategoriTiga from "./KategoriTiga";
 import KategoriEmpat from "./KategoriEmpat";
 import KategoriLima from "./KategoriLima";
-import axios from "axios";
 
 const newColorTheme = {
     brand: {

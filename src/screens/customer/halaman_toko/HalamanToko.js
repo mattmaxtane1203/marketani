@@ -22,13 +22,11 @@ import ProductDescription from "../../../components/button/ProductDescription";
 import ProductReview from "../../../components/button/ProductReview";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HalamanTokoProduk from "../../../components/button/HalamanTokoProduk";
-import HalamanToko_Ulasan from "./HalamanToko_Ulasan";
 import HalamanTokoUlasan from "../../../components/button/HalamanTokoUlasan";
 import { Component } from "react";
 
-const HalamanToko_Product = ({navigation}) => {
+const HalamanToko = ({navigation}) => {
 
-    const [isModalVisible, setModalVisible] = useState(false);
     const [contentToShow, setContentToShow] = useState('product');
 
     const showProductContent = () => {
@@ -63,22 +61,22 @@ const HalamanToko_Product = ({navigation}) => {
                                 onPress3={() => navigation.navigate()}
                             />
                         </View>
-                        <View style={HalamanTokoStyle.produkAndUlasan}>
-                            <View style={HalamanTokoStyle.chooseProduct}>
-                                <TouchableOpacity onPress={showProductContent}>
-                                    <Text style={HalamanTokoStyle.produkButtonStyle1}>Produk</Text>
-                                </TouchableOpacity>
-                                <View style={HalamanTokoStyle.greenLine}></View>
-                            </View>
-                            <View style={HalamanTokoStyle.chooseProduct}>
-                                <TouchableOpacity onPress={showReviewContent}>
-                                    <Text style={HalamanTokoStyle.ulasanButtonStyle1}>Ulasan</Text>
-                                </TouchableOpacity>
-                                {/* <View style={HalamanTokoStyle.greenLine}></View> */}
-                            </View>
-                        </View>
+                        
                         {contentToShow === 'product' && (
                              <>
+                                <View style={HalamanTokoStyle.produkAndUlasan}>
+                                    <View style={HalamanTokoStyle.chooseProduct}>
+                                        <TouchableOpacity onPress={showProductContent}>
+                                            <Text style={HalamanTokoStyle.buttonStyle1}>Produk</Text>
+                                        </TouchableOpacity>
+                                        <View style={HalamanTokoStyle.greenLine}></View>
+                                    </View>
+                                    <View style={HalamanTokoStyle.chooseProduct}>
+                                        <TouchableOpacity onPress={showReviewContent}>
+                                            <Text style={HalamanTokoStyle.buttonStyle2}>Ulasan</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                                 <View style={HalamanTokoStyle.productContainer}>
                             
                                     <WishlistBox
@@ -175,15 +173,14 @@ const HalamanToko_Product = ({navigation}) => {
                                 <View style={HalamanTokoStyle.produkAndUlasan}>
                                     <View style={HalamanTokoStyle.chooseProduct}>
                                         <TouchableOpacity onPress={showProductContent}>
-                                            <Text style={HalamanTokoStyle.produkButtonStyle1}>Produk</Text>
+                                            <Text style={HalamanTokoStyle.buttonStyle2}>Produk</Text>
                                         </TouchableOpacity>
-                                        <View style={HalamanTokoStyle.greenLine}></View>
                                     </View>
                                     <View style={HalamanTokoStyle.chooseProduct}>
                                         <TouchableOpacity onPress={showReviewContent}>
-                                            <Text style={HalamanTokoStyle.ulasanButtonStyle1}>Ulasan</Text>
+                                            <Text style={HalamanTokoStyle.buttonStyle1}>Ulasan</Text>
                                         </TouchableOpacity>
-                                        {/* <View style={HalamanTokoStyle.greenLine}></View> */}
+                                        <View style={HalamanTokoStyle.greenLine}></View>
                                     </View>
                                 </View>
                                 <View style={HalamanTokoStyle.ulasanContainer}>
@@ -265,14 +262,14 @@ const HalamanTokoStyle = StyleSheet.create({
         borderRadius: 100
     },
 
-    produkButtonStyle1:{
+    buttonStyle1:{
         fontSize: 16,
         color: '#48BD5B',
         fontWeight: "bold",
         paddingHorizontal: 10
     },
 
-    ulasanButtonStyle1:{
+    buttonStyle2:{
         fontSize: 16,
         fontWeight: "bold",
         paddingHorizontal: 10
@@ -299,4 +296,4 @@ const HalamanTokoStyle = StyleSheet.create({
     },
 })
 
-export default HalamanToko_Product
+export default HalamanToko

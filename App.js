@@ -8,8 +8,8 @@ import SellerMainMenu from "./src/screens/seller/SellerMainMenu";
 import ProdukGateway from "./src/screens/seller/product/ProdukGateway";
 import { NavigationContainer } from "@react-navigation/native";
 import Diskon from "./src/screens/seller/product/Diskon";
-import ProdukUlasan from "./src/screens/seller/product/ulasan/ProdukUlasan";
-import UlasanGateway from "./src/screens/seller/product/ulasan/UlasanGateway";
+// import ProdukUlasan from "./src/screens/seller/product/ulasan/ProdukUlasan";
+// import UlasanGateway from "./src/screens/seller/product/ulasan/UlasanGateway";
 import ChatGateway from "./src/screens/seller/chat/ChatGateway";
 import PusatBantuanGateway from "./src/screens/seller/pusatbantuan/PusatBantuanGateway";
 import TransactionGateway from "./src/screens/customer/transaction/TransactionGateway";
@@ -32,7 +32,7 @@ export default function App() {
       {/* <TransactionGateway /> */}
 
       {/* Seller-related Menus */}
-      <SellerMainMenu />
+      {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}
       {/* <UlasanGateway /> */}
       {/* <ChatGateway /> */}

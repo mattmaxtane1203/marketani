@@ -5,8 +5,10 @@ import {
     View,
     Image,
     SafeAreaView,
-    TouchableOpacity
+    TouchableOpacity,
+    Modal
   } from "react-native";
+  import React, {useState} from 'react';
   import Icons from "../../../constants/Icons";
   import Images from "../../../constants/Images";
   import BackButton from "../../../components/button/BackButton";
@@ -21,9 +23,22 @@ import ProductReview from "../../../components/button/ProductReview";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HalamanTokoProduk from "../../../components/button/HalamanTokoProduk";
 import HalamanToko_Ulasan from "./HalamanToko_Ulasan";
+import HalamanTokoUlasan from "../../../components/button/HalamanTokoUlasan";
 import { Component } from "react";
 
 const HalamanToko_Product = ({navigation}) => {
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [contentToShow, setContentToShow] = useState('product');
+
+    const showProductContent = () => {
+        setContentToShow('product');
+      }
+    
+      const showReviewContent = () => {
+        setContentToShow('review');
+      }
+    
     return(
         <View style={HalamanTokoStyle.background}>
             <SafeAreaView>
@@ -50,106 +65,153 @@ const HalamanToko_Product = ({navigation}) => {
                         </View>
                         <View style={HalamanTokoStyle.produkAndUlasan}>
                             <View style={HalamanTokoStyle.chooseProduct}>
-                                <TouchableOpacity>
-                                    <Text style={HalamanTokoStyle.produkButton}>Produk</Text>
+                                <TouchableOpacity onPress={showProductContent}>
+                                    <Text style={HalamanTokoStyle.produkButtonStyle1}>Produk</Text>
                                 </TouchableOpacity>
                                 <View style={HalamanTokoStyle.greenLine}></View>
                             </View>
                             <View style={HalamanTokoStyle.chooseProduct}>
-                                <TouchableOpacity onPress={() => navigation.navigate("Halaman Toko Ulasan")}>
-                                    <Text style={HalamanTokoStyle.ulasanButton}>Ulasan</Text>
+                                <TouchableOpacity onPress={showReviewContent}>
+                                    <Text style={HalamanTokoStyle.ulasanButtonStyle1}>Ulasan</Text>
                                 </TouchableOpacity>
                                 {/* <View style={HalamanTokoStyle.greenLine}></View> */}
                             </View>
                         </View>
-                        <View style={HalamanTokoStyle.productContainer}>
-                            <WishlistBox
-                                onPress={() => navigation.navigate()}
-                                productImages={Images.tomatMerah}
-                                placeholderName={"Tomat Merah (500gr)"}
-                                productType1={"Konvensional"}
-                                productType1Color={'#EE1B1B'}
-                                productType2={"Lokal"}
-                                productType2Color={'#9747FF'}
-                                placeholderPrice={"Rp10.000"}
-                                placeholderLocation={"Bekasi"}
-                                star1={Icons.starFull}
-                                star2={Icons.starFull}
-                                star3={Icons.starFull}
-                                star4={Icons.starFull}
-                                star5={Icons.starEmpty}
-                            />
+                        {contentToShow === 'product' && (
+                             <>
+                                <View style={HalamanTokoStyle.productContainer}>
+                            
+                                    <WishlistBox
+                                        onPress={() => navigation.navigate()}
+                                        productImages={Images.tomatMerah}
+                                        placeholderName={"Tomat Merah (500gr)"}
+                                        productType1={"Konvensional"}
+                                        productType1Color={'#EE1B1B'}
+                                        productType2={"Lokal"}
+                                        productType2Color={'#9747FF'}
+                                        placeholderPrice={"Rp10.000"}
+                                        placeholderLocation={"Bekasi"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starFull}
+                                        star5={Icons.starEmpty}
+                                    />
 
-                            <WishlistBox
-                                onPress={() => navigation.navigate()}
-                                productImages={Images.tomatHijau}
-                                placeholderName={"Tomat Hijau (500gr)"}
-                                productType1={"Konvensional"}
-                                productType1Color={'#EE1B1B'}
-                                productType2={"Import"}
-                                productType2Color={'#FFB800'}
-                                placeholderPrice={"Rp15.000"}
-                                placeholderLocation={"Depok"}
-                                star1={Icons.starFull}
-                                star2={Icons.starFull}
-                                star3={Icons.starFull}
-                                star4={Icons.starEmpty}
-                                star5={Icons.starEmpty}
-                            />
+                                    <WishlistBox
+                                        onPress={() => navigation.navigate()}
+                                        productImages={Images.tomatHijau}
+                                        placeholderName={"Tomat Hijau (500gr)"}
+                                        productType1={"Konvensional"}
+                                        productType1Color={'#EE1B1B'}
+                                        productType2={"Import"}
+                                        productType2Color={'#FFB800'}
+                                        placeholderPrice={"Rp15.000"}
+                                        placeholderLocation={"Depok"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starEmpty}
+                                        star5={Icons.starEmpty}
+                                    />
 
-                            <WishlistBoxDiscount
-                                onPress={() => navigation.navigate()}
-                                productImages={Images.tomatCherry}
-                                placeholderName={"Tomat Cherry (300gr)"}
-                                productType1={"Konvensional"}
-                                productType1Color={'#EE1B1B'}
-                                productType2={"Import"}
-                                productType2Color={'#FFB800'}
-                                placeholderNormalPrice={"Rp20.000"}
-                                placeholderDiscountPrice={"Rp15.000"}
-                                placeholderLocation={"Bekasi"}
-                                star1={Icons.starFull}
-                                star2={Icons.starFull}
-                                star3={Icons.starFull}
-                                star4={Icons.starFull}
-                                star5={Icons.starEmpty}
-                            />
+                                    <WishlistBoxDiscount
+                                        onPress={() => navigation.navigate()}
+                                        productImages={Images.tomatCherry}
+                                        placeholderName={"Tomat Cherry (300gr)"}
+                                        productType1={"Konvensional"}
+                                        productType1Color={'#EE1B1B'}
+                                        productType2={"Import"}
+                                        productType2Color={'#FFB800'}
+                                        placeholderNormalPrice={"Rp20.000"}
+                                        placeholderDiscountPrice={"Rp15.000"}
+                                        placeholderLocation={"Bekasi"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starFull}
+                                        star5={Icons.starEmpty}
+                                    />
 
-                            <WishlistBox
-                                onPress={() => navigation.navigate()}
-                                productImages={Images.tomatManis}
-                                placeholderName={"Tomat Manis (300gr)"}
-                                productType1={"Hidroponik"}
-                                productType1Color={'#00B0FC'}
-                                productType2={"Lokal"}
-                                productType2Color={'#9747FF'}
-                                placeholderPrice={"Rp12.000"}
-                                placeholderLocation={"Bekasi"}
-                                star1={Icons.starFull}
-                                star2={Icons.starFull}
-                                star3={Icons.starFull}
-                                star4={Icons.starFull}
-                                star5={Icons.starEmpty}
-                            />
+                                    <WishlistBox
+                                        onPress={() => navigation.navigate()}
+                                        productImages={Images.tomatManis}
+                                        placeholderName={"Tomat Manis (300gr)"}
+                                        productType1={"Hidroponik"}
+                                        productType1Color={'#00B0FC'}
+                                        productType2={"Lokal"}
+                                        productType2Color={'#9747FF'}
+                                        placeholderPrice={"Rp12.000"}
+                                        placeholderLocation={"Bekasi"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starFull}
+                                        star5={Icons.starEmpty}
+                                    />
 
-                            <WishlistBoxDiscount
-                                onPress={() => navigation.navigate()}
-                                productImages={Images.tomatMerah2}
-                                placeholderName={"Tomat Merah (500gr)"}
-                                productType1={"Organik"}
-                                productType1Color={'#48BD5B'}
-                                productType2={"Lokal"}
-                                productType2Color={'#9747FF'}
-                                placeholderNormalPrice={"Rp20.000"}
-                                placeholderDiscountPrice={"Rp15.000"}
-                                placeholderLocation={"Bekasi"}
-                                star1={Icons.starFull}
-                                star2={Icons.starFull}
-                                star3={Icons.starFull}
-                                star4={Icons.starFull}
-                                star5={Icons.starEmpty}
-                            />
-                        </View>
+                                    <WishlistBoxDiscount
+                                        onPress={() => navigation.navigate()}
+                                        productImages={Images.tomatMerah2}
+                                        placeholderName={"Tomat Merah (500gr)"}
+                                        productType1={"Organik"}
+                                        productType1Color={'#48BD5B'}
+                                        productType2={"Lokal"}
+                                        productType2Color={'#9747FF'}
+                                        placeholderNormalPrice={"Rp20.000"}
+                                        placeholderDiscountPrice={"Rp15.000"}
+                                        placeholderLocation={"Bekasi"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starFull}
+                                        star5={Icons.starEmpty}
+                                    />
+                                </View>
+                            </>
+                        )}
+                        {contentToShow === 'review' && (
+                            <>
+                                <View style={HalamanTokoStyle.produkAndUlasan}>
+                                    <View style={HalamanTokoStyle.chooseProduct}>
+                                        <TouchableOpacity onPress={showProductContent}>
+                                            <Text style={HalamanTokoStyle.produkButtonStyle1}>Produk</Text>
+                                        </TouchableOpacity>
+                                        <View style={HalamanTokoStyle.greenLine}></View>
+                                    </View>
+                                    <View style={HalamanTokoStyle.chooseProduct}>
+                                        <TouchableOpacity onPress={showReviewContent}>
+                                            <Text style={HalamanTokoStyle.ulasanButtonStyle1}>Ulasan</Text>
+                                        </TouchableOpacity>
+                                        {/* <View style={HalamanTokoStyle.greenLine}></View> */}
+                                    </View>
+                                </View>
+                                <View style={HalamanTokoStyle.ulasanContainer}>
+                                    <HalamanTokoUlasan
+                                        productImage={Images.tomatMerah}
+                                        userPicture={Images.profilePicture1}
+                                        placeholderName={"Dono"}
+                                        placeholderComment={"Enggak Enak ..."}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starEmpty}
+                                        star3={Icons.starEmpty}
+                                        star4={Icons.starEmpty}
+                                        star5={Icons.starEmpty}
+                                    />
+                                    <HalamanTokoUlasan
+                                        productImage={Images.tomatMerah}
+                                        userPicture={Images.profilePicture2}
+                                        placeholderName={"Kasino"}
+                                        placeholderComment={"Mantap ... masih fresh"}
+                                        star1={Icons.starFull}
+                                        star2={Icons.starFull}
+                                        star3={Icons.starFull}
+                                        star4={Icons.starFull}
+                                        star5={Icons.starEmpty}
+                                    />
+                                </View>
+                            </>
+                        )}
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -203,17 +265,26 @@ const HalamanTokoStyle = StyleSheet.create({
         borderRadius: 100
     },
 
-    produkButton:{
+    produkButtonStyle1:{
         fontSize: 16,
         color: '#48BD5B',
         fontWeight: "bold",
         paddingHorizontal: 10
     },
 
-    ulasanButton:{
+    ulasanButtonStyle1:{
         fontSize: 16,
         fontWeight: "bold",
         paddingHorizontal: 10
+    },
+
+    ulasanContainer:{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        marginHorizontal: 18,
+        marginTop: 10,
+        marginBottom: 300
     },
 
     productContainer:{

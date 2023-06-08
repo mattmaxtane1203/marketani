@@ -39,7 +39,7 @@ export default function App() {
       {/* <PusatBantuanGateway /> */}
       {/* <PesananGateway /> */}
       {/* <SearchResultGateway/> */}
-      {/* <HalamanTokoGateway/> */}
+      <HalamanTokoGateway/>
     </NavigationContainer>
   );
 }

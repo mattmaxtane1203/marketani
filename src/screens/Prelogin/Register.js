@@ -15,6 +15,7 @@ import PrimaryButton from "../../components/button/PrimaryButton";
 import SubtitleButton from "../../components/button/SubtitleButton";
 import { RegisterValidation } from "../../utils/RegisterValidation";
 import RadioButtonInputField from "../../components/input/RadioButtonInputField";
+import axios from "axios";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -39,15 +40,36 @@ const Register = ({ navigation }) => {
     setFormIsValid(isFormValid);
   }, [nomorTelepon, namaLengkap, kataSandi, kataSandiKonfirmasi]);
 
-  const handleValidation = () => {
+  const handleValidation = async () => {
     console.log("User: " + userRole);
     console.log("Form Validity: " + formIsValid);
 
     if (formIsValid) {
-      if (userRole == "Pelanggan") {
-        navigation.navigate("User Home");
-      } else {
-        navigation.navigate("Seller Home");
+      try {
+        const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
+        const response = await axios.post(
+          `http://192.168.18.6:8081${endpoint}`,
+          {
+            nomorTelepon,
+            namaLengkap,
+            kataSandi,
+            userRole,
+          }
+        );
+
+        console.log(response.data);
+        if (userRole === "Pelanggan") {
+          navigation.navigate("User Home");
+        } else {
+          navigation.navigate("Seller Home");
+        }
+
+        setNomorTelepon("");
+        setNamaLengkap("");
+        setKataSandi("");
+        setKataSandiKonfirmasi("");
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -161,6 +183,10 @@ const styles = StyleSheet.create({
 
   centered: {
     alignItems: "center",
+  },
+
+  errorMessage: {
+    color: "red",
   },
 });
 

@@ -20,6 +20,7 @@
     "@react-navigation/material-bottom-tabs": "^6.2.15",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "axios": "^1.4.0",
     "deprecated-react-native-prop-types": "^4.1.0",
     "expo": "~48.0.15",
     "expo-status-bar": "~1.4.4",

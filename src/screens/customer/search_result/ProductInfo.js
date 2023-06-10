@@ -5,39 +5,32 @@ import {
     View,
     Image,
     SafeAreaView,
-    TouchableOpacity,
-    useState
+    TouchableOpacity
   } from "react-native";
+  import React, {useState, useContext} from 'react';
   import Icons from "../../../constants/Icons";
   import Images from "../../../constants/Images";
   import BackButton from "../../../components/button/BackButton";
-  import WishlistSearchBar from "../../../components/input/WishlistSearchBar";
-import WishlistBox from "../../../components/button/WishlistBox";
-import WishlistBoxDiscount from "../../../components/button/WishlistBoxDiscount";
 import SearchResultBar from "../../../components/input/SearchResultBar";
 import ProductInformation from "../../../components/button/ProductInformation";
 import ProductShop from "../../../components/button/ProductShop";
 import ProductDescription from "../../../components/button/ProductDescription";
 import ProductReview from "../../../components/button/ProductReview";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ChatSellerFooter from "../../../components/input/ChatSellerFooter";
 import ChatAndCartFooter from "../../../components/button/ChatAndCartFooter";
+import CartProvider from "./CartContext";
+import { CartContext } from "./CartContext";
+import numeral from 'numeral';
 
   const ProductInfo = ({navigation}) => {
-    // const [isBoxVisible, setIsBoxVisible] = useState(false);
+    const [isBoxVisible, setIsBoxVisible] = useState(false);
+    const { productCount } = useContext(CartContext);
 
-    // const handleButtonPress = () => {
-    //     setIsBoxVisible(true)
-    // }
+    const handleButtonPress = () => {
+        setIsBoxVisible(!isBoxVisible);
+    }
 
     return (
         <View style={ProductInfoStyle.background}>
-            <View style={ProductInfoStyle.footerContainer}>
-                <ChatAndCartFooter
-                    onPress1={() => navigation.navigate("Chat Seller")}
-                    // onPress2={}
-                />
-            </View>
             <SafeAreaView>
                 <View style={ProductInfoStyle.header}>
                     <BackButton onPress={() => navigation.navigate("Search Result")}></BackButton>
@@ -47,12 +40,12 @@ import ChatAndCartFooter from "../../../components/button/ChatAndCartFooter";
                     <Text style={ProductInfoStyle.filter}>Filter</Text>
                 </View>
 
-                <ScrollView stickyHeaderIndices={[1]}>
+                <ScrollView stickyHeaderIndices={[]}>
                     <ProductInformation
                         productImage={Images.tomatHijau}
                         placeholderName={"Tomat Hijau (500gr)"}
                         placeholderSold={"5 rb+ terjual"}
-                        placeholderPrice={"Rp15.000"}
+                        placeholderPrice={15000}
                         productType1={"Konvensional"}
                         productType1Color={'#EE1B1B'}
                         productType2={"Import"}
@@ -118,6 +111,26 @@ import ChatAndCartFooter from "../../../components/button/ChatAndCartFooter";
                 </ScrollView>
                 
             </SafeAreaView>
+            {isBoxVisible && (
+                <TouchableOpacity onPress={() => navigation.navigate()}>
+                    <View style={ProductInfoStyle.productInCart}>
+                        <View style={ProductInfoStyle.totalProduct}>
+                            <Text style={ProductInfoStyle.textStyle1}>Total</Text>
+                            <Text style={ProductInfoStyle.textStyle2}>{productCount} Produk</Text>
+                        </View>
+                        <View style={ProductInfoStyle.totalPrice}>
+                            <Text style={ProductInfoStyle.textStyle2}>Rp{numeral(productCount * 15000).format('0,0')}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            )}
+            <View style={ProductInfoStyle.footerContainer}>
+                <ChatAndCartFooter
+                    onPress1={() => navigation.navigate("Chat Seller")}
+                    onPress2={handleButtonPress}
+                />
+            </View>
+            
         </View>
         
     )
@@ -178,7 +191,7 @@ const ProductInfoStyle = StyleSheet.create({
     productReview:{
         display: "flex",
         backgroundColor: "white",
-        // marginBottom: 200
+        marginBottom: 200
     },
 
     reviewHeader:{
@@ -213,29 +226,42 @@ const ProductInfoStyle = StyleSheet.create({
         display: "flex"
     },
 
-    overlayBox: {
+    productInCart: {
         position: "absolute",
-        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        justifyContent: "center",
-        alignItems: "center"
-      },
-    
-      boxContainer: {
-        backgroundColor: "white",
-        width: 200,
-        height: 200,
-        justifyContent: "center",
-        alignItems: "center"
-      },
-    
-      boxText: {
-        fontSize: 18,
+        marginBottom: 23,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: '#48BD5B',
+        marginHorizontal: 15,
+        paddingHorizontal: 25,
+        paddingVertical: 7,
+        borderRadius: 30
+    },
+
+    totalProduct:{
+        display: "flex",
+        flexDirection: "column"
+    },
+
+    totalPrice:{
+        display: "flex"
+    },
+
+    textStyle1:{
+        fontSize: 14,
+        color: "white"
+    },
+
+    textStyle2:{
+        fontSize: 16,
+        color: "white",
         fontWeight: "bold"
-      }
+    }
 
 
 })

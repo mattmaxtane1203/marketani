@@ -3,7 +3,10 @@ import { placeholder } from "deprecated-react-native-prop-types/DeprecatedTextIn
 import ProductType from "./ProductType";
 import Icons from "../../constants/Icons";
 import Images from "../../constants/Images";
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import { CartContext } from "../../screens/customer/search_result/CartContext";
+import CartProvider from "../../screens/customer/search_result/CartContext";
+import numeral from 'numeral';
 
 const ProductInformation = ({productImage, placeholderName, star1, star2, star3, star4, star5, placeholderSold, placeholderPrice, productType1, productType2, productType1Color, productType2Color}) => {
     
@@ -50,7 +53,7 @@ const ProductInformation = ({productImage, placeholderName, star1, star2, star3,
                 )}
             </View>
             <View style={styles.productPrice}>
-                <Text style={styles.textStyle1}>{placeholderPrice}</Text>
+                <Text style={styles.textStyle1}>Rp{numeral(placeholderPrice).format('0,0')}</Text>
                 <View style={styles.productType}>
                     <ProductType placeholder={productType1} color={productType1Color}></ProductType>
                     <ProductType placeholder={productType2} color={productType2Color}></ProductType>

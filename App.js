@@ -23,7 +23,7 @@ import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoG
 export default function App() {
   return (
     <NavigationContainer>
-      <PreloginGateway />
+      {/* <PreloginGateway /> */}
 
       {/* User-related Menus */}
       {/* <UserMenuGateway /> */}
@@ -38,7 +38,7 @@ export default function App() {
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
       {/* <PesananGateway /> */}
-      {/* <SearchResultGateway/> */}
+      <SearchResultGateway/>
       {/* <HalamanTokoGateway/> */}
     </NavigationContainer>
   );

@@ -26,6 +26,7 @@
     "expo-status-bar": "~1.4.4",
     "link": "^1.5.1",
     "native-base": "^3.4.28",
+    "numeral": "^2.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.71.8",

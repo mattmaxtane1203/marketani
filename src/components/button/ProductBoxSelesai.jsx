@@ -2,6 +2,7 @@ import { TouchableOpacity, Image, StyleSheet, View, Text, SafeAreaView } from "r
 import { placeholder } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 import NoFillButton from "./NoFillButton";
 import Icons from "../../constants/Icons";
+import numeral from 'numeral';
 
 const ProductBoxSelesai = ({onPress, placeholderShopName, productImages, placeholderName, placeholderNumber, placeholderPrice}) => {
 
@@ -23,13 +24,13 @@ const ProductBoxSelesai = ({onPress, placeholderShopName, productImages, placeho
                         <Image style={styles.productImage} source={productImages}></Image>
                         <View style={styles.productInfo}>
                             <Text numberOfLines={1} style={styles.productName}>{placeholderName}</Text>
-                            <Text style={styles.numberOfProduct}>{placeholderNumber}</Text>
+                            <Text style={styles.numberOfProduct}>{placeholderNumber} barang</Text>
                         </View>
                     </View>
                     <View style={styles.transactionBottom}>
                         <View style={styles.transactionPrice}>
                             <Text style={styles.totalText}>Total Belanja</Text>
-                            <Text style={styles.totalPrice}>{placeholderPrice}</Text>
+                            <Text style={styles.totalPrice}>Rp{numeral(placeholderPrice).format('0,0')}</Text>
                         </View>
                         <View style={styles.reviewOrBuy}>
                             <NoFillButton onPress={() => navigation.navigator()} placeholder={"Ulas"}/>

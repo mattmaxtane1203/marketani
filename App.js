@@ -29,7 +29,7 @@ export default function App() {
       {/* <UserMenuGateway /> */}
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
-      {/* <TransactionGateway /> */}
+      <TransactionGateway />
 
       {/* Seller-related Menus */}
       {/* <SellerMainMenu /> */}
@@ -38,7 +38,7 @@ export default function App() {
       {/* <ChatGateway /> */}
       {/* <PusatBantuanGateway /> */}
       {/* <PesananGateway /> */}
-      <SearchResultGateway/>
+      {/* <SearchResultGateway/> */}
       {/* <HalamanTokoGateway/> */}
     </NavigationContainer>
   );

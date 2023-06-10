@@ -1,6 +1,7 @@
 import { TouchableOpacity, Image, StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { placeholder } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 import NoFillButton from "./NoFillButton";
+import numeral from 'numeral';
 
 const TransactionOrangeBox = ({onPress, productImages, placeholderDate, placeholderName, placeholderNumber, placeholderPrice}) => {
 
@@ -15,13 +16,13 @@ const TransactionOrangeBox = ({onPress, productImages, placeholderDate, placehol
                     <Image style={styles.productImage} source={productImages}></Image>
                     <View style={styles.productInfo}>
                         <Text numberOfLines={1} style={styles.productName}>{placeholderName}</Text>
-                        <Text style={styles.numberOfProduct}>{placeholderNumber}</Text>
+                        <Text style={styles.numberOfProduct}>{placeholderNumber} barang</Text>
                     </View>
                 </View>
                 <View style={styles.transactionBottom}>
                     <View style={styles.transactionPrice}>
                         <Text style={styles.totalText}>Total Belanja</Text>
-                        <Text style={styles.totalPrice}>{placeholderPrice}</Text>
+                        <Text style={styles.totalPrice}>Rp{numeral(placeholderPrice).format('0,0')}</Text>
                     </View>
                     <NoFillButton onPress={() => navigation.navigator()} placeholder={"Lacak"}/>
                 </View>

@@ -43,8 +43,8 @@ const DetailPesananOTW = ({navigation}) => {
                             placeholderShopName={"Fresh Shop"}
                             productImages={Images.tomatHijau}
                             placeholderName={"Tomat Hijau (500gr)"}
-                            placeholderNumber={"2 barang"}
-                            placeholderPrice={"Rp 38.000"}
+                            placeholderNumber={2}
+                            placeholderPrice={38000}
                         />
                     </View>
 

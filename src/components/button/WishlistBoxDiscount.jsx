@@ -2,6 +2,7 @@ import { TouchableOpacity, Image, StyleSheet, View, Text, SafeAreaView } from "r
 import { placeholder } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 import ProductType from "./ProductType";
 import Icons from "../../constants/Icons";
+import numeral from 'numeral';
 
 const WishlistBoxDiscount = ({onPress, productImages, placeholderName, productType1, productType2, productType1Color, productType2Color, placeholderNormalPrice, placeholderDiscountPrice, placeholderLocation, star1, star2, star3, star4, star5}) => {
     return (
@@ -21,8 +22,8 @@ const WishlistBoxDiscount = ({onPress, productImages, placeholderName, productTy
                     <Image source={star5} style={styles.productStar}></Image>
                 </View>
                 <View style={styles.productDiscount}>
-                    <Text style={styles.normalPrice}>{placeholderNormalPrice}</Text>
-                    <Text style={styles.discountPrice}>{placeholderDiscountPrice}</Text>
+                    <Text style={styles.normalPrice}>Rp{numeral(placeholderNormalPrice).format('0,0')}</Text>
+                    <Text style={styles.discountPrice}>Rp{numeral(placeholderNormalPrice).format('0,0')}</Text>
                 </View>
                 <View style={styles.productInfo}>
                     <View style={styles.productLocation}>

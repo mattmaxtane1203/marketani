@@ -41,8 +41,8 @@ const DetailPesananSelesai = ({navigation}) => {
                             placeholderShopName={"Fresh Shop"}
                             productImages={Images.tomatMerah}
                             placeholderName={"Tomat Merah (500gr)"}
-                            placeholderNumber={"2 barang"}
-                            placeholderPrice={"Rp 28.000"}
+                            placeholderNumber={2}
+                            placeholderPrice={28000}
                         />
                     </View>
 

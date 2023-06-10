@@ -87,7 +87,7 @@ const HalamanToko = ({navigation}) => {
                                         productType1Color={'#EE1B1B'}
                                         productType2={"Lokal"}
                                         productType2Color={'#9747FF'}
-                                        placeholderPrice={"Rp10.000"}
+                                        placeholderPrice={10000}
                                         placeholderLocation={"Bekasi"}
                                         star1={Icons.starFull}
                                         star2={Icons.starFull}
@@ -104,7 +104,7 @@ const HalamanToko = ({navigation}) => {
                                         productType1Color={'#EE1B1B'}
                                         productType2={"Import"}
                                         productType2Color={'#FFB800'}
-                                        placeholderPrice={"Rp15.000"}
+                                        placeholderPrice={15000}
                                         placeholderLocation={"Depok"}
                                         star1={Icons.starFull}
                                         star2={Icons.starFull}
@@ -121,8 +121,8 @@ const HalamanToko = ({navigation}) => {
                                         productType1Color={'#EE1B1B'}
                                         productType2={"Import"}
                                         productType2Color={'#FFB800'}
-                                        placeholderNormalPrice={"Rp20.000"}
-                                        placeholderDiscountPrice={"Rp15.000"}
+                                        placeholderNormalPrice={20000}
+                                        placeholderDiscountPrice={15000}
                                         placeholderLocation={"Bekasi"}
                                         star1={Icons.starFull}
                                         star2={Icons.starFull}
@@ -139,7 +139,7 @@ const HalamanToko = ({navigation}) => {
                                         productType1Color={'#00B0FC'}
                                         productType2={"Lokal"}
                                         productType2Color={'#9747FF'}
-                                        placeholderPrice={"Rp12.000"}
+                                        placeholderPrice={12000}
                                         placeholderLocation={"Bekasi"}
                                         star1={Icons.starFull}
                                         star2={Icons.starFull}
@@ -156,8 +156,8 @@ const HalamanToko = ({navigation}) => {
                                         productType1Color={'#48BD5B'}
                                         productType2={"Lokal"}
                                         productType2Color={'#9747FF'}
-                                        placeholderNormalPrice={"Rp20.000"}
-                                        placeholderDiscountPrice={"Rp15.000"}
+                                        placeholderNormalPrice={20000}
+                                        placeholderDiscountPrice={15000}
                                         placeholderLocation={"Bekasi"}
                                         star1={Icons.starFull}
                                         star2={Icons.starFull}

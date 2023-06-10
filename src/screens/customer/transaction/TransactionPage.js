@@ -43,8 +43,8 @@ import DetailPesananOTW from "./DetailPesananOTW";
                                 productImages={Images.tomatHijau}
                                 placeholderDate={"27 Maret 2023"}
                                 placeholderName={"Tomat Hijau (500gr)"}
-                                placeholderNumber={"2 barang"}
-                                placeholderPrice={"Rp 38.000"}
+                                placeholderNumber={2}
+                                placeholderPrice={38000}
                             />
 
                             <TransactionGreenBox 
@@ -52,8 +52,8 @@ import DetailPesananOTW from "./DetailPesananOTW";
                                 productImages={Images.tomatMerah}
                                 placeholderDate={"18 Maret 2023"}
                                 placeholderName={"Tomat Merah (500gr)"}
-                                placeholderNumber={"2 barang"}
-                                placeholderPrice={"Rp 28.000"}
+                                placeholderNumber={2}
+                                placeholderPrice={28000}
                             />
                         </View>
 

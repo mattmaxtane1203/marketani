@@ -10,7 +10,7 @@ export const RegisterValidation = {
     }
 
     // Check if the number has a length between 12 and 22 characters
-    if (nomorTelepon.length < 12 || nomorTelepon.length > 22) {
+    if (nomorTelepon.length < 10 || nomorTelepon.length > 22) {
       return "Nomor telepon tidak sesuai";
     }
 
@@ -22,21 +22,17 @@ export const RegisterValidation = {
       return "Nama tidak boleh kosong";
     }
 
-    const regex = new RegExp(/^([A-Z][a-z]*\s)+[A-Z][a-z]*$/);
-
-    if (namaLengkap.indexOf(" ") === -1) {
-      return "Nama harus lengkap";
-    }
-
     const names = namaLengkap.split(" ");
+    const regex = new RegExp(/^[A-Z][A-Za-z0-9]+$/);
+
     for (let i = 0; i < names.length; i++) {
       if (names[i].length === 1) {
         return "Nama harus lengkap";
       }
-    }
 
-    if (!regex.test(namaLengkap)) {
-      return "Setiap nama harus dimulai dengan huruf besar";
+      if (!regex.test(names[i])) {
+        return "Setiap nama harus dimulai dengan huruf besar";
+      }
     }
 
     return null;

@@ -19,11 +19,13 @@ import HomeScreen from "./src/screens/customer/home/Home";
 import UserMenuGateway from "./src/screens/customer/UserMenuGateway";
 import SearchResultGateway from "./src/screens/customer/search_result/SearchResultGateway";
 import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoGateway";
+import Register from "./src/screens/prelogin/Register";
 
 export default function App() {
   return (
     <NavigationContainer>
       <PreloginGateway />
+      {/* <Register /> */}
 
       {/* User-related Menus */}
       {/* <UserMenuGateway /> */}

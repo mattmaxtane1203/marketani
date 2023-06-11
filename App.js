@@ -23,13 +23,13 @@ import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoG
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <PreloginGateway /> */}
+      <PreloginGateway />
 
       {/* User-related Menus */}
       {/* <UserMenuGateway /> */}
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
-      <TransactionGateway />
+      {/* <TransactionGateway /> */}
 
       {/* Seller-related Menus */}
       {/* <SellerMainMenu /> */}

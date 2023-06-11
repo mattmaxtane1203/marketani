@@ -48,7 +48,7 @@ const Register = ({ navigation }) => {
       try {
         const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
         const response = await axios.post(
-          `http://192.168.18.6:8081${endpoint}`,
+          `http://192.168.0.158:8081${endpoint}`,
           {
             nomorTelepon,
             namaLengkap,

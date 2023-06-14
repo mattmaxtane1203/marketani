@@ -74,37 +74,41 @@ const Login = ({ navigation }) => {
         setErrorMessage("Nomor telepon tidak terdaftar");
         return;
       }
+
+      // Check password
+      const passwordResponse = await axios.get(
+        `http://${currentIP}:8081/checkPassword/${nomorTelepon}/${kataSandi}`
+      );
+
+      if (!passwordResponse.data.valid) {
+        setErrorMessage("Kata sandi tidak cocok");
+        return;
+      }
+
+      // Find user role in Customer
+      let userRoleResponse = await axios.get(
+        `http://${currentIP}:8081/checkIfCustomer/${nomorTelepon}`
+      );
+
+      console.log("User Role Response: " + userRoleResponse.data.customerId);
+
+      // If found, empty fields and redirect
+      setNomorTelepon("");
+      setKataSandi("");
+      setErrorMessage("");
+      if (userRoleResponse.data.customerId != null) {
+        navigation.navigate("User Home");
+      } else if (userRoleResponse.data.customerId == null) {
+        navigation.navigate("Seller Home");
+      } else {
+        console.log("Unexpected Error: User not found");
+      }
     } catch (error) {
-      console.log(error);
-    }
-
-    // Check password
-    const passwordResponse = await axios.get(
-      `http://${currentIP}:8081/checkPassword/${nomorTelepon}/${kataSandi}`
-    );
-
-    if (!passwordResponse.data.valid) {
-      setErrorMessage("Kata sandi tidak cocok");
-      return;
-    }
-
-    // Find user role in Customer
-    let userRoleResponse = await axios.get(
-      `http://${currentIP}:8081/checkIfCustomer/${nomorTelepon}`
-    );
-
-    console.log("User Role Response: " + userRoleResponse.data.customerId);
-
-    // If found, empty fields and redirect
-    setNomorTelepon("");
-    setKataSandi("");
-    setErrorMessage("");
-    if (userRoleResponse.data.customerId != null) {
-      navigation.navigate("User Home");
-    } else if (userRoleResponse.data.customerId == null) {
-      navigation.navigate("Seller Home");
-    } else {
-      console.log("Unexpected Error: User not found");
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("Nomor telepon tidak terdaftar");
+      } else {
+        console.error(error);
+      }
     }
   };
 

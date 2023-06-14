@@ -1,45 +1,33 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
-  SafeAreaView,
-  KeyboardAvoidingView,
   Text,
   View,
+  SafeAreaView,
+  Dimensions,
   StyleSheet,
   Image,
 } from "react-native";
-import Icons from "../../constants/Icons";
-import StarRating from "react-native-star-rating";
-import LargeIconButton from "../../components/button/LargeIconButton";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import PengaturanToko from "./pengaturantoko/PengaturanToko";
-import PusatBantuanGateway from "./pusatbantuan/PusatBantuanGateway";
-
-// TODO: Change profile picture into a view that is circular in shape
-// TODO: End session if log out
-// TODO: Fetch store name, profile picture, rating and location from database on load
+import Icons from "../../../constants/Icons";
+import LargeIconButton from "../../../components/button/LargeIconButton";
+import PreloginGateway from "../../prelogin/PreloginGateway";
 
 const Stack = createNativeStackNavigator();
 
-const TokoSaya = () => {
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
+const Profile = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Main Menu" component={TokoSayaMenu} />
-      <Stack.Screen
-        name="Pengaturan Toko"
-        component={PengaturanToko}
-        options={{ headerShown: true }}
-      />
-      <Stack.Screen
-        name="Pusat Bantuan"
-        component={PusatBantuanGateway}
-        options={{ headerShown: true }}
-      />
+    <Stack.Navigator>
+      <Stack.Screen name="ProfileMenu" component={ProfileMenu} />
+      {/* TODO: Add Pengaturan Akun and Pusat Bantuan */}
     </Stack.Navigator>
   );
 };
 
-const TokoSayaMenu = ({ navigation }) => {
-  const sampleRating = 3;
-  const sampleNamaToko = "Sayur Segar";
+const ProfileMenu = ({ navigation }) => {
+  // TODO: Fetch Customer Information on load
+  const sampleName = "Matthew Maximillian Tane";
   const sampleLocation = "Jakarta Barat";
 
   return (
@@ -50,15 +38,7 @@ const TokoSayaMenu = ({ navigation }) => {
           style={styles.storeProfilePicture}
         />
         <View style={styles.storeInformationContainer}>
-          <Text style={styles.label}>{sampleNamaToko}</Text>
-          <StarRating
-            disabled
-            maxStars={5}
-            rating={sampleRating}
-            fullStarColor={"#FFD700"}
-            containerStyle={styles.starRating}
-            starSize={15}
-          />
+          <Text style={styles.label}>{sampleName}</Text>
 
           <View style={styles.row}>
             <Image source={Icons.locationPin} style={styles.locationPin} />
@@ -67,16 +47,17 @@ const TokoSayaMenu = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Account Buttons */}
       <View>
         <LargeIconButton
           iconName={"cog"}
           placeholder={"Pengaturan Toko"}
-          onPress={() => navigation.navigate("Pengaturan Toko")}
+          // onPress={() => navigation.navigate("Pengaturan Akun")}
         />
         <LargeIconButton
           iconName={"info-circle"}
           placeholder={"Pusat Bantuan"}
-          onPress={() => navigation.navigate("Pusat Bantuan")}
+          // onPress={() => navigation.navigate("Pusat Bantuan")}
         />
         <LargeIconButton
           iconName={"sign-out-alt"}
@@ -149,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TokoSaya;
+export default Profile;

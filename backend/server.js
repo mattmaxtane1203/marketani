@@ -64,7 +64,7 @@ app.post("/seller", function (req, res) {
 app.get("/checkPhoneNumber/:phoneNumber", (req, res) => {
   const phoneNumber = req.params.phoneNumber;
   const sql =
-    "SELECT COUNT(*) AS count FROM customer WHERE phone_number = ? UNION ALL SELECT COUNT(*) AS count FROM seller WHERE phone_number = ?";
+    "SELECT phone_number FROM customer WHERE phone_number = ? UNION ALL SELECT phone_number FROM seller WHERE phone_number = ?";
   const values = [phoneNumber, phoneNumber];
 
   db.query(sql, values, (err, results) => {
@@ -73,10 +73,69 @@ app.get("/checkPhoneNumber/:phoneNumber", (req, res) => {
       return res.status(500).json({ error: "Failed to check phone number." });
     }
 
+    const phoneNumbers = results.map((result) => result.phone_number);
+    res.status(200).json({ phoneNumber });
+  });
+});
+
+// Check password associated with phone number
+app.get("/checkPassword/:phoneNumber/:password", (req, res) => {
+  const phoneNumber = req.params.phoneNumber;
+  const password = req.params.password;
+
+  const sql =
+    "SELECT COUNT(*) AS count FROM customer WHERE phone_number = ? AND password = ? UNION ALL SELECT COUNT(*) AS count FROM seller WHERE phone_number = ? AND password = ?";
+  const values = [phoneNumber, password, phoneNumber, password];
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res.status(500).json({ error: "Failed to check password." });
+    }
+
     const customerCount = results[0].count;
     const sellerCount = results[1].count;
-    const exists = customerCount > 0 || sellerCount > 0;
-    res.status(200).json({ exists });
+    const valid = customerCount > 0 || sellerCount > 0;
+    res.status(200).json({ valid });
+  });
+});
+
+// Check user role
+app.get("/checkIfCustomer/:phoneNumber", (req, res) => {
+  const phoneNumber = req.params.phoneNumber;
+
+  const sql = "SELECT customer_id FROM customer WHERE phone_number = ?";
+  const values = [phoneNumber];
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res.status(500).json({ error: "Failed to check user role." });
+    }
+
+    const customerId = results.length > 0 ? results[0].customer_id : null;
+
+    res.status(200).json({ customerId });
+  });
+});
+
+// Check user role
+app.get("/checkIfSeller/:phoneNumber", (req, res) => {
+  const phoneNumber = req.params.phoneNumber;
+
+  const sql = "SELECT COUNT(*) AS count FROM seller WHERE phone_number = ?";
+  const values = [phoneNumber];
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res.status(500).json({ error: "Failed to check user role." });
+    }
+
+    const sellerCount = results[0].count;
+    const role = sellerCount > 0 ? "seller" : "";
+
+    res.status(200).json({ role });
   });
 });
 

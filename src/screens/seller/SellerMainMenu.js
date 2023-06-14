@@ -13,11 +13,13 @@ import PusatBantuanGateway from "./pusatbantuan/PusatBantuanGateway";
 import ChatGateway from "./chat/ChatGateway";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import PesananGateway from "./pesanan/PesananGateway";
+import PreloginGateway from "../prelogin/PreloginGateway";
 
 // TODO: Fix navigation into subsequent pages
 // TODO: Remove Pusat Bantuan and Ulasan and move to respective pages
 // TODO: Put Toko Saya on most-right of the tab but make directories enter to this page first
 // TODO: Remove headers of each page
+// ! TODO: Fix logout mechanism
 
 const Tab = createBottomTabNavigator();
 

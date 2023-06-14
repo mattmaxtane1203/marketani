@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 
 export default function PreloginGateway() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Prelogin">
       <Tab.Screen
         name="Login"
         component={Login}

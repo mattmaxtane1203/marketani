@@ -20,6 +20,11 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
+// ! Change this according to the IP address of your machine
+const currentIP = "192.168.18.6";
+// const currentIP = "172.20.10.2";
+// const currentIP = null;
+
 const Register = ({ navigation }) => {
   const [activeTextInput, setActiveTextInput] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -67,7 +72,7 @@ const Register = ({ navigation }) => {
     }
     try {
       const response = await axios.get(
-        `http://192.168.18.6:8081/checkPhoneNumber/${nomorTelepon}`
+        `http://${currentIP}:8081/checkPhoneNumber/${nomorTelepon}`
       );
 
       if (response.data.exists) {
@@ -105,7 +110,7 @@ const Register = ({ navigation }) => {
       try {
         const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
         const response = await axios.post(
-          `http://192.168.0.158:8081${endpoint}`,
+          `http://${currentIP}:8081${endpoint}`,
           {
             nomorTelepon,
             namaLengkap,

@@ -7,28 +7,21 @@ import TransactionGateway from "./transaction/TransactionGateway";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import ProfileScreen from "../prelogin/PreloginGateway";
+import Profile from "./profile/Profile";
 import ChatGateway from "../seller/chat/ChatGateway";
-import HomeGateway from "./home/HomeGateway"
-
-// Screens names
-const homeName = "Home";
-const wishlistName = "Wishlist";
-const cartName = "Cart";
-const TransactionName = "Transaction";
-const profileName = "Profile";
+import HomeGateway from "./home/HomeGateway";
+import PreloginGateway from "../prelogin/PreloginGateway";
 
 const Tab = createBottomTabNavigator();
 
 const UserMenuGateway = () => {
   return (
-
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarActiveTintColor: "#46B244" }}
       barStyle={{ backgroundColor: "#ffff", marginBottom: -25 }}
     >
       <Tab.Screen
-        name={homeName}
+        name="Home"
         component={HomeGateway}
         options={{
           tabBarIcon: ({ color }) => (
@@ -37,7 +30,7 @@ const UserMenuGateway = () => {
         }}
       />
       <Tab.Screen
-        name={wishlistName}
+        name="Wishlist"
         component={WishlistScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -46,7 +39,7 @@ const UserMenuGateway = () => {
         }}
       />
       <Tab.Screen
-        name={TransactionName}
+        name="Transactions"
         component={TransactionGateway}
         options={{
           tabBarIcon: ({ color }) => (
@@ -56,8 +49,8 @@ const UserMenuGateway = () => {
       />
 
       <Tab.Screen
-        name={profileName}
-        component={ProfileScreen}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={23} />

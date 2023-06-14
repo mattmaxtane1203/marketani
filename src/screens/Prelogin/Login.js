@@ -61,50 +61,80 @@ const Login = ({ navigation }) => {
       setErrorMessage(teleponError);
       return;
     }
+
     try {
-      const phoneNumberResponse = await axios.get(
-        `http://${currentIP}:8081/checkPhoneNumber/${nomorTelepon}`
+      // Find phone number in database
+      // ! FIX: Error 404. Possible problem with routing
+      const customerPhoneNumberResponse = await axios.get(
+        `http://${currentIP}:8081/customer/getPhoneNumber/${nomorTelepon}`
+      );
+
+      const sellerPhoneNumberResponse = await axios.get(
+        `http://${currentIP}:8081/seller/getPhoneNumber/${nomorTelepon}`
       );
 
       console.log(
-        "Phone Number Response: " + phoneNumberResponse.data.phoneNumber
+        "Customer Phone Number Response: " +
+          customerPhoneNumberResponse.data.phoneNumber
+      );
+      console.log(
+        "Seller Phone Number Response: " +
+          sellerPhoneNumberResponse.data.phoneNumber
       );
 
-      if (!phoneNumberResponse.data.phoneNumber.length === 0) {
+      if (
+        !customerPhoneNumberResponse.data.phoneNumber &&
+        !sellerPhoneNumberResponse.data.phoneNumber
+      ) {
         setErrorMessage("Nomor telepon tidak terdaftar");
         return;
       }
+
+      // Check password
+      let passwordResponse = null;
+      if (customerPhoneNumberResponse.data.phoneNumber) {
+        passwordResponse = await axios.get(
+          `http://${currentIP}:8081/customer/getPassword/${nomorTelepon}`
+        );
+      } else {
+        passwordResponse = await axios.get(
+          `http://${currentIP}:8081/seller/getPassword/${nomorTelepon}`
+        );
+      }
+
+      if (passwordResponse.data.password !== kataSandi) {
+        setErrorMessage("Kata sandi tidak cocok");
+        return;
+      }
+
+      // Find user role
+      let userRoleResponse = null;
+      if (customerPhoneNumberResponse.data.phoneNumber) {
+        userRoleResponse = await axios.get(
+          `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
+        );
+      } else {
+        userRoleResponse = await axios.get(
+          `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
+        );
+      }
+
+      console.log("User Role Response: " + userRoleResponse.data.id);
+
+      // If found, empty fields and redirect
+      setNomorTelepon("");
+      setKataSandi("");
+      setErrorMessage("");
+      if (customerPhoneNumberResponse.data.phoneNumber) {
+        navigation.navigate("User Home");
+      } else if (sellerPhoneNumberResponse.data.phoneNumber) {
+        navigation.navigate("Seller Home");
+      } else {
+        console.log("Unexpected Error: User not found");
+      }
     } catch (error) {
-      console.log(error);
-    }
-
-    // Check password
-    const passwordResponse = await axios.get(
-      `http://${currentIP}:8081/checkPassword/${nomorTelepon}/${kataSandi}`
-    );
-
-    if (!passwordResponse.data.valid) {
-      setErrorMessage("Kata sandi tidak cocok");
-      return;
-    }
-
-    // Find user role in Customer
-    let userRoleResponse = await axios.get(
-      `http://${currentIP}:8081/checkIfCustomer/${nomorTelepon}`
-    );
-
-    console.log("User Role Response: " + userRoleResponse.data.customerId);
-
-    // If found, empty fields and redirect
-    setNomorTelepon("");
-    setKataSandi("");
-    setErrorMessage("");
-    if (userRoleResponse.data.customerId != null) {
-      navigation.navigate("User Home");
-    } else if (userRoleResponse.data.customerId == null) {
-      navigation.navigate("Seller Home");
-    } else {
-      console.log("Unexpected Error: User not found");
+      console.error("Error occurred:", error);
+      setErrorMessage("Error occurred. Please try again.");
     }
   };
 

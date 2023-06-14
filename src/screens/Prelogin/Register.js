@@ -110,7 +110,7 @@ const Register = ({ navigation }) => {
       try {
         const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
         const response = await axios.post(
-          `http://${currentIP}:8081${endpoint}`,
+          `http://${currentIP}:8081${endpoint}/register`,
           {
             nomorTelepon,
             namaLengkap,

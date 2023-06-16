@@ -70,12 +70,20 @@ const Register = ({ navigation }) => {
       setErrorMessage(teleponError);
       return;
     }
+    // Check if phone number exists in database
     try {
-      const response = await axios.get(
-        `http://${currentIP}:8081/checkPhoneNumber/${nomorTelepon}`
+      const customerIdResponse = await axios.get(
+        `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
       );
 
-      if (response.data.exists) {
+      const sellerIdResponse = await axios.get(
+        `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
+      );
+
+      console.log("Customer ID Response: " + customerIdResponse.data.id);
+      console.log("Seller ID Response: " + sellerIdResponse.data.id);
+
+      if (customerIdResponse.data.id || sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon sudah terdaftar");
         return;
       }
@@ -115,11 +123,11 @@ const Register = ({ navigation }) => {
             nomorTelepon,
             namaLengkap,
             kataSandi,
-            userRole,
           }
         );
 
         console.log(response.data);
+
         if (userRole === "Pelanggan") {
           navigation.navigate("User Home");
         } else {

@@ -3,6 +3,10 @@ const router = express.Router();
 
 const connection = require("../config/database");
 
+router.get("/", function (req, res) {
+  return res.json("Customer connection success");
+});
+
 // Register Customer
 router.post("/register", function (req, res) {
   const { nomorTelepon, namaLengkap, kataSandi } = req.body;
@@ -39,11 +43,11 @@ router.get("/getId/:phoneNumber", (req, res) => {
   });
 });
 
-// Get customer password by phone number
-router.get("/getPassword/:phoneNumber", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-  const sql = "SELECT password FROM customer WHERE phone_number = ?";
-  const values = [phoneNumber];
+// Get customer password by id
+router.get("/getPassword/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT password FROM customer WHERE customer_id = ?";
+  const values = [id];
 
   connection.query(sql, values, (err, results) => {
     if (err) {
@@ -52,32 +56,11 @@ router.get("/getPassword/:phoneNumber", (req, res) => {
     }
 
     if (results.length === 0) {
-      return res.status(404).json({ error: "Phone number not found." });
+      return res.status(404).json({ error: "Customer ID not found." });
     }
 
     const password = results[0].password;
     res.status(200).json({ password });
-  });
-});
-
-// Get phone number
-router.get("/getPhoneNumber/:phoneNumber", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-  const sql = "SELECT phone_number FROM customer WHERE phone_number = ?";
-  const values = [phoneNumber];
-
-  connection.query(sql, values, (err, results) => {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to check phone number." });
-    }
-
-    if (results.length === 0) {
-      return res.status(404).json({ error: "Phone number not found." });
-    }
-
-    const phoneNumbers = results.map((result) => result.phone_number);
-    res.status(200).json({ phoneNumber: phoneNumbers[0] });
   });
 });
 

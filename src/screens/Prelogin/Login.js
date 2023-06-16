@@ -37,6 +37,8 @@ const Login = ({ navigation }) => {
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [kataSandi, setKataSandi] = useState("");
 
+  const [id, setId] = useState(0);
+
   // Behavioural Methods
   useEffect(() => {
     setErrorMessage("");
@@ -50,6 +52,8 @@ const Login = ({ navigation }) => {
 
   const handleValidation = async () => {
     setErrorMessage("");
+    console.log("NEW LOGIN ATTEMPT");
+    console.log("=================");
 
     // Log credentials
     console.log("Nomor Telepon: " + nomorTelepon);
@@ -65,69 +69,64 @@ const Login = ({ navigation }) => {
     try {
       // Find phone number in database
       // ! FIX: Error 404. Possible problem with routing
-      const customerPhoneNumberResponse = await axios.get(
-        `http://${currentIP}:8081/customer/getPhoneNumber/${nomorTelepon}`
+
+      console.log("IP address: " + currentIP);
+
+      const customerIdResponse = await axios.get(
+        `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
       );
 
-      const sellerPhoneNumberResponse = await axios.get(
-        `http://${currentIP}:8081/seller/getPhoneNumber/${nomorTelepon}`
+      const sellerIdResponse = await axios.get(
+        `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
       );
 
-      console.log(
-        "Customer Phone Number Response: " +
-          customerPhoneNumberResponse.data.phoneNumber
-      );
-      console.log(
-        "Seller Phone Number Response: " +
-          sellerPhoneNumberResponse.data.phoneNumber
-      );
+      console.log("Customer ID Response: " + customerIdResponse.data.id);
 
-      if (
-        !customerPhoneNumberResponse.data.phoneNumber &&
-        !sellerPhoneNumberResponse.data.phoneNumber
-      ) {
+      console.log("Seller ID Response: " + sellerIdResponse.data.id);
+
+      if (!customerIdResponse.data.id && !sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon tidak terdaftar");
         return;
       }
 
       // Check password
       let passwordResponse = null;
-      if (customerPhoneNumberResponse.data.phoneNumber) {
+      if (customerIdResponse && !sellerIdResponse) {
+        setId(customerIdResponse.data.id);
+        console.log("User Role: Customer");
+        console.log("ID: " + id);
+
         passwordResponse = await axios.get(
-          `http://${currentIP}:8081/customer/getPassword/${nomorTelepon}`
+          `http://${currentIP}:8081/customer/getPassword/${id}`
         );
       } else {
+        setId(sellerIdResponse.data.id);
+        console.log("User Role: Seller");
+        console.log("ID: " + id);
+
         passwordResponse = await axios.get(
-          `http://${currentIP}:8081/seller/getPassword/${nomorTelepon}`
+          `http://${currentIP}:8081/seller/getPassword/${id}`
         );
       }
+
+      console.log("Password: " + passwordResponse.data.password);
 
       if (passwordResponse.data.password !== kataSandi) {
         setErrorMessage("Kata sandi tidak cocok");
         return;
-      }
-
-      // Find user role
-      let userRoleResponse = null;
-      if (customerPhoneNumberResponse.data.phoneNumber) {
-        userRoleResponse = await axios.get(
-          `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
-        );
       } else {
-        userRoleResponse = await axios.get(
-          `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
-        );
+        console.log("Password Match");
       }
 
-      console.log("User Role Response: " + userRoleResponse.data.id);
-
-      // If found, empty fields and redirect
+      // Empty fields
       setNomorTelepon("");
       setKataSandi("");
       setErrorMessage("");
-      if (customerPhoneNumberResponse.data.phoneNumber) {
+
+      // Redirect to corresponding pages
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
         navigation.navigate("User Home");
-      } else if (sellerPhoneNumberResponse.data.phoneNumber) {
+      } else if (sellerIdResponse.data.id && !customerIdResponse.data.id) {
         navigation.navigate("Seller Home");
       } else {
         console.log("Unexpected Error: User not found");

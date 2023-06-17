@@ -7,19 +7,45 @@ router.get("/", function (req, res) {
   return res.json("Product connection success");
 });
 
-// Tanbah Product
-router.post("/product", function (req, res) {
-    const { imagepath, namaproduk, desc, berat, harga, stok, asalproduk, metode } = req.body;
-    const query =
-      "INSERT INTO product (foto_produk, nama_produk, deskripsi, berat_per_pesanan, harga_per_pesanan, stok, asal_produk, metode_pengembanga) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    const values = [imagepath, namaproduk, desc, berat, harga, stok, asalproduk, metode];
-  
-    connection.query(query, values, function (err, result) {
+router.post("/insert", (req, res) => {
+  const {
+    nama_produk,
+    deskripsi,
+    berat_per_pesanan,
+    harga_per_pesanan,
+    stok,
+    asal_produk,
+    metode_pengembangan,
+    seller_id,
+  } = req.body;
+
+  // Create the INSERT query
+  const query = `INSERT INTO product (nama_produk, deskripsi, berat_per_pesanan, harga_per_pesanan, stok, asal_produk, metode_pengembangan, seller_id) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  // Execute the query
+  connection.query(
+    query,
+    [
+      nama_produk,
+      deskripsi,
+      berat_per_pesanan,
+      harga_per_pesanan,
+      stok,
+      asal_produk,
+      metode_pengembangan,
+      seller_id,
+    ],
+    (err, result) => {
       if (err) {
-        console.error("Error executing the query: " + err.stack);
-        return res.status(500).json({ error: "Failed to register the user." });
+        console.error("Error inserting new product:", err);
+        res.status(500).send("Error inserting new product");
+        return;
       }
-      console.log("User registered with Seller ID: " + result.insertId);
-      res.status(200).json({ message: "User registered successfully." });
-    });
-  });
+      console.log("New product inserted:", result.insertId);
+      res.status(200).send("New product inserted");
+    }
+  );
+});
+
+module.exports = router;

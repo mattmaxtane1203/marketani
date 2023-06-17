@@ -7,6 +7,5 @@ CREATE TABLE product (
     stok INTEGER,
     asal_produk ENUM('lokal', 'impor'),
     metode_pengembangan ENUM('konvensional', 'organik', 'hidroponik'),
-    foto_produk VARCHAR(255),
     seller_id INTEGER REFERENCES seller(seller_id) ON DELETE CASCADE
 );

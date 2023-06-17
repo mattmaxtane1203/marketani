@@ -17,6 +17,9 @@ app.use("/customer", customerRouter);
 const sellerRouter = require("./routes/Seller");
 app.use("/seller", sellerRouter);
 
+const productRouter = require("./routes/Product");
+app.use("/product", productRouter);
+
 app.listen(port, () => {
   console.log("Listening on port ", port);
 });

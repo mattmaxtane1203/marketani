@@ -22,7 +22,6 @@ import {
   setCurrentUser,
   setCurrentUserId,
 } from "../../redux/actions/userActions";
-import { nullFormat } from "numeral";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -141,7 +140,6 @@ const Login = ({ navigation }) => {
         user.role = "seller";
       }
       dispatch(setCurrentUser(user));
-      dispatch(setCurrentUserId(user.id));
 
       // Empty fields
       setNomorTelepon("");

@@ -16,6 +16,8 @@ import SubtitleButton from "../../components/button/SubtitleButton";
 import { RegisterValidation } from "../../utils/RegisterValidation";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/actions/userActions";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -35,6 +37,8 @@ const Register = ({ navigation }) => {
   const [kataSandiKonfirmasi, setKataSandiKonfirmasi] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
   const [userRole, setUserRole] = useState("Pelanggan");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (errorMessage) {
@@ -72,17 +76,20 @@ const Register = ({ navigation }) => {
     }
 
     // Check if phone number exists in database
+    let customerIdResponse = null;
+    let sellerIdResponse = null;
     try {
-      const customerIdResponse = await axios.get(
+      customerIdResponse = await axios.get(
         `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
       );
 
-      const sellerIdResponse = await axios.get(
+      sellerIdResponse = await axios.get(
         `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
       );
 
       console.log("Customer ID Response: " + customerIdResponse.data.id);
       console.log("Seller ID Response: " + sellerIdResponse.data.id);
+      console.log();
 
       if (customerIdResponse.data.id || sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon sudah terdaftar");
@@ -130,6 +137,43 @@ const Register = ({ navigation }) => {
         );
 
         console.log(response.data);
+
+        if (userRole === "Pelanggan") {
+          customerIdResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getId/${nomorTelepon}`
+          );
+        } else {
+          sellerIdResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getId/${nomorTelepon}`
+          );
+        }
+
+        let userNameResponse = null;
+        if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+          userNameResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getName/${customerIdResponse.data.id}`
+          );
+        } else {
+          userNameResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getName/${sellerIdResponse.data.id}`
+          );
+        }
+
+        console.log("Full Name Response: " + userNameResponse.data.full_name);
+
+        let user = {
+          id: null,
+          name: userNameResponse.data.full_name,
+          role: null,
+        };
+        if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+          user.id = customerIdResponse.data.id;
+          user.role = "Customer";
+        } else {
+          user.id = sellerIdResponse.data.id;
+          user.role = "Seller";
+        }
+        dispatch(setCurrentUser(user));
 
         // Navigate
         if (userRole === "Pelanggan") {

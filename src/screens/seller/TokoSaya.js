@@ -12,6 +12,8 @@ import LargeIconButton from "../../components/button/LargeIconButton";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import PengaturanToko from "./pengaturantoko/PengaturanToko";
 import PusatBantuanGateway from "./pusatbantuan/PusatBantuanGateway";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // TODO: Change profile picture into a view that is circular in shape
 // TODO: End session if log out
@@ -38,6 +40,12 @@ const TokoSaya = () => {
 };
 
 const TokoSayaMenu = ({ navigation }) => {
+  const currentSeller = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    console.log(currentSeller);
+  }, []);
+
   const sampleRating = 3;
   const sampleNamaToko = "Sayur Segar";
   const sampleLocation = "Jakarta Barat";

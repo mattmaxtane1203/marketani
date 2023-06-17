@@ -17,6 +17,12 @@ import PrimaryButton from "../../components/button/PrimaryButton";
 import { RegisterValidation } from "../../utils/RegisterValidation";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
+import {
+  setCurrentUser,
+  setCurrentUserId,
+} from "../../redux/actions/userActions";
+import { nullFormat } from "numeral";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -37,7 +43,7 @@ const Login = ({ navigation }) => {
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [kataSandi, setKataSandi] = useState("");
 
-  const [id, setId] = useState(0);
+  const dispatch = useDispatch();
 
   // Behavioural Methods
   useEffect(() => {
@@ -58,6 +64,7 @@ const Login = ({ navigation }) => {
     // Log credentials
     console.log("Nomor Telepon: " + nomorTelepon);
     console.log("Kata Sandi: " + kataSandi);
+    console.log();
 
     // Validate credentials
     const teleponError = RegisterValidation.nomorTeleponIsValid(nomorTelepon);
@@ -83,6 +90,7 @@ const Login = ({ navigation }) => {
       // Log ID Responses
       console.log("Customer ID Response: " + customerIdResponse.data.id);
       console.log("Seller ID Response: " + sellerIdResponse.data.id);
+      console.log();
 
       if (!customerIdResponse.data.id && !sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon tidak terdaftar");
@@ -90,25 +98,50 @@ const Login = ({ navigation }) => {
       }
 
       // Check password
+      let userFullNameResponse = null;
       let passwordResponse = null;
       if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+        userFullNameResponse = await axios.get(
+          `http://${currentIP}:8081/customer/getName/${customerIdResponse.data.id}`
+        );
         passwordResponse = await axios.get(
           `http://${currentIP}:8081/customer/getPassword/${customerIdResponse.data.id}`
         );
       } else {
+        userFullNameResponse = await axios.get(
+          `http://${currentIP}:8081/seller/getName/${sellerIdResponse.data.id}`
+        );
         passwordResponse = await axios.get(
           `http://${currentIP}:8081/seller/getPassword/${sellerIdResponse.data.id}`
         );
       }
 
+      console.log("Full Name: " + userFullNameResponse.data.full_name);
       console.log("Password: " + passwordResponse.data.password);
 
       if (passwordResponse.data.password !== kataSandi) {
         setErrorMessage("Kata sandi tidak cocok");
         return;
-      } else {
-        console.log("Password Match");
       }
+      console.log("Password Match");
+
+      // Set global variables
+      let user = {
+        id: null,
+        name: null,
+        role: null,
+      };
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+        user.id = customerIdResponse.data.id;
+        user.name = userFullNameResponse.data.full_name;
+        user.role = "customer";
+      } else {
+        user.id = sellerIdResponse.data.id;
+        user.name = userFullNameResponse.data.full_name;
+        user.role = "seller";
+      }
+      dispatch(setCurrentUser(user));
+      dispatch(setCurrentUserId(user.id));
 
       // Empty fields
       setNomorTelepon("");

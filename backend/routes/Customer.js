@@ -43,7 +43,28 @@ router.get("/getId/:phoneNumber", (req, res) => {
   });
 });
 
-// Get customer password by id
+// Get name by id
+router.get("/getName/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT full_name FROM customer WHERE customer_id = ?";
+  const values = [id];
+
+  connection.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res.status(500).json({ error: "Failed to retrieve full name." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Seller ID not found." });
+    }
+
+    const fullName = results[0].full_name;
+    res.status(200).json({ full_name: fullName });
+  });
+});
+
+// Get password by id
 router.get("/getPassword/:id", (req, res) => {
   const id = req.params.id;
   const sql = "SELECT password FROM customer WHERE customer_id = ?";

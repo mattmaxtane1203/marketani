@@ -1,3 +1,4 @@
+// Pages
 import Wishlist from "./src/screens/customer/wishlist/Wishlist";
 import WishlistGateway from "./src/screens/customer/wishlist/WishlistGateway";
 import { StatusBar } from "expo-status-bar";
@@ -21,27 +22,40 @@ import SearchResultGateway from "./src/screens/customer/search_result/SearchResu
 import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoGateway";
 import Register from "./src/screens/prelogin/Register";
 
+// Tools
+import { Provider } from "react-redux";
+import { userReducer } from "./src/redux/reducers/userReducer";
+import { configureStore } from "@reduxjs/toolkit";
+
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <PreloginGateway />
-      {/* <Register /> */}
+    <Provider store={store}>
+      <NavigationContainer>
+        <PreloginGateway />
+        {/* <Register /> */}
 
-      {/* User-related Menus */}
-      {/* <UserMenuGateway /> */}
-      {/* <HomeScreen /> */}
-      {/* <WishlistGateway /> */}
-      {/* <TransactionGateway /> */}
+        {/* User-related Menus */}
+        {/* <UserMenuGateway /> */}
+        {/* <HomeScreen /> */}
+        {/* <WishlistGateway /> */}
+        {/* <TransactionGateway /> */}
 
-      {/* Seller-related Menus */}
-      {/* <SellerMainMenu /> */}
-      {/* <ProdukGateway /> */}
-      {/* <UlasanGateway /> */}
-      {/* <ChatGateway /> */}
-      {/* <PusatBantuanGateway /> */}
-      {/* <PesananGateway /> */}
-      {/* <SearchResultGateway/> */}
-      {/* <HalamanTokoGateway/> */}
-    </NavigationContainer>
+        {/* Seller-related Menus */}
+        {/* <SellerMainMenu /> */}
+        {/* <ProdukGateway /> */}
+        {/* <UlasanGateway /> */}
+        {/* <ChatGateway /> */}
+        {/* <PusatBantuanGateway /> */}
+        {/* <PesananGateway /> */}
+        {/* <SearchResultGateway/> */}
+        {/* <HalamanTokoGateway/> */}
+      </NavigationContainer>
+    </Provider>
   );
 }

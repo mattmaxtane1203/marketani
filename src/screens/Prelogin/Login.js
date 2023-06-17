@@ -80,8 +80,8 @@ const Login = ({ navigation }) => {
         `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
       );
 
+      // Log ID Responses
       console.log("Customer ID Response: " + customerIdResponse.data.id);
-
       console.log("Seller ID Response: " + sellerIdResponse.data.id);
 
       if (!customerIdResponse.data.id && !sellerIdResponse.data.id) {
@@ -91,21 +91,13 @@ const Login = ({ navigation }) => {
 
       // Check password
       let passwordResponse = null;
-      if (customerIdResponse && !sellerIdResponse) {
-        setId(customerIdResponse.data.id);
-        console.log("User Role: Customer");
-        console.log("ID: " + id);
-
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
         passwordResponse = await axios.get(
-          `http://${currentIP}:8081/customer/getPassword/${id}`
+          `http://${currentIP}:8081/customer/getPassword/${customerIdResponse.data.id}`
         );
       } else {
-        setId(sellerIdResponse.data.id);
-        console.log("User Role: Seller");
-        console.log("ID: " + id);
-
         passwordResponse = await axios.get(
-          `http://${currentIP}:8081/seller/getPassword/${id}`
+          `http://${currentIP}:8081/seller/getPassword/${sellerIdResponse.data.id}`
         );
       }
 

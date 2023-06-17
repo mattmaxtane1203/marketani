@@ -70,6 +70,7 @@ const Register = ({ navigation }) => {
       setErrorMessage(teleponError);
       return;
     }
+
     // Check if phone number exists in database
     try {
       const customerIdResponse = await axios.get(
@@ -91,6 +92,7 @@ const Register = ({ navigation }) => {
       console.log(error);
     }
 
+    // Validate inputted credentials
     const namaError = RegisterValidation.nameIsValid(namaLengkap);
     if (namaError) {
       setErrorMessage(namaError);
@@ -114,6 +116,7 @@ const Register = ({ navigation }) => {
 
     console.log("Form Validity: " + formIsValid);
 
+    // Post Registration Form
     if (formIsValid) {
       try {
         const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
@@ -128,6 +131,7 @@ const Register = ({ navigation }) => {
 
         console.log(response.data);
 
+        // Navigate
         if (userRole === "Pelanggan") {
           navigation.navigate("User Home");
         } else {

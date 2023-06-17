@@ -24,14 +24,7 @@ import Register from "./src/screens/prelogin/Register";
 
 // Tools
 import { Provider } from "react-redux";
-import { userReducer } from "./src/redux/reducers/userReducer";
-import { configureStore } from "@reduxjs/toolkit";
-
-const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-});
+import store from "./src/redux/store";
 
 export default function App() {
   return (

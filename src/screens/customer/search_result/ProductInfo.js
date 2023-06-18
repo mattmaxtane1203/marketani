@@ -6,6 +6,7 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import Icons from "../../../constants/Icons";
@@ -32,13 +33,16 @@ const currentIP = "192.168.18.6";
 // Bima IP
 // const currentIP = "192.168.0.100";
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 const ProductInfo = ({ navigation }) => {
   const route = useRoute();
   const { productId } = route.params;
 
+  const { addToCart, removeFromCart, cartItems } = useContext(CartContext);
   const [product, setProduct] = useState([]);
-  const [isBoxVisible, setIsBoxVisible] = useState(false);
-  const { productCount } = useContext(CartContext);
+  const [quantity, setQuantity] = useState(0);
 
   const fetchProduct = async () => {
     try {
@@ -46,7 +50,6 @@ const ProductInfo = ({ navigation }) => {
         `http://${currentIP}:8081/product/getProduct/${productId}`
       );
       setProduct(response.data.product);
-      // console.log(product.nama_produk);
     } catch (error) {
       console.error("Error occurred while fetching product:", error.message);
     }
@@ -56,24 +59,43 @@ const ProductInfo = ({ navigation }) => {
     fetchProduct();
   }, [productId, navigation]);
 
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       // Clean up the effect when the screen loses focus
-  //       setProduct([]);
-  //     };
-  //   }, [])
-  // );
-
-  const handleButtonPress = () => {
-    setIsBoxVisible(!isBoxVisible);
+  // Handle adding the current product to the cart
+  const handleAddToCart = () => {
+    addToCart(productId, 1, product.sellerId); // Add the product to the cart with a quantity of 1
+    setQuantity(1); // Set the quantity to 1
   };
 
-  console.log("Product being Viewed: " + productId);
+  // Handle removing the current product from the cart
+  const handleRemoveFromCart = () => {
+    removeFromCart(productId); // Remove the product from the cart
+    setQuantity(0); // Set the quantity to 0
+  };
+
+  // Handle increasing the quantity of the current product in the cart
+  const handleIncreaseQuantity = () => {
+    const newQuantity = quantity + 1;
+    if (newQuantity <= product.stok) {
+      addToCart(productId, 1, product.sellerId);
+      setQuantity(newQuantity);
+      console.log(`Quantity increased to ${newQuantity}`);
+    } else {
+      Alert.alert("Stok tidak cukup");
+    }
+  };
+
+  // Handle decreasing the quantity of the current product in the cart
+  const handleDecreaseQuantity = () => {
+    if (quantity === 1) {
+      handleRemoveFromCart(); // If the quantity is 1, remove the product from the cart
+    } else {
+      addToCart(productId, -1, product.sellerId); // Decrease the quantity of the product in the cart by 1
+      setQuantity(quantity - 1); // Update the quantity state
+      console.log(`Quantity decreased to ${quantity - 1}`);
+    }
+  };
+
+  // Check if the current product is already in the cart
+  const isInCart = cartItems.some((item) => item.productId === productId);
 
   return (
     <View style={ProductInfoStyle.background}>
@@ -155,31 +177,29 @@ const ProductInfo = ({ navigation }) => {
               />
             </View>
           </View>
+
+          {isInCart ? ( // Render plus/minus buttons and quantity if the product is in the cart
+            <View style={ProductInfoStyle.stickyButtonContainer}>
+              <TouchableOpacity onPress={handleDecreaseQuantity}>
+                <Text style={ProductInfoStyle.textStyle1}>-</Text>
+              </TouchableOpacity>
+              <View style={ProductInfoStyle.totalProduct}>
+                <Text style={ProductInfoStyle.textStyle2}>{quantity}</Text>
+              </View>
+              <TouchableOpacity onPress={handleIncreaseQuantity}>
+                <Text style={ProductInfoStyle.textStyle1}>+</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={ProductInfoStyle.stickyButtonContainer}
+              onPress={handleAddToCart}
+            >
+              <Text style={ProductInfoStyle.text}>Add to Cart</Text>
+            </TouchableOpacity>
+          )}
         </ScrollView>
       </SafeAreaView>
-      {isBoxVisible && (
-        <TouchableOpacity onPress={() => navigation.navigate()}>
-          <View style={ProductInfoStyle.productInCart}>
-            <View style={ProductInfoStyle.totalProduct}>
-              <Text style={ProductInfoStyle.textStyle1}>Total</Text>
-              <Text style={ProductInfoStyle.textStyle2}>
-                {productCount} Produk
-              </Text>
-            </View>
-            <View style={ProductInfoStyle.totalPrice}>
-              <Text style={ProductInfoStyle.textStyle2}>
-                Rp{numeral(productCount * 15000).format("0,0")}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )}
-      <View style={ProductInfoStyle.footerContainer}>
-        <ChatAndCartFooter
-          onPress1={() => navigation.navigate("Chat Seller")}
-          onPress2={handleButtonPress}
-        />
-      </View>
     </View>
   );
 };
@@ -188,7 +208,25 @@ const ProductInfoStyle = StyleSheet.create({
   background: {
     backgroundColor: "#F5F5F5",
     flex: 1,
-    paddingBottom: 190,
+    paddingBottom: screenHeight * 0.135,
+  },
+
+  scrollViewContent: {
+    paddingBottom: screenHeight * 0.135,
+  },
+
+  stickyButtonContainer: {
+    backgroundColor: "#FFB800",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 
   footerContainer: {
@@ -223,90 +261,118 @@ const ProductInfoStyle = StyleSheet.create({
 
   filter: {
     fontSize: 16,
-    color: "#48BD5B",
-    fontWeight: "500",
+    color: "#009BB9",
   },
 
   shopContainer: {
-    marginTop: 10,
+    marginTop: 20,
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    paddingTop: 10,
+    borderTopColor: "#CFCFCF",
+    borderTopWidth: 0.5,
   },
 
   productDescription: {
-    marginVertical: 10,
-  },
-
-  productReview: {
-    display: "flex",
+    marginTop: 20,
     backgroundColor: "white",
-    marginBottom: 200,
-  },
-
-  reviewHeader: {
-    display: "flex",
-    flexDirection: "column",
     paddingHorizontal: 20,
-    marginTop: 10,
     paddingBottom: 20,
-    gap: 5,
+    borderTopColor: "#CFCFCF",
+    borderTopWidth: 0.5,
     borderBottomColor: "#CFCFCF",
     borderBottomWidth: 0.5,
   },
 
-  titleReview: {
-    fontSize: 16,
+  productReview: {
+    marginTop: 20,
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    borderTopColor: "#CFCFCF",
+    borderTopWidth: 0.5,
   },
 
-  border: {
-    display: "flex",
-    flexDirection: "row",
-  },
-
-  totalReview: {
-    fontSize: 12,
-    color: "white",
-    backgroundColor: "#0194D4",
-    paddingHorizontal: 10,
-    borderRadius: 30,
-  },
-
-  userReview: {
-    display: "flex",
-  },
-
-  productInCart: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    marginBottom: 23,
+  reviewHeader: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#48BD5B",
-    marginHorizontal: 15,
-    paddingHorizontal: 25,
-    paddingVertical: 7,
-    borderRadius: 30,
+    marginBottom: 10,
+  },
+
+  titleReview: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000000",
+  },
+
+  border: {
+    borderRadius: 10,
+    backgroundColor: "#CFCFCF",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+
+  totalReview: {
+    fontSize: 12,
+    color: "#000000",
+  },
+
+  userReview: {
+    marginTop: 10,
+  },
+
+  productInCart: {
+    backgroundColor: "#FFB800",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 
   totalProduct: {
     display: "flex",
-    flexDirection: "column",
-  },
-
-  totalPrice: {
-    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   textStyle1: {
-    fontSize: 14,
     color: "white",
+    fontSize: 20,
+    paddingHorizontal: 10,
   },
 
   textStyle2: {
-    fontSize: 16,
     color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingHorizontal: 10,
+  },
+
+  cartButton: {
+    backgroundColor: "#FFB800",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+
+  text: {
+    color: "white",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

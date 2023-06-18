@@ -1,26 +1,42 @@
-import {
-    ScrollView,
-    Text,
-    StyleSheet,
-    View,
-    Image,
-    SafeAreaView,
-    TouchableOpacity
-  } from "react-native";
-  import React, {useState} from 'react';
-  import {createContext} from 'react';
+import React, { useState, createContext } from "react";
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-    const [productCount, setProductCount] = useState(1);
+  const [cartItems, setCartItems] = useState([]);
 
-    return(
-        <CartContext.Provider value={{productCount, setProductCount}}>
-            {children}
-        </CartContext.Provider>
-    )
-}
+  const addToCart = (productId, quantity, sellerId) => {
+    const existingItemIndex = cartItems.findIndex(
+      (item) => item.productId === productId
+    );
+
+    if (existingItemIndex !== -1) {
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex].quantity += quantity;
+      setCartItems(updatedCartItems);
+    } else {
+      const newItem = {
+        productId,
+        quantity,
+        sellerId,
+      };
+
+      setCartItems((prevItems) => [...prevItems, newItem]);
+    }
+  };
+
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.productId !== productId)
+    );
+  };
+
+  return (
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
 export default CartProvider;
-export {CartContext};
+export { CartContext };

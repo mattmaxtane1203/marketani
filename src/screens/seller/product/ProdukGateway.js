@@ -9,7 +9,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Produk from "./Produk";
 import TambahProduk from "./TambahProduk";
 import Diskon from "./Diskon";
-import TagProduk from "./TagProduk";
 import UbahProduk from "./UbahProduk";
 import DaftarUlasan from "./DaftarUlasan";
 
@@ -26,7 +25,6 @@ const ProdukGateway = () => {
       <Stack.Screen name="Tambah Produk" component={TambahProduk} />
       <Stack.Screen name="Ubah Produk" component={UbahProduk} />
       <Stack.Screen name="Ulasan" component={DaftarUlasan} />
-      <Stack.Screen name="Tag Produk" component={TagProduk} />
       <Stack.Screen name="Beri Diskon" component={Diskon} />
     </Stack.Navigator>
   );

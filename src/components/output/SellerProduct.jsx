@@ -60,13 +60,12 @@ const SellerProduct = ({
 const styles = StyleSheet.create({
   container: {
     width: 0.85 * screenWidth,
-    height: 0.15 * screenHeight,
+    height: 0.17 * screenHeight,
     borderWidth: 1,
     borderColor: "#DEDEDE",
     borderRadius: 10,
     margin: 10,
     padding: 10,
-
     flexDirection: "row",
     justifyContent: "space-between",
   },

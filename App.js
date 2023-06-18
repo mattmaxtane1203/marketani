@@ -1,3 +1,4 @@
+// Pages
 import Wishlist from "./src/screens/customer/wishlist/Wishlist";
 import WishlistGateway from "./src/screens/customer/wishlist/WishlistGateway";
 import { StatusBar } from "expo-status-bar";
@@ -23,15 +24,20 @@ import Register from "./src/screens/prelogin/Register";
 import CartGateway from "./src/screens/customer/cart/CartGateway";
 import CartPage from "./src/screens/customer/cart/CartPage";
 
+// Tools
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
       {/* <PreloginGateway /> */}
       {/* <Register /> */}
 
       {/* User-related Menus */}
-      {/* <UserMenuGateway /> */}
-      <CartPage/>
+      <UserMenuGateway />
+      {/* <CartPage/> */}
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
       {/* <TransactionGateway /> */}
@@ -45,6 +51,7 @@ export default function App() {
       {/* <PesananGateway /> */}
       {/* <SearchResultGateway/> */}
       {/* <HalamanTokoGateway/> */}
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }

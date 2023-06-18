@@ -21,6 +21,7 @@
     "@react-navigation/material-bottom-tabs": "^6.2.15",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "deprecated-react-native-prop-types": "^4.1.0",
     "expo": "~48.0.15",
@@ -35,6 +36,7 @@
     "react-native-date-picker": "^4.2.13",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-elements": "^3.4.3",
+    "react-native-image-picker": "^5.4.2",
     "react-native-modal-datetime-picker": "^15.0.1",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-numeric-input": "^1.9.1",
@@ -49,7 +51,10 @@
     "react-native-tab-view": "^3.5.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10",
-    "expo-checkbox": "~2.3.1"
+    "expo-checkbox": "~2.3.1",
+    "react-redux": "^8.1.0",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

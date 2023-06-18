@@ -16,14 +16,23 @@ import SubtitleButton from "../../components/button/SubtitleButton";
 import { RegisterValidation } from "../../utils/RegisterValidation";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/actions/userActions";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 // ! Change this according to the IP address of your machine
+// Matthew IP
 const currentIP = "192.168.18.6";
+
+// // Glennix IP
+// const currentIP = "192.168.0.158";
+
+// // Bima IP
+// const currentIP = "192.168.0.100";
+
 // const currentIP = "172.20.10.2";
-// const currentIP = null;
 
 const Register = ({ navigation }) => {
   const [activeTextInput, setActiveTextInput] = useState(null);
@@ -35,6 +44,8 @@ const Register = ({ navigation }) => {
   const [kataSandiKonfirmasi, setKataSandiKonfirmasi] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
   const [userRole, setUserRole] = useState("Pelanggan");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (errorMessage) {
@@ -70,12 +81,24 @@ const Register = ({ navigation }) => {
       setErrorMessage(teleponError);
       return;
     }
+
+    // Check if phone number exists in database
+    let customerIdResponse = null;
+    let sellerIdResponse = null;
     try {
-      const response = await axios.get(
-        `http://${currentIP}:8081/checkPhoneNumber/${nomorTelepon}`
+      customerIdResponse = await axios.get(
+        `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
       );
 
-      if (response.data.exists) {
+      sellerIdResponse = await axios.get(
+        `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
+      );
+
+      console.log("Customer ID Response: " + customerIdResponse.data.id);
+      console.log("Seller ID Response: " + sellerIdResponse.data.id);
+      console.log();
+
+      if (customerIdResponse.data.id || sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon sudah terdaftar");
         return;
       }
@@ -83,6 +106,7 @@ const Register = ({ navigation }) => {
       console.log(error);
     }
 
+    // Validate inputted credentials
     const namaError = RegisterValidation.nameIsValid(namaLengkap);
     if (namaError) {
       setErrorMessage(namaError);
@@ -106,20 +130,59 @@ const Register = ({ navigation }) => {
 
     console.log("Form Validity: " + formIsValid);
 
+    // Post Registration Form
     if (formIsValid) {
       try {
         const endpoint = userRole === "Pelanggan" ? "/customer" : "/seller";
         const response = await axios.post(
-          `http://${currentIP}:8081${endpoint}`,
+          `http://${currentIP}:8081${endpoint}/register`,
           {
             nomorTelepon,
             namaLengkap,
             kataSandi,
-            userRole,
           }
         );
 
         console.log(response.data);
+
+        if (userRole === "Pelanggan") {
+          customerIdResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getId/${nomorTelepon}`
+          );
+        } else {
+          sellerIdResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getId/${nomorTelepon}`
+          );
+        }
+
+        let userNameResponse = null;
+        if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+          userNameResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getName/${customerIdResponse.data.id}`
+          );
+        } else {
+          userNameResponse = await axios.get(
+            `http://${currentIP}:8081${endpoint}/getName/${sellerIdResponse.data.id}`
+          );
+        }
+
+        console.log("Full Name Response: " + userNameResponse.data.full_name);
+
+        let user = {
+          id: null,
+          name: userNameResponse.data.full_name,
+          role: null,
+        };
+        if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+          user.id = customerIdResponse.data.id;
+          user.role = "Customer";
+        } else {
+          user.id = sellerIdResponse.data.id;
+          user.role = "Seller";
+        }
+        dispatch(setCurrentUser(user));
+
+        // Navigate
         if (userRole === "Pelanggan") {
           navigation.navigate("User Home");
         } else {

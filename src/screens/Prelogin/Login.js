@@ -17,13 +17,26 @@ import PrimaryButton from "../../components/button/PrimaryButton";
 import { RegisterValidation } from "../../utils/RegisterValidation";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
+import {
+  setCurrentUser,
+  setCurrentUserId,
+} from "../../redux/actions/userActions";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 const squareLength = 0.6 * screenWidth;
 
 // ! Change this according to the IP address of your machine
+// Matthew IP
 const currentIP = "192.168.18.6";
+
+// // Glennix IP
+// const currentIP = "192.168.0.158";
+
+// // Bima IP
+// const currentIP = "192.168.0.100";
+
 // const currentIP = "172.20.10.2";
 // const currentIP = null;
 
@@ -36,6 +49,8 @@ const Login = ({ navigation }) => {
   // Information Variables
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [kataSandi, setKataSandi] = useState("");
+
+  const dispatch = useDispatch();
 
   // Behavioural Methods
   useEffect(() => {
@@ -50,10 +65,13 @@ const Login = ({ navigation }) => {
 
   const handleValidation = async () => {
     setErrorMessage("");
+    console.log("NEW LOGIN ATTEMPT");
+    console.log("=================");
 
     // Log credentials
     console.log("Nomor Telepon: " + nomorTelepon);
     console.log("Kata Sandi: " + kataSandi);
+    console.log();
 
     // Validate credentials
     const teleponError = RegisterValidation.nomorTeleponIsValid(nomorTelepon);
@@ -61,54 +79,92 @@ const Login = ({ navigation }) => {
       setErrorMessage(teleponError);
       return;
     }
+
     try {
-      const phoneNumberResponse = await axios.get(
-        `http://${currentIP}:8081/checkPhoneNumber/${nomorTelepon}`
+      // Find phone number in database
+      // ! FIX: Error 404. Possible problem with routing
+
+      console.log("IP address: " + currentIP);
+
+      const customerIdResponse = await axios.get(
+        `http://${currentIP}:8081/customer/getId/${nomorTelepon}`
       );
 
-      console.log(
-        "Phone Number Response: " + phoneNumberResponse.data.phoneNumber
+      const sellerIdResponse = await axios.get(
+        `http://${currentIP}:8081/seller/getId/${nomorTelepon}`
       );
 
-      if (!phoneNumberResponse.data.phoneNumber.length === 0) {
+      // Log ID Responses
+      console.log("Customer ID Response: " + customerIdResponse.data.id);
+      console.log("Seller ID Response: " + sellerIdResponse.data.id);
+      console.log();
+
+      if (!customerIdResponse.data.id && !sellerIdResponse.data.id) {
         setErrorMessage("Nomor telepon tidak terdaftar");
         return;
       }
 
       // Check password
-      const passwordResponse = await axios.get(
-        `http://${currentIP}:8081/checkPassword/${nomorTelepon}/${kataSandi}`
-      );
+      let userFullNameResponse = null;
+      let passwordResponse = null;
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+        userFullNameResponse = await axios.get(
+          `http://${currentIP}:8081/customer/getName/${customerIdResponse.data.id}`
+        );
+        passwordResponse = await axios.get(
+          `http://${currentIP}:8081/customer/getPassword/${customerIdResponse.data.id}`
+        );
+      } else {
+        userFullNameResponse = await axios.get(
+          `http://${currentIP}:8081/seller/getName/${sellerIdResponse.data.id}`
+        );
+        passwordResponse = await axios.get(
+          `http://${currentIP}:8081/seller/getPassword/${sellerIdResponse.data.id}`
+        );
+      }
 
-      if (!passwordResponse.data.valid) {
+      console.log("Full Name: " + userFullNameResponse.data.full_name);
+      console.log("Password: " + passwordResponse.data.password);
+
+      if (passwordResponse.data.password !== kataSandi) {
         setErrorMessage("Kata sandi tidak cocok");
         return;
       }
+      console.log("Password Match");
 
-      // Find user role in Customer
-      let userRoleResponse = await axios.get(
-        `http://${currentIP}:8081/checkIfCustomer/${nomorTelepon}`
-      );
+      // Set global variables
+      let user = {
+        id: null,
+        name: null,
+        role: null,
+      };
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
+        user.id = customerIdResponse.data.id;
+        user.name = userFullNameResponse.data.full_name;
+        user.role = "customer";
+      } else {
+        user.id = sellerIdResponse.data.id;
+        user.name = userFullNameResponse.data.full_name;
+        user.role = "seller";
+      }
+      dispatch(setCurrentUser(user));
 
-      console.log("User Role Response: " + userRoleResponse.data.customerId);
-
-      // If found, empty fields and redirect
+      // Empty fields
       setNomorTelepon("");
       setKataSandi("");
       setErrorMessage("");
-      if (userRoleResponse.data.customerId != null) {
+
+      // Redirect to corresponding pages
+      if (customerIdResponse.data.id && !sellerIdResponse.data.id) {
         navigation.navigate("User Home");
-      } else if (userRoleResponse.data.customerId == null) {
+      } else if (sellerIdResponse.data.id && !customerIdResponse.data.id) {
         navigation.navigate("Seller Home");
       } else {
         console.log("Unexpected Error: User not found");
       }
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        setErrorMessage("Nomor telepon tidak terdaftar");
-      } else {
-        console.error(error);
-      }
+      console.error("Error occurred:", error);
+      setErrorMessage("Error occurred. Please try again.");
     }
   };
 

@@ -7,137 +7,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "marketani",
-});
-
 app.get("/", (req, res) => {
   return res.json("Backend Success");
 });
 
-app.get("/customer", (req, res) => {
-  const sql = "SELECT * FROM customer";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
+const customerRouter = require("./routes/Customer");
+app.use("/customer", customerRouter);
 
-// Register Post Method
-// ! TODO: Separate for Customer and Seller
-app.post("/customer", function (req, res) {
-  const { nomorTelepon, namaLengkap, kataSandi } = req.body;
-  const query =
-    "INSERT INTO Customer (phone_number, full_name, password) VALUES (?, ?, ?)";
-  const values = [nomorTelepon, namaLengkap, kataSandi];
+const sellerRouter = require("./routes/Seller");
+app.use("/seller", sellerRouter);
 
-  db.query(query, values, function (err, result) {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to register the user." });
-    }
-    console.log("User registered with Customer ID: " + result.insertId);
-    res.status(200).json({ message: "User registered successfully." });
-  });
-});
-
-app.post("/seller", function (req, res) {
-  const { nomorTelepon, namaLengkap, kataSandi } = req.body;
-  const query =
-    "INSERT INTO seller (phone_number, full_name, password) VALUES (?, ?, ?)";
-  const values = [nomorTelepon, namaLengkap, kataSandi];
-
-  db.query(query, values, function (err, result) {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to register the user." });
-    }
-    console.log("User registered with Seller ID: " + result.insertId);
-    res.status(200).json({ message: "User registered successfully." });
-  });
-});
-
-// Check Phone Number Exists
-app.get("/checkPhoneNumber/:phoneNumber", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-  const sql =
-    "SELECT phone_number FROM customer WHERE phone_number = ? UNION ALL SELECT phone_number FROM seller WHERE phone_number = ?";
-  const values = [phoneNumber, phoneNumber];
-
-  db.query(sql, values, (err, results) => {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to check phone number." });
-    }
-
-    const phoneNumbers = results.map((result) => result.phone_number);
-    res.status(200).json({ phoneNumber });
-  });
-});
-
-// Check password associated with phone number
-app.get("/checkPassword/:phoneNumber/:password", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-  const password = req.params.password;
-
-  const sql =
-    "SELECT COUNT(*) AS count FROM customer WHERE phone_number = ? AND password = ? UNION ALL SELECT COUNT(*) AS count FROM seller WHERE phone_number = ? AND password = ?";
-  const values = [phoneNumber, password, phoneNumber, password];
-
-  db.query(sql, values, (err, results) => {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to check password." });
-    }
-
-    const customerCount = results[0].count;
-    const sellerCount = results[1].count;
-    const valid = customerCount > 0 || sellerCount > 0;
-    res.status(200).json({ valid });
-  });
-});
-
-// Check user role
-app.get("/checkIfCustomer/:phoneNumber", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-
-  const sql = "SELECT customer_id FROM customer WHERE phone_number = ?";
-  const values = [phoneNumber];
-
-  db.query(sql, values, (err, results) => {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to check user role." });
-    }
-
-    const customerId = results.length > 0 ? results[0].customer_id : null;
-
-    res.status(200).json({ customerId });
-  });
-});
-
-// Check user role
-app.get("/checkIfSeller/:phoneNumber", (req, res) => {
-  const phoneNumber = req.params.phoneNumber;
-
-  const sql = "SELECT COUNT(*) AS count FROM seller WHERE phone_number = ?";
-  const values = [phoneNumber];
-
-  db.query(sql, values, (err, results) => {
-    if (err) {
-      console.error("Error executing the query: " + err.stack);
-      return res.status(500).json({ error: "Failed to check user role." });
-    }
-
-    const sellerCount = results[0].count;
-    const role = sellerCount > 0 ? "seller" : "";
-
-    res.status(200).json({ role });
-  });
-});
+const productRouter = require("./routes/Product");
+app.use("/product", productRouter);
 
 app.listen(port, () => {
   console.log("Listening on port ", port);

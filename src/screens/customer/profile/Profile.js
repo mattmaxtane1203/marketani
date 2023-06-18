@@ -10,6 +10,9 @@ import {
 import Icons from "../../../constants/Icons";
 import LargeIconButton from "../../../components/button/LargeIconButton";
 import PreloginGateway from "../../prelogin/PreloginGateway";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { createIconSetFromFontello } from "react-native-vector-icons";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +29,16 @@ const Profile = () => {
 };
 
 const ProfileMenu = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const currentCustomer = useSelector((state) => state.user.currentUser);
+
   // TODO: Fetch Customer Information on load
   const sampleName = "Matthew Maximillian Tane";
   const sampleLocation = "Jakarta Barat";
+
+  useEffect(() => {
+    console.log(currentCustomer);
+  });
 
   return (
     <SafeAreaView style={styles.container}>

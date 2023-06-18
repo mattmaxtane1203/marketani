@@ -25,6 +25,7 @@ const ProductInformation = ({
   star5,
   placeholderSold,
   placeholderPrice,
+  placeholderBerat,
   productType1,
   productType2,
   productType1Color,
@@ -80,7 +81,7 @@ const ProductInformation = ({
       </View>
       <View style={styles.productPrice}>
         <Text style={styles.textStyle1}>
-          Rp{numeral(placeholderPrice).format("0,0")}
+          Rp{numeral(placeholderPrice).format("0,0")}/{placeholderBerat}g
         </Text>
         <View style={styles.productType}>
           <ProductType

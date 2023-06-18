@@ -95,6 +95,7 @@ const ProductInfo = ({ navigation }) => {
             placeholderName={product.nama_produk}
             placeholderSold={product.amount_sold}
             placeholderPrice={product.harga_per_pesanan}
+            placeholderBerat={product.berat_per_pesanan}
             productType1={product.metode_pengembangan}
             productType1Color={"#EE1B1B"}
             productType2={product.asal_produk}

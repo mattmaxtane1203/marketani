@@ -16,6 +16,7 @@ import KategoriSatu from "./KategoriSatu";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
+import numeral from "numeral";
 
 // TODO: Fix scrolling
 
@@ -91,7 +92,7 @@ function Home({ navigation }) {
                 <ProductCard
                   key={product.product_id}
                   title={product.nama_produk}
-                  price={`Rp ${product.harga_per_pesanan}0,00`}
+                  price={"Rp " + numeral(product.harga_per_pesanan).format("0,0")}
                   discountPrice="Rp2.000"
                   onPress={() =>
                     navigation.navigate("Produk", {

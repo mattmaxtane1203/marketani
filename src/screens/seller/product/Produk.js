@@ -16,11 +16,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 
 // ! Change this according to the IP address of your machine
-// // Matthew IP
-// const currentIP = "192.168.18.6";
+// Matthew IP
+const currentIP = "192.168.18.6";
 
-// Glennix IP
-const currentIP = "192.168.0.158";
+// // Glennix IP
+// const currentIP = "192.168.0.158";
 
 // // Bima IP
 // const currentIP = "192.168.0.100";

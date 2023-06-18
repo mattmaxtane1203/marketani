@@ -11,53 +11,56 @@ import Profile from "./profile/Profile";
 import ChatGateway from "../seller/chat/ChatGateway";
 import HomeGateway from "./home/HomeGateway";
 import PreloginGateway from "../prelogin/PreloginGateway";
+import CartProvider from "../../contexts/CartContext";
 
 const Tab = createBottomTabNavigator();
 
 const UserMenuGateway = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{ headerShown: false, tabBarActiveTintColor: "#46B244" }}
-      barStyle={{ backgroundColor: "#ffff", marginBottom: -25 }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeGateway}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={23} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Wishlist"
-        component={WishlistScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="favorite" size={23} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Transactions"
-        component={TransactionGateway}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="newspaper-sharp" size={23} color={color} />
-          ),
-        }}
-      />
+    <CartProvider>
+      <Tab.Navigator
+        screenOptions={{ headerShown: false, tabBarActiveTintColor: "#46B244" }}
+        barStyle={{ backgroundColor: "#ffff", marginBottom: -25 }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeGateway}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={23} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Wishlist"
+          component={WishlistScreen}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons name="favorite" size={23} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Transactions"
+          component={TransactionGateway}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="newspaper-sharp" size={23} color={color} />
+            ),
+          }}
+        />
 
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={23} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="account" color={color} size={23} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </CartProvider>
   );
 };
 

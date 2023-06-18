@@ -30,11 +30,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <PreloginGateway />
+        {/* <PreloginGateway /> */}
         {/* <Register /> */}
 
         {/* User-related Menus */}
-        {/* <UserMenuGateway /> */}
+        <UserMenuGateway />
         {/* <HomeScreen /> */}
         {/* <WishlistGateway /> */}
         {/* <TransactionGateway /> */}

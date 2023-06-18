@@ -17,17 +17,11 @@ import {
 } from "native-base";
 import HomeHeader from "./HomeHeader";
 import HomeProducts from "./HomeProducts";
-import ProductSatu from "./ProductSatu";
-import ProductDua from "./ProductDua";
-import ProductTiga from "./ProductTiga";
-import ProductEmpat from "./ProductEmpat";
-import ProductLima from "./ProductLima";
+import ProductCard from "../../../components/output/ProductCard";
 import KategoriSatu from "./KategoriSatu";
-import KategoriDua from "./KategoriDua";
-import KategoriTiga from "./KategoriTiga";
-import KategoriEmpat from "./KategoriEmpat";
-import KategoriLima from "./KategoriLima";
 import { useSelector } from "react-redux";
+
+// TODO: Fix scrolling
 
 const newColorTheme = {
   brand: {
@@ -55,10 +49,10 @@ function Home({ navigation }) {
         />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <KategoriSatu text="Sayur" />
-          <KategoriDua text="Buah" />
-          <KategoriTiga text="Bumbu" />
-          <KategoriEmpat text="Pokok" />
-          <KategoriLima text="Kacang" />
+          <KategoriSatu text="Sayur" />
+          <KategoriSatu text="Sayur" />
+          <KategoriSatu text="Sayur" />
+          <KategoriSatu text="Sayur" />
         </ScrollView>
       </Box>
     );
@@ -71,70 +65,68 @@ function Home({ navigation }) {
         <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
           <Boxes />
           <Box mt={5}>
-            <Heading style={styles.subTitleDua}>
-              Diskon Spesial Hari ini
+            <Heading style={styles.subTitleDua}>Shop: Sayur Segar</Heading>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
+              />
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
+              />
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
+              />
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
+              />
+            </ScrollView>
+          </Box>
+          <Box>
+            <Heading style={styles.subTitle}>
+              Shop: Insert Store Name Here
             </Heading>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ProductSatu
+              <ProductCard
                 title="Wortel (1 kg)"
                 price="Rp15.000"
                 discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
               />
-              <ProductDua
-                title="Nanas (500 gr)"
-                price="Rp20.000"
-                discountPrice="Rp15.000"
-              />
-              <ProductTiga
-                title="Cabai (500 gr)"
-                price="25.000"
-                discountPrice="17.000"
-              />
-              <ProductEmpat
-                title="Jeruk (1 kg)"
-                price="Rp50.000"
-                discountPrice="Rp25.000"
-              />
-              <ProductLima
-                title="Beras (1 kg)"
-                price="Rp25.000"
-                discountPrice="Rp15.000"
-              />
-            </ScrollView>
-          </Box>
-          <Box>
-            <Heading style={styles.subTitle}>Sedang Populer</Heading>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <ProductSatu
+              <ProductCard
                 title="Wortel (1 kg)"
                 price="Rp15.000"
                 discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
               />
-              <ProductDua
-                title="Nanas (500 gr)"
-                price="Rp20.000"
-                discountPrice="Rp15.000"
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
               />
-              <ProductTiga
-                title="Cabai (500 gr)"
-                price="25.000"
-                discountPrice="17.000"
-              />
-              <ProductEmpat
-                title="Jeruk (1 kg)"
-                price="Rp50.000"
-                discountPrice="Rp25.000"
-              />
-              <ProductLima
-                title="Beras (1 kg)"
-                price="Rp25.000"
-                discountPrice="Rp15.000"
+              <ProductCard
+                title="Wortel (1 kg)"
+                price="Rp15.000"
+                discountPrice="Rp12.000"
+                onPress={() => navigation.navigate("Produk")}
               />
             </ScrollView>
           </Box>

@@ -30,11 +30,11 @@ const newColorTheme = {
 
 const theme = extendTheme({ colors: newColorTheme });
 
-// // Matthew IP
-// const currentIP = "192.168.18.6";
+// Matthew IP
+const currentIP = "192.168.18.6";
 
-// Glennix IP
-const currentIP = "192.168.0.158";
+// // Glennix IP
+// const currentIP = "192.168.0.158";
 
 // // Bima IP
 // const currentIP = "192.168.0.100";
@@ -53,9 +53,10 @@ function Home({ navigation }) {
       console.log("Error fetching products:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchProducts();
+    console.log("Current User: " + currentCustomer.id);
   }, []);
 
   const Boxes = () => {
@@ -92,7 +93,9 @@ function Home({ navigation }) {
                 <ProductCard
                   key={product.product_id}
                   title={product.nama_produk}
-                  price={"Rp " + numeral(product.harga_per_pesanan).format("0,0")}
+                  price={
+                    "Rp " + numeral(product.harga_per_pesanan).format("0,0")
+                  }
                   discountPrice="Rp2.000"
                   onPress={() =>
                     navigation.navigate("Produk", {

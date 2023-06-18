@@ -23,13 +23,13 @@ import { useFocusEffect, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect } from "react";
 
-// // Matthew IP
-// const currentIP = "192.168.18.6";
+// Matthew IP
+const currentIP = "192.168.18.6";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
-// // Bima IP
+// Bima IP
 // const currentIP = "192.168.0.100";
 
 const ProductInfo = ({ navigation }) => {
@@ -48,26 +48,26 @@ const ProductInfo = ({ navigation }) => {
       setProduct(response.data.product);
       // console.log(product.nama_produk);
     } catch (error) {
-      console.error('Error occurred while fetching product:', error.message);
+      console.error("Error occurred while fetching product:", error.message);
     }
   };
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [productId, navigation]);
 
   useEffect(() => {
     console.log(product);
   }, [product]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        // Clean up the effect when the screen loses focus
-        setProduct([]);
-      };
-    }, [])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     return () => {
+  //       // Clean up the effect when the screen loses focus
+  //       setProduct([]);
+  //     };
+  //   }, [])
+  // );
 
   const handleButtonPress = () => {
     setIsBoxVisible(!isBoxVisible);
@@ -122,11 +122,7 @@ const ProductInfo = ({ navigation }) => {
           </View>
 
           <View style={ProductInfoStyle.productDescription}>
-            <ProductDescription
-              placeholderDescription={
-                product.deskripsi
-              }
-            />
+            <ProductDescription placeholderDescription={product.deskripsi} />
           </View>
 
           <View style={ProductInfoStyle.productReview}>

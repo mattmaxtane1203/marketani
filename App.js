@@ -32,25 +32,25 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-      {/* <PreloginGateway /> */}
-      {/* <Register /> */}
+        <PreloginGateway />
+        {/* <Register /> */}
 
-      {/* User-related Menus */}
-      <UserMenuGateway />
-      {/* <CartPage/> */}
-      {/* <HomeScreen /> */}
-      {/* <WishlistGateway /> */}
-      {/* <TransactionGateway /> */}
-      {/* <CartGateway/> */}
-      {/* Seller-related Menus */}
-      {/* <SellerMainMenu /> */}
-      {/* <ProdukGateway /> */}
-      {/* <UlasanGateway /> */}
-      {/* <ChatGateway /> */}
-      {/* <PusatBantuanGateway /> */}
-      {/* <PesananGateway /> */}
-      {/* <SearchResultGateway/> */}
-      {/* <HalamanTokoGateway/> */}
+        {/* User-related Menus */}
+        {/* <UserMenuGateway /> */}
+        {/* <CartPage/> */}
+        {/* <HomeScreen /> */}
+        {/* <WishlistGateway /> */}
+        {/* <TransactionGateway /> */}
+        {/* <CartGateway/> */}
+        {/* Seller-related Menus */}
+        {/* <SellerMainMenu /> */}
+        {/* <ProdukGateway /> */}
+        {/* <UlasanGateway /> */}
+        {/* <ChatGateway /> */}
+        {/* <PusatBantuanGateway /> */}
+        {/* <PesananGateway /> */}
+        {/* <SearchResultGateway/> */}
+        {/* <HalamanTokoGateway/> */}
       </NavigationContainer>
     </Provider>
   );

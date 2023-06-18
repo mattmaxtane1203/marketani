@@ -21,12 +21,13 @@ import { CartContext } from "../../../contexts/CartContext";
 import numeral from "numeral";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import axios from "axios";
+import { useEffect } from "react";
 
-// Matthew IP
-const currentIP = "192.168.18.6";
+// // Matthew IP
+// const currentIP = "192.168.18.6";
 
-// // Glennix IP
-// const currentIP = "192.168.0.158";
+// Glennix IP
+const currentIP = "192.168.0.158";
 
 // // Bima IP
 // const currentIP = "192.168.0.100";
@@ -35,7 +36,7 @@ const ProductInfo = ({ navigation }) => {
   const route = useRoute();
   const { productId } = route.params;
 
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState([]);
   const [isBoxVisible, setIsBoxVisible] = useState(false);
   const { productCount } = useContext(CartContext);
 
@@ -45,9 +46,28 @@ const ProductInfo = ({ navigation }) => {
         `http://${currentIP}:8081/product/getProduct/${productId}`
       );
       setProduct(response.data.product);
-      console.log(product);
-    } catch (error) {}
+      // console.log(product.nama_produk);
+    } catch (error) {
+      console.error('Error occurred while fetching product:', error.message);
+    }
   };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        // Clean up the effect when the screen loses focus
+        setProduct([]);
+      };
+    }, [])
+  );
 
   const handleButtonPress = () => {
     setIsBoxVisible(!isBoxVisible);
@@ -72,12 +92,12 @@ const ProductInfo = ({ navigation }) => {
         <ScrollView stickyHeaderIndices={[]}>
           <ProductInformation
             productImage={Images.tomatHijau}
-            placeholderName={"Tomat Hijau (500gr)"}
-            placeholderSold={"5 rb+ terjual"}
-            placeholderPrice={15000}
-            productType1={"Konvensional"}
+            placeholderName={product.nama_produk}
+            placeholderSold={product.amount_sold}
+            placeholderPrice={product.harga_per_pesanan}
+            productType1={product.metode_pengembangan}
             productType1Color={"#EE1B1B"}
-            productType2={"Import"}
+            productType2={product.asal_produk}
             productType2Color={"#FFB800"}
             star1={Icons.starFull}
             star2={Icons.starFull}
@@ -103,7 +123,7 @@ const ProductInfo = ({ navigation }) => {
           <View style={ProductInfoStyle.productDescription}>
             <ProductDescription
               placeholderDescription={
-                "Sayur Tomat Hijau memiliki kandungan zat gizi yang sama baiknya dengan tomat merah. Didatangkan dalam keadaan fresh dari tangan petani lokal. Dipanen diwaktu yang tepat dan disimpan dengan standart penjagaan mutu yang baik. Siap untuk diolah menjadi jus atau sebagai campuran sambal."
+                product.deskripsi
               }
             />
           </View>

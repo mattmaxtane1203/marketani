@@ -25,13 +25,16 @@ import axios from "axios";
 import { useEffect } from "react";
 
 // Matthew IP
-const currentIP = "192.168.18.6";
+// const currentIP = "192.168.18.6";
 
 // Glennix IP
 // const currentIP = "192.168.0.158";
 
 // Bima IP
 // const currentIP = "192.168.0.100";
+
+// Nadia IP
+const currentIP = "192.168.0.103";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -177,29 +180,39 @@ const ProductInfo = ({ navigation }) => {
               />
             </View>
           </View>
-
-          {isInCart ? ( // Render plus/minus buttons and quantity if the product is in the cart
-            <View style={ProductInfoStyle.stickyButtonContainer}>
+        </ScrollView>
+      </SafeAreaView>
+      {isInCart ? ( // Render plus/minus buttons and quantity if the product is in the cart
+            <View style={ProductInfoStyle.stickyButtonContainer2}>
               <TouchableOpacity onPress={handleDecreaseQuantity}>
+                <View style={ProductInfoStyle.border}>
                 <Text style={ProductInfoStyle.textStyle1}>-</Text>
+                </View>
               </TouchableOpacity>
               <View style={ProductInfoStyle.totalProduct}>
                 <Text style={ProductInfoStyle.textStyle2}>{quantity}</Text>
               </View>
               <TouchableOpacity onPress={handleIncreaseQuantity}>
+                <View style={ProductInfoStyle.border}>
                 <Text style={ProductInfoStyle.textStyle1}>+</Text>
+                </View>
               </TouchableOpacity>
             </View>
           ) : (
-            <TouchableOpacity
-              style={ProductInfoStyle.stickyButtonContainer}
-              onPress={handleAddToCart}
-            >
-              <Text style={ProductInfoStyle.text}>Add to Cart</Text>
-            </TouchableOpacity>
+            <View style={ProductInfoStyle.stickyButtonContainer}>
+              <TouchableOpacity>
+              <View style={ProductInfoStyle.chatContainer}>
+                  <Image source={Icons.chatSeller} style={ProductInfoStyle.iconChat}></Image>
+              </View>
+              </TouchableOpacity>
+              
+              <TouchableOpacity onPress={handleAddToCart}>
+                <View style={ProductInfoStyle.keranjangContainer}>
+                  <Text style={ProductInfoStyle.text}>+ Keranjang</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           )}
-        </ScrollView>
-      </SafeAreaView>
     </View>
   );
 };
@@ -215,21 +228,9 @@ const ProductInfoStyle = StyleSheet.create({
     paddingBottom: screenHeight * 0.135,
   },
 
-  stickyButtonContainer: {
-    backgroundColor: "#FFB800",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+  footerContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-
-  footerContainer: {
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -265,64 +266,52 @@ const ProductInfoStyle = StyleSheet.create({
   },
 
   shopContainer: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    paddingTop: 10,
-    borderTopColor: "#CFCFCF",
-    borderTopWidth: 0.5,
   },
 
   productDescription: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    borderTopColor: "#CFCFCF",
-    borderTopWidth: 0.5,
-    borderBottomColor: "#CFCFCF",
-    borderBottomWidth: 0.5,
+    paddingBottom: 20
   },
 
   productReview: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    borderTopColor: "#CFCFCF",
-    borderTopWidth: 0.5,
+    marginBottom: 200
   },
 
-  reviewHeader: {
+  reviewHeader:{
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-  },
+    flexDirection: "column",
+    paddingHorizontal: 20,
+    marginTop: 10,
+    paddingBottom: 20,
+    gap: 5,
+    borderBottomColor: "#CFCFCF",
+    borderBottomWidth: 0.5,
+},
 
   titleReview: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#000000",
+
   },
 
-  border: {
-    borderRadius: 10,
-    backgroundColor: "#CFCFCF",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-
-  totalReview: {
+  border:{
+    display: "flex",
+    flexDirection: "row"
+},
+totalReview:{
     fontSize: 12,
-    color: "#000000",
-  },
-
-  userReview: {
-    marginTop: 10,
-  },
+    color: "white",
+    backgroundColor: '#0194D4',
+    paddingHorizontal: 10,
+    borderRadius: 30
+},
+userReview:{
+    display: "flex"
+},
 
   productInCart: {
     backgroundColor: "#FFB800",
@@ -345,14 +334,14 @@ const ProductInfoStyle = StyleSheet.create({
   },
 
   textStyle1: {
-    color: "white",
-    fontSize: 20,
+    color: "#48BD5B",
+    fontSize: 30,
     paddingHorizontal: 10,
   },
 
   textStyle2: {
-    color: "white",
-    fontSize: 16,
+    color: "black",
+    fontSize: 20,
     fontWeight: "bold",
     paddingHorizontal: 10,
   },
@@ -370,11 +359,74 @@ const ProductInfoStyle = StyleSheet.create({
     right: 0,
   },
 
-  text: {
+  text:{
+    fontSize: 18,
+    fontWeight: "500",
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
   },
+
+  iconChat:{
+    width: 35,
+    height: 35,
+    marginHorizontal: 45,
+    marginVertical: 15,
+  },
+
+  chatContainer:{
+    display: "flex",
+    borderRightColor: "#48BD5B",
+    borderRightWidth: 1,
+  },
+
+  keranjangContainer:{
+    backgroundColor: '#48BD5B',
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 16.5,
+    width: 300
+  },
+
+  stickyButtonContainer: {
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderWidth: 1,
+    borderColor: "#48BD5B",
+    width: "100%"
+  },
+
+  stickyButtonContainer2: {
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderWidth: 1,
+    borderColor: "#48BD5B",
+    width: "100%"
+  },
+
+//   border:{
+//     width: 50,
+//     height: 50,
+//     display: "flex",
+//     alignItems: "center",
+//     borderRadius: 100,
+//     borderWidth: 1,
+//     borderColor: "#48BD5B"
+// },
+
+
 });
 
 export default ProductInfo;

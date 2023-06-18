@@ -31,13 +31,16 @@ const newColorTheme = {
 const theme = extendTheme({ colors: newColorTheme });
 
 // Matthew IP
-const currentIP = "192.168.18.6";
+// const currentIP = "192.168.18.6";
 
 // // Glennix IP
 // const currentIP = "192.168.0.158";
 
 // // Bima IP
 // const currentIP = "192.168.0.100";
+
+// Nadia IP
+const currentIP = "192.168.0.103";
 
 function Home({ navigation }) {
   const currentCustomer = useSelector((state) => state.user.currentUser);

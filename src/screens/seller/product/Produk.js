@@ -17,7 +17,7 @@ import React from "react";
 
 // ! Change this according to the IP address of your machine
 // Matthew IP
-const currentIP = "192.168.18.6";
+// const currentIP = "192.168.18.6";
 
 // // Glennix IP
 // const currentIP = "192.168.0.158";
@@ -27,6 +27,9 @@ const currentIP = "192.168.18.6";
 
 // const currentIP = "172.20.10.2";
 // const currentIP = null;
+
+// Nadia IP
+const currentIP = "192.168.0.103";
 
 const Produk = ({ navigation }) => {
   const [products, setProducts] = useState([]);

@@ -19,14 +19,41 @@ import ProductReview from "../../../components/button/ProductReview";
 import ChatAndCartFooter from "../../../components/button/ChatAndCartFooter";
 import { CartContext } from "../../../contexts/CartContext";
 import numeral from "numeral";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
+import axios from "axios";
+
+// Matthew IP
+const currentIP = "192.168.18.6";
+
+// // Glennix IP
+// const currentIP = "192.168.0.158";
+
+// // Bima IP
+// const currentIP = "192.168.0.100";
 
 const ProductInfo = ({ navigation }) => {
+  const route = useRoute();
+  const { productId } = route.params;
+
+  const [product, setProduct] = useState(null);
   const [isBoxVisible, setIsBoxVisible] = useState(false);
   const { productCount } = useContext(CartContext);
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(
+        `http://${currentIP}:8081/product/getProduct/${productId}`
+      );
+      setProduct(response.data.product);
+      console.log(product);
+    } catch (error) {}
+  };
 
   const handleButtonPress = () => {
     setIsBoxVisible(!isBoxVisible);
   };
+
+  console.log("Product being Viewed: " + productId);
 
   return (
     <View style={ProductInfoStyle.background}>

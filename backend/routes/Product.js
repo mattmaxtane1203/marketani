@@ -48,7 +48,29 @@ router.post("/insert", (req, res) => {
   );
 });
 
+// Get product associated with product ID
+router.get("/getProduct/:productId", function (req, res) {
+  const productId = req.params.productId;
 
+  const query = "SELECT * FROM product WHERE product_id = ?";
+  const values = [productId];
+
+  connection.query(query, values, function (err, results) {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res.status(500).json({ error: "Failed to fetch the product." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    const product = results[0];
+    res.status(200).json({ product });
+  });
+});
+
+// Get all products associated with seller ID
 router.get("/getAllProducts/:sellerId", function (req, res) {
   const sellerId = req.params.sellerId;
 
@@ -64,6 +86,5 @@ router.get("/getAllProducts/:sellerId", function (req, res) {
     res.status(200).json({ products: results });
   });
 });
-
 
 module.exports = router;

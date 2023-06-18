@@ -42,17 +42,6 @@ function Home({ navigation }) {
   const currentCustomer = useSelector((state) => state.user.currentUser);
   const [products, setProducts] = useState([]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchProducts();
-
-      return () => {
-        // Clean up the effect when the screen loses focus
-        setProducts([]);
-      };
-    }, [])
-  );
-
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
@@ -100,7 +89,11 @@ function Home({ navigation }) {
                   title={product.nama_produk}
                   price={`Rp ${product.harga_per_pesanan}0,00`}
                   discountPrice="Rp2.000"
-                  onPress={() => navigation.navigate("Produk")}
+                  onPress={() =>
+                    navigation.navigate("Produk", {
+                      productId: product.product_id,
+                    })
+                  }
                 />
               ))}
             </ScrollView>

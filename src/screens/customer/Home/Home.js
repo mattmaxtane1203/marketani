@@ -5,21 +5,17 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  ScrollView,
   HStack,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import {
-  extendTheme,
-  Box,
-  NativeBaseProvider,
-  ScrollView,
-  Heading,
-} from "native-base";
+import { extendTheme, Box, NativeBaseProvider, Heading } from "native-base";
 import HomeHeader from "./HomeHeader";
-import HomeProducts from "./HomeProducts";
 import ProductCard from "../../../components/output/ProductCard";
 import KategoriSatu from "./KategoriSatu";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 // TODO: Fix scrolling
 
@@ -33,12 +29,40 @@ const newColorTheme = {
 
 const theme = extendTheme({ colors: newColorTheme });
 
+// Matthew IP
+const currentIP = "192.168.18.6";
+
+// // Glennix IP
+// const currentIP = "192.168.0.158";
+
+// // Bima IP
+// const currentIP = "192.168.0.100";
+
 function Home({ navigation }) {
   const currentCustomer = useSelector((state) => state.user.currentUser);
+  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    console.log(currentCustomer);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchProducts();
+
+      return () => {
+        // Clean up the effect when the screen loses focus
+        setProducts([]);
+      };
+    }, [])
+  );
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        `http://${currentIP}:8081/product/getAllProducts/1`
+      );
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log("Error fetching products:", error);
+    }
+  };
 
   const Boxes = () => {
     return (
@@ -70,30 +94,15 @@ function Home({ navigation }) {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
+              {products.map((product) => (
+                <ProductCard
+                  key={product.product_id}
+                  title={product.nama_produk}
+                  price={`Rp ${product.harga_per_pesanan}0,00`}
+                  discountPrice="Rp2.000"
+                  onPress={() => navigation.navigate("Produk")}
+                />
+              ))}
             </ScrollView>
           </Box>
           <Box>

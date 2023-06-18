@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./home/Home";
-import WishlistScreen from "./wishlist/WishlistGateway";
+import WishlistGateway from "./wishlist/WishlistGateway";
 import TransactionGateway from "./transaction/TransactionGateway";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -11,6 +11,8 @@ import Profile from "./profile/Profile";
 import ChatGateway from "../seller/chat/ChatGateway";
 import HomeGateway from "./home/HomeGateway";
 import PreloginGateway from "../prelogin/PreloginGateway";
+import CartGateway from "./cart/CartGateway";
+import CartPage from "./cart/CartPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,10 +33,19 @@ const UserMenuGateway = () => {
       />
       <Tab.Screen
         name="Wishlist"
-        component={WishlistScreen}
+        component={WishlistGateway}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="favorite" size={23} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={CartPage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="cart" size={23} color={color} />
           ),
         }}
       />
@@ -47,7 +58,6 @@ const UserMenuGateway = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Profile"
         component={Profile}

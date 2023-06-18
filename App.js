@@ -20,19 +20,22 @@ import UserMenuGateway from "./src/screens/customer/UserMenuGateway";
 import SearchResultGateway from "./src/screens/customer/search_result/SearchResultGateway";
 import HalamanTokoGateway from "./src/screens/customer/halaman_toko/HalamanTokoGateway";
 import Register from "./src/screens/prelogin/Register";
+import CartGateway from "./src/screens/customer/cart/CartGateway";
+import CartPage from "./src/screens/customer/cart/CartPage";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <PreloginGateway />
+      {/* <PreloginGateway /> */}
       {/* <Register /> */}
 
       {/* User-related Menus */}
       {/* <UserMenuGateway /> */}
+      <CartPage/>
       {/* <HomeScreen /> */}
       {/* <WishlistGateway /> */}
       {/* <TransactionGateway /> */}
-
+      {/* <CartGateway/> */}
       {/* Seller-related Menus */}
       {/* <SellerMainMenu /> */}
       {/* <ProdukGateway /> */}

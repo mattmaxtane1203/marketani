@@ -35,7 +35,7 @@ const UserMenuGateway = () => {
         />
         <Tab.Screen
           name="Wishlist"
-          component={WishlistScreen}
+          component={WishlistGateway}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="favorite" size={23} color={color} />

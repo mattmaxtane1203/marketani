@@ -30,18 +30,22 @@ const squareLength = 0.6 * screenWidth;
 // ! Change this according to the IP address of your machine
 // Matthew IP
 // const currentIP = "192.168.18.6";
+const currentIP = "172.20.10.2";
 
-// // Glennix IP
+// Glennix IP
 // const currentIP = "192.168.0.158";
 
-// // Bima IP
+// Bima IP
 // const currentIP = "192.168.0.100";
 
 // const currentIP = "172.20.10.2";
 // const currentIP = null;
 
 // Nadia IP
-const currentIP = "192.168.0.103";
+// const currentIP = "192.168.0.103";
+
+// Binus IP
+// const currentIP = "10.20.147.108"
 
 // TODO: Find a way to delete text input when logging out
 const Login = ({ navigation }) => {

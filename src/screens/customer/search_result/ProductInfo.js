@@ -23,18 +23,19 @@ import numeral from "numeral";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect } from "react";
+import { Alert } from "native-base";
 
 // Matthew IP
 // const currentIP = "192.168.18.6";
 
 // Glennix IP
-// const currentIP = "192.168.0.158";
+const currentIP = "192.168.0.158";
 
 // Bima IP
 // const currentIP = "192.168.0.100";
 
-// Nadia IP
-const currentIP = "192.168.0.103";
+// // Nadia IP
+// const currentIP = "192.168.0.103";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -64,7 +65,7 @@ const ProductInfo = ({ navigation }) => {
 
   // Handle adding the current product to the cart
   const handleAddToCart = () => {
-    addToCart(productId, 1, product.sellerId); // Add the product to the cart with a quantity of 1
+    addToCart(productId, 1, product.seller_id, product.nama_produk, product.harga_per_pesanan); // Add the product to the cart with a quantity of 1
     setQuantity(1); // Set the quantity to 1
   };
 
@@ -78,7 +79,7 @@ const ProductInfo = ({ navigation }) => {
   const handleIncreaseQuantity = () => {
     const newQuantity = quantity + 1;
     if (newQuantity <= product.stok) {
-      addToCart(productId, 1, product.sellerId);
+      addToCart(productId, 1, product.seller_id, product.nama_produk, product.harga_per_pesanan);
       setQuantity(newQuantity);
       console.log(`Quantity increased to ${newQuantity}`);
     } else {
@@ -88,10 +89,11 @@ const ProductInfo = ({ navigation }) => {
 
   // Handle decreasing the quantity of the current product in the cart
   const handleDecreaseQuantity = () => {
+    console.log(product)
     if (quantity === 1) {
       handleRemoveFromCart(); // If the quantity is 1, remove the product from the cart
     } else {
-      addToCart(productId, -1, product.sellerId); // Decrease the quantity of the product in the cart by 1
+      addToCart(productId, -1, product.seller_id, product.nama_produk, product.harga_per_pesanan); // Decrease the quantity of the product in the cart by 1
       setQuantity(quantity - 1); // Update the quantity state
       console.log(`Quantity decreased to ${quantity - 1}`);
     }

@@ -4,8 +4,9 @@ const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (productId, quantity, sellerId) => {
+  
+  const addToCart = (productId, quantity, sellerId, nama_produk, harga_per_pesanan) => {
+    console.log(cartItems)
     const existingItemIndex = cartItems.findIndex(
       (item) => item.productId === productId
     );
@@ -19,6 +20,8 @@ const CartProvider = ({ children }) => {
         productId,
         quantity,
         sellerId,
+        nama_produk,
+        harga_per_pesanan,
       };
 
       setCartItems((prevItems) => [...prevItems, newItem]);

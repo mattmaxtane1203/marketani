@@ -50,7 +50,7 @@ const ChatAndCartFooter = ({ onPress1, onPress2 }) => {
         </TouchableOpacity>
         {contentToShow === "addToCart" && (
           <>
-            <TouchableOpacity onPress={showRemoveFromCart}>
+            <TouchableOpacity onPress={showAddToCart}>
               <View style={styles.cartButton}>
                 <Text style={styles.text}>+ Keranjang</Text>
               </View>

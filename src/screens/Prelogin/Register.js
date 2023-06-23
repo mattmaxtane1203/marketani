@@ -26,16 +26,16 @@ const screenHeight = Dimensions.get("window").height;
 // Matthew IP
 // const currentIP = "192.168.18.6";
 
-// // Glennix IP
-// const currentIP = "192.168.0.158";
+// Glennix IP
+const currentIP = "192.168.0.158";
 
 // // Bima IP
 // const currentIP = "192.168.0.100";
 
 // const currentIP = "172.20.10.2";
 
-// Nadia IP
-const currentIP = "192.168.0.103";
+// // Nadia IP
+// const currentIP = "192.168.0.103";
 
 const Register = ({ navigation }) => {
   const [activeTextInput, setActiveTextInput] = useState(null);

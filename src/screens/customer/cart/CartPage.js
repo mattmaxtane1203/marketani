@@ -19,7 +19,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 // Steps
-// Nge-fetch items yang ada di Cart Context
+// Nge-fetch items yang ada di Cart Context : DONE
 // Map semua items di custom component "ShopList"
 // Di component ShopList, bikin function di mana kalo pencet plus dan minus button, quantity dari item tersebut di Cart bisa ganti (tambah atau kurangin)
 // Bikin button Checkout untuk bikin Transaction Header dan Details
@@ -30,6 +30,8 @@ import axios from "axios";
     // Display transactionnya di daftar transaction di customer dan seller
     // Cartnya di-empty
 
+// Glennix IP
+const currentIP = "192.168.0.158";
 
 const CartPage = ({ navigation }) => {
   const [product, setProduct] = useState([]);
@@ -52,26 +54,28 @@ const CartPage = ({ navigation }) => {
 
   return (
     <View style={style.background}>
-      <SafeAreaView>
+      <SafeAreaView>  
         <View style={style.header}>
           <BackButton onPress={() => navigation.navigate()} />
           <CartSearchBar placeholder={"Cari Produk"} />
         </View>
-
+        
         <ScrollView>
-          {cartItems.map((item) => (
+          {cartItems.map((item) => {
+            return (
             <View style={style.container} key={item.productId}>
               <View>
                 <ShopName ShopText={"Seller ID: " + item.sellerId} />
                 <ShopList
                   productImage={Images.tomatHijau}
-                  title={item.productId}
-                  price={item.productId}
+                  title={item.nama_produk}
+                  price={"Rp." + (item.harga_per_pesanan * item.quantity)}
                   quantity={item.quantity}
                 />
               </View>
             </View>
-          ))}
+            )
+          })}
 
           {/* <View style={style.container}>
                         <View>

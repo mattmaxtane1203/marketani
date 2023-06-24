@@ -6,18 +6,19 @@ import {
     Image,
     SafeAreaView,
     TouchableOpacity
-  } from "react-native";
-  import Icons from "../../../constants/Icons";
-  import Images from "../../../constants/Images";
-  import BackButton from "../../../components/button/BackButton";
-  import TransactionSearchBar from "../../../components/input/TransactionSearchBar";
-  import ProductType from "../../../components/button/ProductType";
+} from "react-native";
+import Icons from "../../../constants/Icons";
+import Images from "../../../constants/Images";
+import BackButton from "../../../components/button/BackButton";
+import TransactionSearchBar from "../../../components/input/TransactionSearchBar";
+import ProductType from "../../../components/button/ProductType";
 import TransactionOrangeBox from "../../../components/button/TransactionOrangeBox";
 import TransactionGreenBox from "../../../components/button/TransactionGreenBox";
 import ProductBoxOTW from "../../../components/button/ProductBoxOTW";
 import NoFillButton from "../../../components/button/NoFillButton";
+import WaitingPaymentBox from "../../../components/button/WaitingPaymentBox";
 
-const DetailPesananOTW = ({navigation}) => {
+const DetailPesananOTW = ({ navigation }) => {
     return (
         <View style={DetailPesananOTWStyle.background}>
             <SafeAreaView>
@@ -38,7 +39,7 @@ const DetailPesananOTW = ({navigation}) => {
                     </View>
 
                     <View>
-                        <ProductBoxOTW
+                        <WaitingPaymentBox
                             onPress={() => navigation.navigate()}
                             placeholderShopName={"Fresh Shop"}
                             productImages={Images.tomatHijau}
@@ -98,14 +99,14 @@ const DetailPesananOTW = ({navigation}) => {
 }
 
 const DetailPesananOTWStyle = StyleSheet.create({
-    background:{
-        backgroundColor:'#FFFFFF',
+    background: {
+        backgroundColor: '#FFFFFF',
         flex: 1
     },
 
-    header:{
+    header: {
         display: "flex",
-        justifyContent:"flex-start",
+        justifyContent: "flex-start",
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 20,
@@ -114,13 +115,13 @@ const DetailPesananOTWStyle = StyleSheet.create({
         borderBottomWidth: 0.5
     },
 
-    textHeader:{
+    textHeader: {
         paddingLeft: 30,
         fontSize: 20,
         fontWeight: 500
     },
 
-    transactionStatus:{
+    transactionStatus: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -129,7 +130,7 @@ const DetailPesananOTWStyle = StyleSheet.create({
         marginVertical: 20
     },
 
-    status:{
+    status: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -137,18 +138,18 @@ const DetailPesananOTWStyle = StyleSheet.create({
         gap: 10
     },
 
-    statusColor:{
+    statusColor: {
         backgroundColor: '#FEAF67',
         height: 44,
         borderRadius: 30
     },
 
-    textStyle1:{
+    textStyle1: {
         fontSize: 18,
         fontWeight: "bold"
     },
 
-    transactionDate:{
+    transactionDate: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -156,16 +157,16 @@ const DetailPesananOTWStyle = StyleSheet.create({
         gap: 5
     },
 
-    textStyle2:{
+    textStyle2: {
         fontSize: 12,
         fontWeight: "bold"
     },
 
-    date:{
+    date: {
         fontSize: 10
     },
 
-    productDelivery:{
+    productDelivery: {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
@@ -173,7 +174,7 @@ const DetailPesananOTWStyle = StyleSheet.create({
         marginHorizontal: 20
     },
 
-    deliveryHeader:{
+    deliveryHeader: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -181,32 +182,32 @@ const DetailPesananOTWStyle = StyleSheet.create({
         width: "100%"
     },
 
-    informationBody:{
+    informationBody: {
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-start",
         marginTop: 10
     },
 
-    informationLeft:{
+    informationLeft: {
         display: "flex",
         flexDirection: "column",
         gap: 12,
         width: "24%"
     },
 
-    informationRight:{
+    informationRight: {
         display: "flex",
         flexDirection: "column",
         gap: 12,
         width: "76%"
     },
 
-    textStyle3:{
+    textStyle3: {
         fontSize: 12
     },
 
-    productPrice:{
+    productPrice: {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
@@ -221,7 +222,7 @@ const DetailPesananOTWStyle = StyleSheet.create({
         fontWeight: "bold"
     },
 
-    priceBody:{
+    priceBody: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -229,12 +230,12 @@ const DetailPesananOTWStyle = StyleSheet.create({
         marginTop: 10
     },
 
-    priceLeft:{
+    priceLeft: {
         display: "flex",
         gap: 12
     },
 
-    priceRight:{
+    priceRight: {
         display: "flex",
         gap: 12,
         alignItems: "flex-end"

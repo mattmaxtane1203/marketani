@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TransactionPage from "./TransactionPage";
 import DetailPesananSelesai from "./DetailPesananSelesai";
 import DetailPesananOTW from "./DetailPesananOTW";
+import WaitingPaymentPage from "./WaitingPaymentPage";
+import DetailWaitingPayment from "./DetailWaitingPayment";
 
 
 const Stack = createNativeStackNavigator();
@@ -13,6 +15,8 @@ const TransactionGateway = () => {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Transaction" component={TransactionPage} />
+      <Stack.Screen name="Waiting Payment" component={WaitingPaymentPage} />
+      <Stack.Screen name="Detail Waiting Payment" component={DetailWaitingPayment} />
       <Stack.Screen name="Detail Pesanan Selesai" component={DetailPesananSelesai} />
       <Stack.Screen name="Detail Pesanan Dalam Pengiriman" component={DetailPesananOTW} />
     </Stack.Navigator>

@@ -27,12 +27,13 @@ import CartPage from "./src/screens/customer/cart/CartPage";
 // Tools
 import { Provider } from "react-redux";
 import store from "./src/redux/store";
+import WaitingPayment from "./src/screens/customer/transaction/WaitingPaymentPage";
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <PreloginGateway />
+        {/* <PreloginGateway /> */}
         {/* <Register /> */}
 
         {/* User-related Menus */}
@@ -40,7 +41,8 @@ export default function App() {
         {/* <CartPage/> */}
         {/* <HomeScreen /> */}
         {/* <WishlistGateway /> */}
-        {/* <TransactionGateway /> */}
+        <TransactionGateway />
+        {/* <WaitingPayment/> */}
         {/* <CartGateway/> */}
         {/* Seller-related Menus */}
         {/* <SellerMainMenu /> */}

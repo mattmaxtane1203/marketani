@@ -27,7 +27,7 @@ const TransactionPage = ({ navigation }) => {
 
                 <ScrollView>
 
-                    <TouchableOpacity onPress={() => navigation.navigate()}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Waiting Payment")}>
                         <View style={TransactionPageStyle.waitingPayment}>
                             <View style={TransactionPageStyle.paymentHeader}>
                                 <Image source={Icons.moneyCash} style={TransactionPageStyle.iconMoney}></Image>

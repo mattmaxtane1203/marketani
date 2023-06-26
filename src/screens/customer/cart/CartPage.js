@@ -17,6 +17,8 @@ import ShopName from "./ShopName";
 import { CartContext } from "../../../contexts/CartContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import CheckoutButton from "../../../components/button/CheckoutButton";
+import { useSelector } from "react-redux";
 
 // Steps
 // Nge-fetch items yang ada di Cart Context : DONE
@@ -34,8 +36,9 @@ import axios from "axios";
 const currentIP = "192.168.0.158";
 
 const CartPage = ({ navigation }) => {
+  const currentCustomer = useSelector((state) => state.user.currentUser);
   const [product, setProduct] = useState([]);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, separateItemsBySeller } = useContext(CartContext);
 
   const fetchProduct = async () => {
     try {
@@ -47,6 +50,27 @@ const CartPage = ({ navigation }) => {
       console.error("Error occurred while fetching product:", error.message);
     }
   };
+
+  function handleCheckout(){
+    const separatedItems = separateItemsBySeller()
+    console.log(separatedItems)
+    const currentCustomerId = currentCustomer.id
+
+    console.log("Customer ID: " + currentCustomerId)
+
+    axios.post(`http://${currentIP}:8081/transaction/createTransaction`, {
+      currentCustomerId,
+      separatedItems,
+    })
+      .then(response => {
+        console.log('Transactions created successfully:', response.data);
+        // Handle success response
+      })
+      .catch(error => {
+        console.error('Error creating transactions:', error);
+        // Handle error or display an error message
+      });
+  }
 
   useEffect(() => {
     fetchProduct();
@@ -64,30 +88,21 @@ const CartPage = ({ navigation }) => {
           {cartItems.map((item) => {
             return (
             <View style={style.container} key={item.productId}>
-              <View>
-                <ShopName ShopText={"Seller ID: " + item.sellerId} />
-                <ShopList
-                  productImage={Images.tomatHijau}
-                  title={item.nama_produk}
-                  price={"Rp." + (item.harga_per_pesanan * item.quantity)}
-                  quantity={item.quantity}
+            <View>
+            <ShopList
+            productImage={Images.tomatHijau}
+            title={item.nama_produk}
+            sellerId={item.sellerId}
+            price={"Rp." + (item.harga_per_pesanan * item.quantity)}
+            quantity={item.quantity}
                 />
               </View>
             </View>
-            )
-          })}
-
-          {/* <View style={style.container}>
-                        <View>
-                            <ShopName ShopText="Fresh Shop" />
-                            <ShopList
-                                productImage={Images.tomatHijau}
-                                title={"Tomat Hijau (500gr)"}
-                                price={"Rp15.000"}
-                            />
-                        </View>
-                    </View> */}
+          );
+        })}
+        <CheckoutButton onPress = {handleCheckout} />
         </ScrollView>
+
       </SafeAreaView>
     </View>
   );

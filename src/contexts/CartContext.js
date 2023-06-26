@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 
 const CartContext = createContext();
 
+
 const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   
@@ -34,8 +35,24 @@ const CartProvider = ({ children }) => {
     );
   };
 
+  const separateItemsBySeller = () => {
+    const separatedItems = {};
+
+    cartItems.forEach((item) => {
+      const { sellerId } = item;
+
+      if (!separatedItems[sellerId]) {
+        separatedItems[sellerId] = [];
+      }
+
+      separatedItems[sellerId].push(item);
+    });
+
+    return separatedItems;
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, separateItemsBySeller }}>
       {children}
     </CartContext.Provider>
   );

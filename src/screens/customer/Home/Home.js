@@ -49,6 +49,7 @@ const currentIP = "192.168.0.158";
 function Home({ navigation }) {
   const currentCustomer = useSelector((state) => state.user.currentUser);
   const [products, setProducts] = useState([]);
+  const [products5, setProducts5] = useState([]);
 
   const fetchProducts = async () => {
     try {
@@ -56,6 +57,17 @@ function Home({ navigation }) {
         `http://${currentIP}:8081/product/getAllProducts/4`
       );
       setProducts(response.data.products);
+    } catch (error) {
+      console.log("Error fetching products:", error);
+    }
+
+    try {
+      const response = await axios.get(
+        `http://${currentIP}:8081/product/getAllProducts/5`
+      );
+      // console.log(response.data.products)
+      setProducts5(response.data.products);
+      console.log("@@@@@@@" + products5)
     } catch (error) {
       console.log("Error fetching products:", error);
     }
@@ -91,7 +103,7 @@ function Home({ navigation }) {
         <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
           <Boxes />
           <Box mt={5}>
-            <Heading style={styles.subTitleDua}>Shop: Sayur Segar</Heading>
+            <Heading style={styles.subTitleDua}>Shop: 4</Heading>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -115,36 +127,27 @@ function Home({ navigation }) {
           </Box>
           <Box>
             <Heading style={styles.subTitle}>
-              Shop: Insert Store Name Here
+              Shop: 5
             </Heading>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
-              <ProductCard
-                title="Wortel (1 kg)"
-                price="Rp15.000"
-                discountPrice="Rp12.000"
-                onPress={() => navigation.navigate("Produk")}
-              />
+              {products5.map((product) => (
+                <ProductCard
+                  key={product.product_id}
+                  title={product.nama_produk}
+                  price={
+                    "Rp " + numeral(product.harga_per_pesanan).format("0,0")
+                  }
+                  discountPrice="Rp2.000"
+                  onPress={() =>
+                    navigation.navigate("Produk", {
+                      productId: product.product_id,
+                    })
+                  }
+                />
+              ))}
             </ScrollView>
           </Box>
         </ScrollView>

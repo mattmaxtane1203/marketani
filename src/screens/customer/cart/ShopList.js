@@ -18,7 +18,7 @@ import { CartContext } from "../../../contexts/CartContext";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const ShopList = ({ onPress, productImage, title, price, quantity }) => {
+const ShopList = ({ onPress, productImage, title, price, quantity, sellerId }) => {
   const [isChecked, setChecked] = useState(false);
   const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
 
@@ -36,6 +36,7 @@ const ShopList = ({ onPress, productImage, title, price, quantity }) => {
           <Text numberOfLines={1} style={styles.productName}>
             {title}
           </Text>
+          <Text>SellerId: {sellerId}</Text>
           <Text style={styles.productPrice}>{price}</Text>
           <View style={styles.row}>
             <TouchableOpacity>

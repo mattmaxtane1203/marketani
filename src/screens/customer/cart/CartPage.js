@@ -41,7 +41,7 @@ const currentIP = "192.168.18.6";
 const CartPage = ({ navigation }) => {
   const currentCustomer = useSelector((state) => state.user.currentUser);
   const [product, setProduct] = useState([]);
-  const { cartItems, separateItemsBySeller, removeFromCart } =
+  const { cartItems, separateItemsBySeller, emptyCart } =
     useContext(CartContext);
 
   const fetchProduct = async () => {
@@ -76,7 +76,7 @@ const CartPage = ({ navigation }) => {
         // Handle error or display an error message
       })
       .finally(() => {
-        removeFromCart(item.productId);
+        emptyCart();
       });
   }
 

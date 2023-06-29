@@ -81,6 +81,21 @@ const Pesanan = ({ navigation, route }) => {
     }
   };
 
+  const handleTerkirim = async () => {
+    const newStatus = "Terkirim";
+
+    try {
+      await axios.put(
+        `http://${currentIP}:8081/transaction/updateTransactionStatus/${transactionId}`,
+        { newStatus }
+      );
+
+      setCurrentTransactionStatus(newStatus);
+    } catch (error) {
+      console.log("Error updating transaction status:", error);
+    }
+  };
+
   useEffect(() => {
     fetchTransactionDetails();
   }, []);
@@ -122,6 +137,32 @@ const Pesanan = ({ navigation, route }) => {
             <View
               style={{
                 backgroundColor: "orange",
+                // borderWidth: 1,
+                width: screenWidth * 0.015,
+                borderRadius: 5,
+                marginRight: screenWidth * 0.02,
+              }}
+            />
+          )}
+
+          {/* Bar if Terkirim */}
+          {currentTransactionStatus === "Terkirim" && (
+            <View
+              style={{
+                backgroundColor: "#48BD5B",
+                // borderWidth: 1,
+                width: screenWidth * 0.015,
+                borderRadius: 5,
+                marginRight: screenWidth * 0.02,
+              }}
+            />
+          )}
+
+          {/* Bar if Selesai */}
+          {currentTransactionStatus === "Selesai" && (
+            <View
+              style={{
+                backgroundColor: "green",
                 // borderWidth: 1,
                 width: screenWidth * 0.015,
                 borderRadius: 5,
@@ -237,6 +278,54 @@ const Pesanan = ({ navigation, route }) => {
                 onPress={handleAturPengiriman}
               >
                 <Text style={{ color: "white" }}>Atur</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {/* Pengaturan Pengiriman Terkirim */}
+        {currentTransactionStatus === "Sedang Dikirim" && (
+          <View>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Atur Pengiriman
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: screenWidth * 0.6,
+                  height: screenHeight * 0.05,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text>
+                  Jika pesanan sudah tiba pada tujuan, tekan tombol TERKIRIM
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: screenWidth * 0.2,
+                  height: screenHeight * 0.05,
+                  borderRadius: 8,
+                  backgroundColor: "#48BD5B",
+                  margin: 10,
+                }}
+                onPress={handleTerkirim}
+              >
+                <Text style={{ color: "white" }}>Terkirim</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -28,16 +28,6 @@ const PesananGateway = () => {
 };
 
 const PesananList = ({ navigation }) => {
-  const productName = "Cabe Rawit";
-  const productPrice = "Rp 15.000/300gr";
-  const quantity = "2";
-  const dateOrdered = new Date();
-  const productPhoto = Images.cabaiSample;
-  const username = "Matthew";
-  const telephoneNumber = "+6281283762959";
-  const address =
-    "Jl. Cempaka 1 no. 22\nBintaro, Pesanggrahan\nJakarta Selatan, DKI Jakarta\n12330";
-  const userPhoto = Images.profilePictureSample;
   const [transactionHeaders, setTransactionHeaders] = useState([]);
   const currentSeller = useSelector((state) => state.user.currentUser);
   const isFocused = useIsFocused();

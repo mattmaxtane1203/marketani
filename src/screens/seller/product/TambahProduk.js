@@ -28,11 +28,11 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 // Matthew IP
-const currentIP = "192.168.18.6";
+// const currentIP = "192.168.18.6";
 // const currentIP = "172.20.10.2";
 
 // Glennix IP
-// const currentIP = "192.168.0.158";
+const currentIP = "192.168.0.158";
 
 // Bima IP
 // const currentIP = "192.168.0.100";

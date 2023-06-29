@@ -1,4 +1,5 @@
 // Assuming you have a database module and connection
+const { resolve } = require("path");
 const db = require("../config/database");
 
 // Function to insert a transaction header
@@ -92,10 +93,29 @@ const updateTransactionStatus = (transactionId, newStatus) => {
   });
 };
 
+//function to calculate total price by transaction ID
+async function calculateTotalPriceByTransactionId(transactionId) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT td.transaction_id, SUM(p.harga_per_pesanan * td.quantity) AS total_price
+    FROM TransactionDetail td
+    JOIN product p ON td.product_id = p.product_id
+    WHERE td.transaction_id = ?
+    GROUP BY td.transaction_id;`;
+    db.query(query, [transactionId], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
 module.exports = {
   insertTransactionHeader,
   insertTransactionDetails,
   getTransactionHeadersBySellerId,
   getTransactionDetailsByTransactionId,
   updateTransactionStatus,
+  calculateTotalPriceByTransactionId,
 };

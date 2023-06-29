@@ -42,4 +42,10 @@ router.put(
   TransactionController.updateTransactionStatus
 );
 
+// Calculate total price by transactionId
+router.get(
+  "/calculateTotalPrice/:transactionId",
+  TransactionController.calculateTotalPriceByTransactionId
+);
+
 module.exports = router;

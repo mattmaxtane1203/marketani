@@ -87,9 +87,21 @@ const updateTransactionStatus = async (req, res) => {
   });
 };
 
+const calculateTotalPriceByTransactionId = async (req, res) => {
+  const transactionId = req.params.transactionId;
+  try {
+    const totalPrice = await TransactionRepository.calculateTotalPriceByTransactionId(transactionId)
+    res.status(200).json({totalPrice})
+  } catch (error) {
+    console.error("Error retrieving total price :", error)
+    res.status(500).json({error:"Internal server error"})
+  }
+};
+
 module.exports = {
   createTransaction,
   getTransactionHeadersBySellerId,
   getTransactionDetailsByTransactionId,
   updateTransactionStatus,
+  calculateTotalPriceByTransactionId,
 };

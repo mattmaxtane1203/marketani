@@ -48,4 +48,10 @@ router.get(
   TransactionController.calculateTotalPriceByTransactionId
 );
 
+// Get amount of items by transaction id
+router.get(
+  "/getAmountOfItems/:transactionId",
+  TransactionController.getAmountOfItemsByTransactionId
+);
+
 module.exports = router;

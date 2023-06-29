@@ -82,7 +82,7 @@ const updateTransactionStatus = (transactionId, newStatus) => {
       "UPDATE TransactionHeader SET status_pemesanan = ? WHERE transaction_id = ?";
     const values = [newStatus, transactionId];
 
-    connection.query(query, values, function (err, results) {
+    db.query(query, values, function (err, results) {
       if (err) {
         console.error("Error executing the query: " + err.stack);
         reject(new Error("Failed to update the transaction status."));
@@ -110,6 +110,25 @@ async function calculateTotalPriceByTransactionId(transactionId) {
     });
   });
 }
+// Function to get amount of items bought by transaction id
+const getAmountOfItemsByTransactionId = (transactionId) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+      SELECT COUNT(*) AS item_count
+      FROM TransactionDetail
+      WHERE transaction_id = ?;
+    `;
+    db.query(query, [transactionId], (error, result) => {
+      if (error) {
+        console.error("Error retrieving item count:", error);
+        reject(error);
+      } else {
+        const itemCount = result[0].item_count;
+        resolve(itemCount);
+      }
+    });
+  });
+};
 
 module.exports = {
   insertTransactionHeader,
@@ -118,4 +137,5 @@ module.exports = {
   getTransactionDetailsByTransactionId,
   updateTransactionStatus,
   calculateTotalPriceByTransactionId,
+  getAmountOfItemsByTransactionId,
 };

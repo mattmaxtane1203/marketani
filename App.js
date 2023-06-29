@@ -28,6 +28,7 @@ import CartPage from "./src/screens/customer/cart/CartPage";
 import { Provider } from "react-redux";
 import store from "./src/redux/store";
 import WaitingPayment from "./src/screens/customer/transaction/WaitingPaymentPage";
+import Pesanan from "./src/screens/seller/pesanan/Pesanan";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
         {/* <TransactionGateway /> */}
         {/* <WaitingPayment/> */}
         {/* <CartGateway/> */}
+
         {/* Seller-related Menus */}
         {/* <SellerMainMenu /> */}
         {/* <ProdukGateway /> */}
@@ -51,6 +53,7 @@ export default function App() {
         {/* <ChatGateway /> */}
         {/* <PusatBantuanGateway /> */}
         {/* <PesananGateway /> */}
+        {/* <Pesanan /> */}
         {/* <SearchResultGateway/> */}
         {/* <HalamanTokoGateway/> */}
       </NavigationContainer>

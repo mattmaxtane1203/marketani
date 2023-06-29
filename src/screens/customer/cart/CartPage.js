@@ -25,20 +25,24 @@ import { useSelector } from "react-redux";
 // Map semua items di custom component "ShopList"
 // Di component ShopList, bikin function di mana kalo pencet plus dan minus button, quantity dari item tersebut di Cart bisa ganti (tambah atau kurangin)
 // Bikin button Checkout untuk bikin Transaction Header dan Details
-    // Ingat kalo setiap Transaction Header itu per Seller
-    // Kalo misalkan ada dua item dari beda seller, harus dua transaction yang berbeda
+// Ingat kalo setiap Transaction Header itu per Seller
+// Kalo misalkan ada dua item dari beda seller, harus dua transaction yang berbeda
 // Kalo checkout
-    // Post semua item yang ada di cart ke transaction masing-masing
-    // Display transactionnya di daftar transaction di customer dan seller
-    // Cartnya di-empty
+// Post semua item yang ada di cart ke transaction masing-masing
+// Display transactionnya di daftar transaction di customer dan seller
+// Cartnya di-empty
+
+// Matthew IP
+const currentIP = "192.168.18.6";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
 const CartPage = ({ navigation }) => {
   const currentCustomer = useSelector((state) => state.user.currentUser);
   const [product, setProduct] = useState([]);
-  const { cartItems, separateItemsBySeller } = useContext(CartContext);
+  const { cartItems, separateItemsBySeller, removeFromCart } =
+    useContext(CartContext);
 
   const fetchProduct = async () => {
     try {
@@ -51,24 +55,28 @@ const CartPage = ({ navigation }) => {
     }
   };
 
-  function handleCheckout(){
-    const separatedItems = separateItemsBySeller()
-    console.log(separatedItems)
-    const currentCustomerId = currentCustomer.id
+  function handleCheckout() {
+    const separatedItems = separateItemsBySeller();
+    console.log(separatedItems);
+    const currentCustomerId = currentCustomer.id;
 
-    console.log("Customer ID: " + currentCustomerId)
+    console.log("Customer ID: " + currentCustomerId);
 
-    axios.post(`http://${currentIP}:8081/transaction/createTransaction`, {
-      currentCustomerId,
-      separatedItems,
-    })
-      .then(response => {
-        console.log('Transactions created successfully:', response.data);
+    axios
+      .post(`http://${currentIP}:8081/transaction/createTransaction`, {
+        currentCustomerId,
+        separatedItems,
+      })
+      .then((response) => {
+        console.log("Transactions created successfully:", response.data);
         // Handle success response
       })
-      .catch(error => {
-        console.error('Error creating transactions:', error);
+      .catch((error) => {
+        console.error("Error creating transactions:", error);
         // Handle error or display an error message
+      })
+      .finally(() => {
+        removeFromCart(item.productId);
       });
   }
 
@@ -78,31 +86,30 @@ const CartPage = ({ navigation }) => {
 
   return (
     <View style={style.background}>
-      <SafeAreaView>  
+      <SafeAreaView>
         <View style={style.header}>
           <BackButton onPress={() => navigation.navigate()} />
           <CartSearchBar placeholder={"Cari Produk"} />
         </View>
-        
+
         <ScrollView>
           {cartItems.map((item) => {
             return (
-            <View style={style.container} key={item.productId}>
-            <View>
-            <ShopList
-            productImage={Images.tomatHijau}
-            title={item.nama_produk}
-            sellerId={item.sellerId}
-            price={"Rp." + (item.harga_per_pesanan * item.quantity)}
-            quantity={item.quantity}
-                />
+              <View style={style.container} key={item.productId}>
+                <View>
+                  <ShopList
+                    productImage={Images.tomatHijau}
+                    title={item.nama_produk}
+                    sellerId={item.sellerId}
+                    price={"Rp." + item.harga_per_pesanan * item.quantity}
+                    quantity={item.quantity}
+                  />
+                </View>
               </View>
-            </View>
-          );
-        })}
-        <CheckoutButton onPress = {handleCheckout} />
+            );
+          })}
+          <CheckoutButton onPress={handleCheckout} />
         </ScrollView>
-
       </SafeAreaView>
     </View>
   );

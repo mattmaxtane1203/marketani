@@ -12,7 +12,9 @@ const createTransaction = async (customerId, separatedItems) => {
         statusPemesanan: "Sedang Diproses",
       };
 
-      const { insertId } = await TransactionRepository.insertTransactionHeader(transactionHeader);
+      const { insertId } = await TransactionRepository.insertTransactionHeader(
+        transactionHeader
+      );
       console.log("Insert ID: " + insertId);
       const items = separatedItems[sellerId];
       const transactionDetails = items.map((item) => ({
@@ -24,11 +26,70 @@ const createTransaction = async (customerId, separatedItems) => {
       await TransactionRepository.insertTransactionDetails(transactionDetails);
     }
   } catch (error) {
-    console.log("ERROR at TransactionController " +error)
+    console.log("ERROR at TransactionController " + error);
     throw new Error("Error creating transactions");
   }
 };
 
+const getTransactionHeadersBySellerId = async (req, res) => {
+  const sellerId = req.params.sellerId;
+
+  TransactionRepository.getTransactionHeadersBySellerId(sellerId)
+    .then((transactionHeaders) => {
+      res.json(transactionHeaders);
+    })
+    .catch((error) => {
+      console.error("Error retrieving transaction headers:", error);
+      res.status(500).json({
+        error: "An error occurred while retrieving transaction headers.",
+      });
+    });
+};
+
+const getTransactionDetailsByTransactionId = async (req, res) => {
+  const transactionId = req.params.transactionId;
+
+  TransactionRepository.getTransactionDetailsByTransactionId(transactionId)
+    .then((transactionDetails) => {
+      res.json(transactionDetails);
+    })
+    .catch((error) => {
+      console.error("Error retrieving transaction details:", error);
+      res.status(500).json({
+        error: "An error occured while retrieving transaction details.",
+      });
+    });
+};
+
+const updateTransactionStatus = async (req, res) => {
+  const transactionId = req.params.transactionId;
+  const newStatus = req.body.newStatus; // Get the new status from the request body
+
+  const query =
+    "UPDATE TransactionHeader SET status_pemesanan = ? WHERE transaction_id = ?";
+  const values = [newStatus, transactionId];
+
+  db.query(query, values, function (err, results) {
+    if (err) {
+      console.error("Error executing the query: " + err.stack);
+      return res
+        .status(500)
+        .json({ error: "Failed to update the transaction status." });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Transaction not found." });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Transaction status updated successfully." });
+  });
+};
+
 module.exports = {
   createTransaction,
+  getTransactionHeadersBySellerId,
+  getTransactionDetailsByTransactionId,
+  updateTransactionStatus,
 };

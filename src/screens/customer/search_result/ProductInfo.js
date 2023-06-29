@@ -26,11 +26,11 @@ import { useEffect } from "react";
 import { Alert } from "native-base";
 
 // Matthew IP
-// const currentIP = "192.168.18.6";
+const currentIP = "192.168.18.6";
 // const currentIP = "172.20.10.2";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
 // Bima IP
 // const currentIP = "192.168.0.100";
@@ -69,7 +69,13 @@ const ProductInfo = ({ navigation }) => {
 
   // Handle adding the current product to the cart
   const handleAddToCart = () => {
-    addToCart(productId, 1, product.seller_id, product.nama_produk, product.harga_per_pesanan); // Add the product to the cart with a quantity of 1
+    addToCart(
+      productId,
+      1,
+      product.seller_id,
+      product.nama_produk,
+      product.harga_per_pesanan
+    ); // Add the product to the cart with a quantity of 1
     setQuantity(1); // Set the quantity to 1
   };
 
@@ -83,7 +89,13 @@ const ProductInfo = ({ navigation }) => {
   const handleIncreaseQuantity = () => {
     const newQuantity = quantity + 1;
     if (newQuantity <= product.stok) {
-      addToCart(productId, 1, product.seller_id, product.nama_produk, product.harga_per_pesanan);
+      addToCart(
+        productId,
+        1,
+        product.seller_id,
+        product.nama_produk,
+        product.harga_per_pesanan
+      );
       setQuantity(newQuantity);
       console.log(`Quantity increased to ${newQuantity}`);
     } else {
@@ -93,11 +105,17 @@ const ProductInfo = ({ navigation }) => {
 
   // Handle decreasing the quantity of the current product in the cart
   const handleDecreaseQuantity = () => {
-    console.log(product)
+    console.log(product);
     if (quantity === 1) {
       handleRemoveFromCart(); // If the quantity is 1, remove the product from the cart
     } else {
-      addToCart(productId, -1, product.seller_id, product.nama_produk, product.harga_per_pesanan); // Decrease the quantity of the product in the cart by 1
+      addToCart(
+        productId,
+        -1,
+        product.seller_id,
+        product.nama_produk,
+        product.harga_per_pesanan
+      ); // Decrease the quantity of the product in the cart by 1
       setQuantity(quantity - 1); // Update the quantity state
       console.log(`Quantity decreased to ${quantity - 1}`);
     }
@@ -189,36 +207,39 @@ const ProductInfo = ({ navigation }) => {
         </ScrollView>
       </SafeAreaView>
       {isInCart ? ( // Render plus/minus buttons and quantity if the product is in the cart
-            <View style={ProductInfoStyle.stickyButtonContainer2}>
-              <TouchableOpacity onPress={handleDecreaseQuantity}>
-                <View style={ProductInfoStyle.border}>
-                <Text style={ProductInfoStyle.textStyle1}>-</Text>
-                </View>
-              </TouchableOpacity>
-              <View style={ProductInfoStyle.totalProduct}>
-                <Text style={ProductInfoStyle.textStyle2}>{quantity}</Text>
-              </View>
-              <TouchableOpacity onPress={handleIncreaseQuantity}>
-                <View style={ProductInfoStyle.border}>
-                <Text style={ProductInfoStyle.textStyle1}>+</Text>
-                </View>
-              </TouchableOpacity>
+        <View style={ProductInfoStyle.stickyButtonContainer2}>
+          <TouchableOpacity onPress={handleDecreaseQuantity}>
+            <View style={ProductInfoStyle.border}>
+              <Text style={ProductInfoStyle.textStyle1}>-</Text>
             </View>
-          ) : (
-            <View style={ProductInfoStyle.stickyButtonContainer}>
-              <TouchableOpacity>
-              <View style={ProductInfoStyle.chatContainer}>
-                  <Image source={Icons.chatSeller} style={ProductInfoStyle.iconChat}></Image>
-              </View>
-              </TouchableOpacity>
-              
-              <TouchableOpacity onPress={handleAddToCart}>
-                <View style={ProductInfoStyle.keranjangContainer}>
-                  <Text style={ProductInfoStyle.text}>+ Keranjang</Text>
-                </View>
-              </TouchableOpacity>
+          </TouchableOpacity>
+          <View style={ProductInfoStyle.totalProduct}>
+            <Text style={ProductInfoStyle.textStyle2}>{quantity}</Text>
+          </View>
+          <TouchableOpacity onPress={handleIncreaseQuantity}>
+            <View style={ProductInfoStyle.border}>
+              <Text style={ProductInfoStyle.textStyle1}>+</Text>
             </View>
-          )}
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={ProductInfoStyle.stickyButtonContainer}>
+          <TouchableOpacity>
+            <View style={ProductInfoStyle.chatContainer}>
+              <Image
+                source={Icons.chatSeller}
+                style={ProductInfoStyle.iconChat}
+              ></Image>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleAddToCart}>
+            <View style={ProductInfoStyle.keranjangContainer}>
+              <Text style={ProductInfoStyle.text}>+ Keranjang</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -279,16 +300,16 @@ const ProductInfoStyle = StyleSheet.create({
   productDescription: {
     marginTop: 10,
     backgroundColor: "white",
-    paddingBottom: 20
+    paddingBottom: 20,
   },
 
   productReview: {
     marginTop: 10,
     backgroundColor: "white",
-    marginBottom: 200
+    marginBottom: 200,
   },
 
-  reviewHeader:{
+  reviewHeader: {
     display: "flex",
     flexDirection: "column",
     paddingHorizontal: 20,
@@ -297,27 +318,26 @@ const ProductInfoStyle = StyleSheet.create({
     gap: 5,
     borderBottomColor: "#CFCFCF",
     borderBottomWidth: 0.5,
-},
+  },
 
   titleReview: {
     fontSize: 16,
-
   },
 
-  border:{
+  border: {
     display: "flex",
-    flexDirection: "row"
-},
-totalReview:{
+    flexDirection: "row",
+  },
+  totalReview: {
     fontSize: 12,
     color: "white",
-    backgroundColor: '#0194D4',
+    backgroundColor: "#0194D4",
     paddingHorizontal: 10,
-    borderRadius: 30
-},
-userReview:{
-    display: "flex"
-},
+    borderRadius: 30,
+  },
+  userReview: {
+    display: "flex",
+  },
 
   productInCart: {
     backgroundColor: "#FFB800",
@@ -365,31 +385,31 @@ userReview:{
     right: 0,
   },
 
-  text:{
+  text: {
     fontSize: 18,
     fontWeight: "500",
     color: "white",
   },
 
-  iconChat:{
+  iconChat: {
     width: 35,
     height: 35,
     marginHorizontal: 45,
     marginVertical: 15,
   },
 
-  chatContainer:{
+  chatContainer: {
     display: "flex",
     borderRightColor: "#48BD5B",
     borderRightWidth: 1,
   },
 
-  keranjangContainer:{
-    backgroundColor: '#48BD5B',
+  keranjangContainer: {
+    backgroundColor: "#48BD5B",
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 16.5,
-    width: 300
+    width: 300,
   },
 
   stickyButtonContainer: {
@@ -404,7 +424,7 @@ userReview:{
     right: 0,
     borderWidth: 1,
     borderColor: "#48BD5B",
-    width: "100%"
+    width: "100%",
   },
 
   stickyButtonContainer2: {
@@ -419,20 +439,18 @@ userReview:{
     right: 0,
     borderWidth: 1,
     borderColor: "#48BD5B",
-    width: "100%"
+    width: "100%",
   },
 
-//   border:{
-//     width: 50,
-//     height: 50,
-//     display: "flex",
-//     alignItems: "center",
-//     borderRadius: 100,
-//     borderWidth: 1,
-//     borderColor: "#48BD5B"
-// },
-
-
+  //   border:{
+  //     width: 50,
+  //     height: 50,
+  //     display: "flex",
+  //     alignItems: "center",
+  //     borderRadius: 100,
+  //     borderWidth: 1,
+  //     borderColor: "#48BD5B"
+  // },
 });
 
 export default ProductInfo;

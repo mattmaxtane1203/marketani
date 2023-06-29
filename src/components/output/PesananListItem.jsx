@@ -5,26 +5,32 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const PesananListItem = ({
-  productName,
-  productPrice,
-  quantity,
-  productPhoto,
-  username,
-  userPhoto,
-  OnPress,
+  transactionId,
+  transactionStatus,
+  transactionDate,
+  transactionTime,
+  onPress,
 }) => {
+  const formattedDate = new Date(transactionDate).toLocaleDateString("en-GB");
+  const formattedTime = new Date(transactionTime).toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
   return (
-    <TouchableOpacity style={styles.container} onPress={OnPress}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={[styles.userContainer, styles.margined]}>
-        <Image style={styles.userPhoto} source={userPhoto} />
-        <Text style={styles.label}>{username}</Text>
+        <Text style={styles.label}>#{transactionId}</Text>
       </View>
       <View style={[styles.productContainer, styles.margined]}>
-        <Image style={styles.productPhoto} source={productPhoto} />
         <View style={styles.productInformation}>
-          <Text style={styles.productLabel}>{productName}</Text>
-          <Text style={styles.productLabel}>{productPrice}</Text>
-          <Text style={styles.productLabel}>Kuantitas: {quantity}x</Text>
+          <Text style={[styles.transactionInformation, { fontFamily: "bold" }]}>
+            {transactionStatus}
+          </Text>
+          <Text style={styles.transactionInformation}>{formattedDate}</Text>
+          <Text style={styles.transactionInformation}>{formattedTime}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -77,9 +83,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
 
-  productLabel: {
+  transactionInformation: {
     fontSize: 14,
-    fontWeight: "bold",
     marginHorizontal: 8,
   },
 });

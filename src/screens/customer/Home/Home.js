@@ -30,12 +30,12 @@ const newColorTheme = {
 
 const theme = extendTheme({ colors: newColorTheme });
 
-// // Matthew IP
-// // const currentIP = "192.168.18.6";
+// Matthew IP
+const currentIP = "192.168.18.6";
 // const currentIP = "172.20.10.2";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
 // Bima IP
 // const currentIP = "192.168.0.100";
@@ -54,7 +54,7 @@ function Home({ navigation }) {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        `http://${currentIP}:8081/product/getAllProducts/4`
+        `http://${currentIP}:8081/product/getAllProducts/1`
       );
       setProducts(response.data.products);
     } catch (error) {
@@ -63,11 +63,11 @@ function Home({ navigation }) {
 
     try {
       const response = await axios.get(
-        `http://${currentIP}:8081/product/getAllProducts/5`
+        `http://${currentIP}:8081/product/getAllProducts/2`
       );
       // console.log(response.data.products)
       setProducts5(response.data.products);
-      console.log("@@@@@@@" + products5)
+      console.log("@@@@@@@" + products5);
     } catch (error) {
       console.log("Error fetching products:", error);
     }
@@ -103,7 +103,7 @@ function Home({ navigation }) {
         <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
           <Boxes />
           <Box mt={5}>
-            <Heading style={styles.subTitleDua}>Shop: 4</Heading>
+            <Heading style={styles.subTitleDua}>Shop: 1</Heading>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -126,9 +126,7 @@ function Home({ navigation }) {
             </ScrollView>
           </Box>
           <Box>
-            <Heading style={styles.subTitle}>
-              Shop: 5
-            </Heading>
+            <Heading style={styles.subTitle}>Shop: 2</Heading>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}

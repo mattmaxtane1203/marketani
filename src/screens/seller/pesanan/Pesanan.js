@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import SmallButton from "../../../components/button/SmallButton";
 import { useState, useEffect } from "react";
@@ -13,183 +14,230 @@ import {
   generateOrderNumber,
   generateTrackingNumber,
 } from "../../../utils/PesananUtils";
+import axios from "axios";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const orderNumber = generateOrderNumber();
-const trackingNumber = generateTrackingNumber();
+// Matthew IP
+const currentIP = "192.168.18.6";
+// const currentIP = "172.20.10.2";
+
+// Glennix IP
+// const currentIP = "192.168.0.158";
 
 const Pesanan = ({ navigation, route }) => {
-  const {
-    productName,
-    productPrice,
-    quantity,
-    dateOrdered,
-    productPhoto,
-    username,
-    telephoneNumber,
-    address,
-    userPhoto,
-  } = route.params;
+  const { transactionId, transactionStatus, transactionDate, transactionTime } =
+    route.params;
 
-  const formattedDate = dateOrdered.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const [transactionDetails, setTransactionDetails] = useState([]);
+  const [currentTransactionStatus, setCurrentTransactionStatus] =
+    useState(transactionStatus);
 
-  const deliveryDate = new Date(dateOrdered);
-  deliveryDate.setDate(deliveryDate.getDate() + 3);
-  const maxDeliveryDate = deliveryDate.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const fetchTransactionDetails = () => {
+    const currentIP = "192.168.18.6"; // Update with your desired IP
 
-  const eta = new Date(dateOrdered);
-  eta.setDate(eta.getDate() + 7);
-  const maxEta = eta.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+    axios
+      .get(
+        `http://${currentIP}:8081/transaction/getTransactionDetails/${transactionId}`
+      )
+      .then((response) => {
+        // Fetch product details for each transaction detail
+        const productIds = response.data.map((detail) => detail.product_id);
+        const fetchProductDetails = productIds.map((productId) =>
+          axios.get(`http://${currentIP}:8081/product/getProduct/${productId}`)
+        );
 
-  const [isNew, setIsNew] = useState(true);
-  const [isDelivering, setIsDelivering] = useState(false);
-  const [isDelivered, setIsDelivered] = useState(false);
-  const [countdown, setCountdown] = useState(30000);
+        axios.all(fetchProductDetails).then(
+          axios.spread((...responses) => {
+            const products = responses.map((res) => res.data.product);
+            const transactionDetailsWithProduct = response.data.map(
+              (detail, index) => ({
+                ...detail,
+                product: products[index],
+              })
+            );
+            setTransactionDetails(transactionDetailsWithProduct);
+          })
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching transaction details:", error);
+      });
+  };
+
+  const handleAturPengiriman = async () => {
+    const newStatus = "Sedang Dikirim";
+
+    try {
+      await axios.put(
+        `http://${currentIP}:8081/transaction/updateTransactionStatus/${transactionId}`,
+        { newStatus }
+      );
+
+      setCurrentTransactionStatus(newStatus);
+    } catch (error) {
+      console.error("Error updating transaction status:", error);
+    }
+  };
 
   useEffect(() => {
-    let interval;
+    fetchTransactionDetails();
+  }, []);
 
-    if (!isNew) {
-      interval = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1000);
-      }, 1000);
-    }
-
-    if (countdown === 0) {
-      clearInterval(interval);
-      setIsDelivering(false);
-      setIsDelivered(true);
-    }
-
-    return () => clearInterval(interval);
-  }, [isNew, countdown]);
-
-  const formattedCountdown = `${Math.floor(
-    (countdown / 1000 / 60) % 60
-  )}m ${Math.floor((countdown / 1000) % 60)}s`;
-
-  function handleAturButtonPress() {
-    setIsNew(false);
-    setIsDelivering(true);
-  }
+  const formattedDate = new Date(transactionDate).toLocaleDateString("en-GB");
 
   return (
     <SafeAreaView>
       <ScrollView
         contentContainerStyle={{
           flexDirection: "column",
+          // borderWidth: 1,
+          marginVertical: screenHeight * 0.02,
+          marginHorizontal: screenWidth * 0.05,
         }}
       >
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionHeader}>Informasi Pemesanan</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            marginBottom: screenHeight * 0.01,
+            // borderWidth: 1,
+          }}
+        >
+          {/* Bar if Sedang Diproses */}
+          {currentTransactionStatus === "Sedang Diproses" && (
+            <View
+              style={{
+                backgroundColor: "blue",
+                // borderWidth: 1,
+                width: screenWidth * 0.015,
+                borderRadius: 5,
+                marginRight: screenWidth * 0.02,
+              }}
+            />
+          )}
 
-          <View style={styles.informationContainer}>
-            <Text style={styles.informationLabel}>Status Pemesanan</Text>
-            {isNew && !isDelivering && !isDelivered && (
-              <Text>Pesanan Baru</Text>
-            )}
-            {isDelivering && !isNew && !isDelivered && (
-              <Text>Sedang Dikirim</Text>
-            )}
-            {isDelivered && !isNew && !isDelivering && <Text>Terkirim</Text>}
+          {/* Bar if Sedang Dikirim */}
+          {currentTransactionStatus === "Sedang Dikirim" && (
+            <View
+              style={{
+                backgroundColor: "orange",
+                // borderWidth: 1,
+                width: screenWidth * 0.015,
+                borderRadius: 5,
+                marginRight: screenWidth * 0.02,
+              }}
+            />
+          )}
+
+          <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+            {currentTransactionStatus}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "column",
+            marginBottom: screenHeight * 0.02,
+          }}
+        >
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>Transaction ID</Text>
+            <Text>{transactionId}</Text>
           </View>
-
-          <View style={styles.informationContainer}>
-            <Text style={styles.informationLabel}>Tanggal Pemesanan</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>Date</Text>
             <Text>{formattedDate}</Text>
           </View>
-
-          <View style={styles.informationContainer}>
-            <Text style={styles.informationLabel}>ID Pesanan</Text>
-            <Text>#{orderNumber}</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>Time</Text>
+            <Text>{transactionTime}</Text>
           </View>
         </View>
 
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionHeader}>Produk Dipesan</Text>
-          <View style={styles.productContainer}>
-            <Image source={productPhoto} style={styles.productPhoto} />
-            <View style={styles.productInformationContainer}>
-              <Text style={styles.bold}>{productName}</Text>
-              <Text>{productPrice}</Text>
-              <Text>
-                Kuantitas:
-                <Text> {quantity}x</Text>
-              </Text>
+        {/* Transaction Details */}
+        <View style={{ marginBottom: screenHeight * 0.02 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
+          >
+            Items Ordered
+          </Text>
+          {transactionDetails.map((detail) => (
+            <View
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: "gray",
+                paddingHorizontal: screenWidth * 0.03,
+                height: screenHeight * 0.05,
+                flexDirection: "column",
+                justifyContent: "center",
+                marginVertical: screenHeight * 0.005,
+              }}
+              key={detail.product_id}
+            >
+              <Text>{detail.product.nama_produk}</Text>
+              <Text>{detail.quantity}x</Text>
+              {/* Display other product details as needed */}
             </View>
-          </View>
+          ))}
         </View>
 
-        {/* Atur Pengiriman */}
-        {isNew && !isDelivering && !isDelivered && (
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionHeader}>Atur Pengiriman</Text>
-            <View style={styles.informationContainer}>
-              <Text
+        {/* Pengaturan Pengiriman */}
+        {currentTransactionStatus === "Sedang Diproses" && (
+          <View>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Atur Pengiriman
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View
                 style={{
-                  // borderWidth: 1,
-                  width: 0.6 * screenWidth,
+                  width: screenWidth * 0.6,
+                  height: screenHeight * 0.1,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Mohon mengatur paket sebelum {maxDeliveryDate} atau pesanan
-                tersebut akan dibatalkan secara otomatis
-              </Text>
-              <SmallButton placeholder="Atur" onPress={handleAturButtonPress} />
-            </View>
-          </View>
-        )}
-
-        {/* Delivering or Delivered */}
-        {!isNew && (isDelivering || isDelivered) && (
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionHeader}>Informasi Pengiriman</Text>
-            <View style={styles.informationContainer}>
-              <Text style={styles.informationLabel}>Kurir</Text>
-              <Text>JNE - Reguler</Text>
-            </View>
-
-            {!isNew && isDelivering && !isDelivered && (
-              <View style={styles.informationContainer}>
-                <Text style={styles.informationLabel}>
-                  Estimasi Tanggal Tiba
-                </Text>
                 <Text>
-                  {formattedCountdown} lagi, {maxEta}
+                  Atur pengiriman pesanan sebelum tanggal INSERT DATE HERE.
+                  Pesanan akan dibatal secara otomatis jika tidak mengatur
+                  pengiriman
                 </Text>
               </View>
-            )}
-
-            <View style={styles.informationContainer}>
-              <Text style={styles.informationLabel}>Nomor Resi</Text>
-              <Text>#{trackingNumber}</Text>
-            </View>
-
-            <View style={styles.informationContainer}>
-              <Text style={styles.informationLabel}>Tujuan</Text>
-              <View style={styles.longInformation}>
-                <Text style={[styles.bold, styles.information]}>
-                  {username}
-                </Text>
-                <Text style={styles.information}>{telephoneNumber}</Text>
-                <Text style={styles.information}>{address}</Text>
-              </View>
+              <TouchableOpacity
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: screenWidth * 0.2,
+                  height: screenHeight * 0.05,
+                  borderRadius: 8,
+                  backgroundColor: "#48BD5B",
+                  margin: 10,
+                }}
+                onPress={handleAturPengiriman}
+              >
+                <Text style={{ color: "white" }}>Atur</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}
@@ -198,64 +246,6 @@ const Pesanan = ({ navigation, route }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  bold: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-
-  sectionContainer: {
-    flexDirection: "column",
-    margin: 0.02 * screenWidth,
-    // borderWidth: 1,
-  },
-
-  informationContainer: {
-    flexDirection: "row",
-    marginVertical: 0.005 * screenHeight,
-    // alignItems: "center",
-    justifyContent: "space-between",
-    // borderWidth: 1,
-  },
-
-  sectionHeader: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-
-  informationLabel: {
-    color: "#8e8e8e",
-  },
-
-  productContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginTop: 0.005 * screenHeight,
-    padding: 0.01 * screenWidth,
-  },
-
-  productInformationContainer: {
-    flexDirection: "column",
-    marginVertical: 0.005 * screenHeight,
-    marginHorizontal: 0.025 * screenWidth,
-    justifyContent: "space-between",
-  },
-
-  longInformation: {
-    flexDirection: "column",
-  },
-
-  productPhoto: {
-    width: 0.15 * screenWidth,
-    height: 0.15 * screenWidth,
-    borderRadius: 5,
-  },
-
-  information: {
-    textAlign: "right",
-  },
-});
+const styles = StyleSheet.create({});
 
 export default Pesanan;

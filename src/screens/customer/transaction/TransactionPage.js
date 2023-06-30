@@ -33,25 +33,46 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const TransactionPage = ({ navigation }) => {
-  //   const [transactionHeaders, setTransactionHeaders] = useState([]);
-  //   const currentCustomer = useSelector((state) => state.user.currentUser);
-  //   const isFocused = useIsFocused();
+  const [transactionHeaders, setTransactionHeaders] = useState([]);
+  const currentCustomer = useSelector((state) => state.user.currentUser);
+  const isFocused = useIsFocused();
 
-  //   useEffect(() => {
-  //     if (isFocused) {
-  //       axios
-  //         .get(
-  //           `http://${currentIP}:8081/transaction/getTransactionHeaders/${currentCustomer.id}`
-  //         )
-  //         .then((response) => {
-  //           setTransactionHeaders(response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching transaction headers:", error);
-  //         });
-  //       console.log(transactionHeaders);
-  //     }
-  //   }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      axios
+        .get(
+          `http://${currentIP}:8081/transaction/getTransactionHeaders/customer/${currentCustomer.id}`
+        )
+        .then((response) => {
+          setTransactionHeaders(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching transaction headers:", error);
+        });
+      console.log(transactionHeaders);
+    }
+  }, [isFocused]);
+
+  const fetchAdditionalTransactionInfo = async (transactionId) => {
+    try {
+      const totalPriceResponse = await axios.get(
+        `http://${currentIP}:8081/transaction/calculateTotalPrice/${transactionId}`
+      );
+      const quantityResponse = await axios.get(
+        `http://${currentIP}:8081/transaction/getAmountOfItems/${transactionId}`
+      );
+
+      const totalPrice = totalPriceResponse.data.totalPrice;
+      const quantity = quantityResponse.data.itemCount;
+      console.log("Response Total:", totalPrice);
+      console.log("Response Quantity:", quantity);
+
+      return { totalPrice, quantity };
+    } catch (error) {
+      console.error("Error retrieving total price and quantity:", error);
+      return { totalPrice: 0, itemCount: 0 };
+    }
+  };
 
   return (
     <View style={TransactionPageStyle.background}>
@@ -63,7 +84,7 @@ const TransactionPage = ({ navigation }) => {
 
         <ScrollView>
           <View style={TransactionPageStyle.transactionContainer}>
-            <TransactionOrangeBox
+            {/* <TransactionOrangeBox
               onPress={() =>
                 navigation.navigate("Detail Pesanan Dalam Pengiriman")
               }
@@ -72,8 +93,34 @@ const TransactionPage = ({ navigation }) => {
               placeholderName={"Tomat Hijau (500gr)"}
               placeholderNumber={2}
               placeholderPrice={38000}
-            />
-            <TransactionCard />
+            /> */}
+
+            {transactionHeaders.map((header) => {
+              const { totalPrice, quantity } = fetchAdditionalTransactionInfo(
+                header.transaction_id
+              );
+              console.log("Total Price:", totalPrice);
+              console.log("Quantity:", quantity);
+
+              return (
+                <TransactionCard
+                  key={header.transaction_id}
+                  transactionId={header.transaction_id}
+                  quantity={quantity}
+                  transactionStatus={header.status_pemesanan}
+                  totalPrice={totalPrice}
+                  transactionDate={header.transaction_date}
+                  onPress={() =>
+                    navigation.navigate("Detail Pesanan Selesai", {
+                      transactionId: header.transaction_id,
+                      transactionStatus: header.status_pemesanan,
+                      transactionDate: header.transaction_date,
+                      transactionTime: header.transaction_time,
+                    })
+                  }
+                />
+              );
+            })}
           </View>
         </ScrollView>
       </SafeAreaView>

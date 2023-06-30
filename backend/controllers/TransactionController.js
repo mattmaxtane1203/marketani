@@ -46,6 +46,21 @@ const getTransactionHeadersBySellerId = async (req, res) => {
     });
 };
 
+const getTransactionHeadersByCustomerId = async (req, res) => {
+  const customerId = req.params.customerId;
+
+  TransactionRepository.getTransactionHeadersByCustomerId(customerId)
+    .then((transactionHeaders) => {
+      res.json(transactionHeaders);
+    })
+    .catch((error) => {
+      console.error("Error retrieving transaction headers:", error);
+      res.status(500).json({
+        error: "An error occurred while retrieving transaction headers.",
+      });
+    });
+};
+
 const getTransactionDetailsByTransactionId = async (req, res) => {
   const transactionId = req.params.transactionId;
 
@@ -90,13 +105,17 @@ const updateTransactionStatus = async (req, res) => {
 const calculateTotalPriceByTransactionId = async (req, res) => {
   const transactionId = req.params.transactionId;
   try {
-    const totalPrice = await TransactionRepository.calculateTotalPriceByTransactionId(transactionId)
-    res.status(200).json({totalPrice})
+    const totalPrice =
+      await TransactionRepository.calculateTotalPriceByTransactionId(
+        transactionId
+      );
+    res.status(200).json({ totalPrice });
   } catch (error) {
-    console.error("Error retrieving total price :", error)
-    res.status(500).json({error:"Internal server error"})
-  }};
-  
+    console.error("Error retrieving total price :", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 const getAmountOfItemsByTransactionId = async (req, res) => {
   try {
     const transactionId = req.params.transactionId;
@@ -114,6 +133,7 @@ const getAmountOfItemsByTransactionId = async (req, res) => {
 module.exports = {
   createTransaction,
   getTransactionHeadersBySellerId,
+  getTransactionHeadersByCustomerId,
   getTransactionDetailsByTransactionId,
   updateTransactionStatus,
   calculateTotalPriceByTransactionId,

@@ -47,11 +47,25 @@ const insertTransactionDetails = async (transactionDetails) => {
   }
 };
 
-// Function to get all transaction headers
+// Function to get all transaction headers of seller
 async function getTransactionHeadersBySellerId(sellerId) {
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM TransactionHeader WHERE seller_id = ?";
     db.query(query, [sellerId], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
+// Function to get all transaction headers of customer
+async function getTransactionHeadersByCustomerId(customerId) {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM TransactionHeader WHERE customer_id = ?";
+    db.query(query, [customerId], (error, results) => {
       if (error) {
         reject(error);
       } else {
@@ -96,7 +110,7 @@ const updateTransactionStatus = (transactionId, newStatus) => {
 //function to calculate total price by transaction ID
 async function calculateTotalPriceByTransactionId(transactionId) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT td.transaction_id, SUM(p.harga_per_pesanan * td.quantity) AS total_price
+    const query = `SELECT SUM(p.harga_per_pesanan * td.quantity) AS total_price
     FROM TransactionDetail td
     JOIN product p ON td.product_id = p.product_id
     WHERE td.transaction_id = ?
@@ -134,6 +148,7 @@ module.exports = {
   insertTransactionHeader,
   insertTransactionDetails,
   getTransactionHeadersBySellerId,
+  getTransactionHeadersByCustomerId,
   getTransactionDetailsByTransactionId,
   updateTransactionStatus,
   calculateTotalPriceByTransactionId,

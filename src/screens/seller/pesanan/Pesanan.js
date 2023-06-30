@@ -20,11 +20,11 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 // Matthew IP
-// const currentIP = "192.168.18.6";
+const currentIP = "192.168.18.6";
 // const currentIP = "172.20.10.2";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
 const Pesanan = ({ navigation, route }) => {
   const { transactionId, transactionStatus, transactionDate, transactionTime } =
@@ -35,8 +35,6 @@ const Pesanan = ({ navigation, route }) => {
     useState(transactionStatus);
 
   const fetchTransactionDetails = () => {
-    const currentIP = "192.168.18.6"; // Update with your desired IP
-
     axios
       .get(
         `http://${currentIP}:8081/transaction/getTransactionDetails/${transactionId}`

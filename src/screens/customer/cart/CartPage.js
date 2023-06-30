@@ -33,10 +33,10 @@ import { useSelector } from "react-redux";
 // Cartnya di-empty
 
 // Matthew IP
-// const currentIP = "192.168.18.6";
+const currentIP = "192.168.18.6";
 
 // Glennix IP
-const currentIP = "192.168.0.158";
+// const currentIP = "192.168.0.158";
 
 const CartPage = ({ navigation }) => {
   const currentCustomer = useSelector((state) => state.user.currentUser);
@@ -77,7 +77,7 @@ const CartPage = ({ navigation }) => {
       })
       .finally(() => {
         emptyCart();
-        navigation.navigate("Transactions")
+        navigation.navigate("Transactions");
       });
   }
 
@@ -109,7 +109,7 @@ const CartPage = ({ navigation }) => {
               </View>
             );
           })}
-          <CheckoutButton onPress={handleCheckout}  />
+          <CheckoutButton onPress={handleCheckout} />
         </ScrollView>
       </SafeAreaView>
     </View>

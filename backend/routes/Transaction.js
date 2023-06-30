@@ -24,10 +24,16 @@ router.post("/createTransaction", async (req, res) => {
   }
 });
 
-// Get transaction header
+// Get transaction header of seller
 router.get(
   "/getTransactionHeaders/:sellerId",
   TransactionController.getTransactionHeadersBySellerId
+);
+
+// Get transaction header of customer
+router.get(
+  "/getTransactionHeaders/customer/:customerId",
+  TransactionController.getTransactionHeadersByCustomerId
 );
 
 // Get transaction details

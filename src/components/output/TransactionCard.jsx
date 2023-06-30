@@ -4,12 +4,24 @@ import { TouchableOpacity, View, Text, Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const TransactionCard = () => {
+const TransactionCard = ({
+  transactionId,
+  quantity,
+  transactionStatus,
+  totalPrice,
+  transactionDate,
+  onPress,
+}) => {
+  const formattedDate = new Date(transactionDate).toLocaleDateString("en-GB");
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      style={{ marginVertical: screenHeight * 0.01 }}
+      onPress={onPress}
+    >
       <View
         style={{
           borderWidth: 1,
+          borderColor: "#D8D8D8",
           paddingVertical: screenHeight * 0.005,
           width: screenWidth * 0.9,
           height: screenHeight * 0.15,
@@ -25,7 +37,7 @@ const TransactionCard = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text>Date here</Text>
+          <Text>{formattedDate}</Text>
           <View
             style={{
               backgroundColor: "orange",
@@ -36,11 +48,10 @@ const TransactionCard = () => {
             }}
           >
             <Text style={{ color: "white", fontWeight: "bold", fontSize: 12 }}>
-              Transaction Status
+              {transactionStatus}
             </Text>
           </View>
         </View>
-
         {/* Transaction ID and Amount of Products */}
         <View
           style={{
@@ -49,9 +60,9 @@ const TransactionCard = () => {
           }}
         >
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            Transaction ID here
+            {transactionId}
           </Text>
-          <Text>Amount of Items here</Text>
+          <Text>{quantity} barang</Text>
         </View>
 
         {/* Total Amount to Pay */}
@@ -62,7 +73,7 @@ const TransactionCard = () => {
           }}
         >
           <Text>Total Belanja</Text>
-          <Text style={{ fontWeight: "bold", fontSize: 16 }}>Rp 100.000</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16 }}>{totalPrice}</Text>
         </View>
       </View>
     </TouchableOpacity>
